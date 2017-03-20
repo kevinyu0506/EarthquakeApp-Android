@@ -11,14 +11,9 @@
         android:id="@+id/eqInfoButton"
         android:layout_width="151dp"
         android:layout_height="30dp"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginLeft="8dp"
+        android:layout_marginLeft="184dp"
+        android:alpha="0"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintHorizontal_bias="0.906"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="8dp"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="8dp"
-        app:layout_constraintVertical_bias="0.609" />
+        android:layout_marginTop="342dp" />
 </android.support.constraint.ConstraintLayout>
