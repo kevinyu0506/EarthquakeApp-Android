@@ -8,6 +8,21 @@
     tools:context="com.example.apple.earthquakeapp.settings">
 
 
+
+    <TextView
+        android:id="@+id/settings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="48.8px"
+        android:layout_marginLeft="118dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:gravity="center_vertical"
+        android:text="SETTINGS"
+        android:textAlignment="center"
+        android:textColor="#ffffff"
+        android:textSize="27dp" />
+
     <RelativeLayout
         android:id="@+id/notificationLayout"
         android:layout_width="309dp"
@@ -17,6 +32,76 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:background="@drawable/notification_frame">
+
+        <TextView
+            android:id="@+id/Notification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Notification"
+            android:textSize="19dp"
+            android:layout_marginLeft="30px"
+            android:layout_marginStart="30px"
+            android:layout_marginTop="27.19px"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:textColor="#ffffff"/>
+
+        <TextView
+            android:id="@+id/Alarm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Alarm"
+            android:textSize="16dp"
+            android:layout_marginLeft="30px"
+            android:layout_marginStart="30px"
+            android:layout_marginTop="117.22px"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:textColor="#90ffffff"/>
+
+        <TextView
+            android:id="@+id/Ringtone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ringtone"
+            android:textSize="16dp"
+            android:layout_marginLeft="30px"
+            android:layout_marginStart="30px"
+            android:layout_marginTop="212.22px"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:textColor="#90ffffff"/>
+
+        <TextView
+            android:id="@+id/Magnitude"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Magnitude"
+            android:textSize="16dp"
+            android:layout_marginLeft="30px"
+            android:layout_marginStart="30px"
+            android:layout_marginTop="314.22px"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:textColor="#90ffffff"/>
+
+        <TextView
+            android:id="@+id/Viberation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Viberation"
+            android:textSize="16dp"
+            android:layout_marginLeft="309px"
+            android:layout_marginStart="309px"
+            android:layout_marginTop="117.22px"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:textColor="#90ffffff"/>
 
     </RelativeLayout>
 
@@ -30,6 +115,20 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:background="@drawable/gps_frame">
 
+        <TextView
+            android:id="@+id/GPS"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="GPS"
+            android:textSize="19dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="30px"
+            android:layout_marginStart="30px"
+            android:layout_marginTop="17.9px"
+            android:textColor="#ffffff"/>
+
     </RelativeLayout>
 
     <RelativeLayout
@@ -41,6 +140,52 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         android:background="@drawable/status_frame">
+
+        <TextView
+            android:id="@+id/Status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Status"
+            android:textSize="19dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="30px"
+            android:layout_marginStart="30px"
+            android:layout_marginTop="20.9px"
+            android:textColor="#ffffff"/>
+
+        <TextView
+            android:id="@+id/Wifi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Wifi"
+            android:textSize="16dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="30px"
+            android:layout_marginStart="30px"
+            android:layout_marginTop="109.22px"
+            android:textColor="#90ffffff"/>
+
+        <TextView
+            android:id="@+id/Chargemode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Charge mode"
+            android:textSize="16dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="30px"
+            android:layout_marginStart="30px"
+            android:layout_marginTop="193.22px"
+            android:textColor="#90ffffff"
+            android:layout_alignRight="@+id/Status"
+            android:layout_alignEnd="@+id/Status" />
+
+
 
     </RelativeLayout>
 
@@ -54,27 +199,99 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:background="@drawable/help_frame">
 
+
+        <TextView
+            android:id="@+id/Status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Status"
+            android:textSize="19dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="30px"
+            android:layout_marginStart="30px"
+            android:layout_marginTop="21.5px"
+            android:textColor="#ffffff"/>
+
+        <TextView
+            android:id="@+id/Earthquake"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Earthquake"
+            android:textSize="16dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="30px"
+            android:layout_marginStart="30px"
+            android:layout_marginTop="117.22px"
+            android:textColor="#90ffffff"/>
+
+        <TextView
+            android:id="@+id/contactUs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Contact Us"
+            android:textSize="16dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="30px"
+            android:layout_marginStart="30px"
+            android:layout_marginTop="216.22px"
+            android:textColor="#90ffffff"/>
+
+        <TextView
+            android:id="@+id/About"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="About"
+            android:textSize="16dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="30px"
+            android:layout_marginStart="30px"
+            android:layout_marginTop="311.22px"
+            android:textColor="#90ffffff"/>
+
         <Button
             android:id="@+id/eqInfoButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:layout_marginLeft="120dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:background="@drawable/arrow"/>
+            android:background="@drawable/arrow"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="118px"
+            android:layout_marginLeft="253px"/>
+
+        <Button
+            android:id="@+id/contactUsButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/arrow"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="218px"
+            android:layout_marginLeft="253px"/>
+
+        <Button
+            android:id="@+id/aboutButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/arrow"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="318px"
+            android:layout_marginLeft="253px"/>
+
+
 
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/settings"
-        android:layout_width="249.21px"
-        android:layout_height="59.7px"
-        android:layout_marginTop="48.8px"
-        android:layout_marginLeft="219.42px"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:gravity="center"
-        android:text="SETTINGS"
-        android:textSize="20sp" />
+
 </android.support.constraint.ConstraintLayout>
