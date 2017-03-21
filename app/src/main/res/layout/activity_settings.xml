@@ -114,6 +114,27 @@
             android:layout_marginRight="15dp"
             android:layout_marginEnd="15dp" />
 
+        <Switch
+            android:id="@+id/alarmSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/viberation"
+            android:layout_alignBottom="@+id/viberation"
+            android:layout_toRightOf="@+id/magnitude"
+            android:layout_toEndOf="@+id/magnitude"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp" />
+
+        <Switch
+            android:id="@+id/viberationSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/viberation"
+            android:layout_alignBottom="@+id/viberation"
+            android:layout_alignRight="@+id/ringtoneArrow"
+            android:layout_alignEnd="@+id/ringtoneArrow" />
+
+
     </RelativeLayout>
 
     <RelativeLayout
@@ -139,6 +160,14 @@
             android:layout_marginStart="30px"
             android:layout_marginTop="17.9px"
             android:textColor="#ffffff"/>
+
+        <Switch
+            android:id="@+id/gpsSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
 
     </RelativeLayout>
 
@@ -196,6 +225,22 @@
             android:layout_alignRight="@+id/status"
             android:layout_alignEnd="@+id/status" />
 
+        <Switch
+            android:id="@+id/wifiSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/wifi"
+            android:layout_alignBottom="@+id/wifi"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <Switch
+            android:id="@+id/chargeModeSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/chargeMode"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
 
 
     </RelativeLayout>
