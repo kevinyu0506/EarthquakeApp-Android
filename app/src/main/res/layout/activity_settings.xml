@@ -13,7 +13,7 @@
         android:id="@+id/settings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48.8px"
+        android:layout_marginTop="24.4dp"
         android:layout_marginLeft="118dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -39,9 +39,9 @@
             android:layout_height="wrap_content"
             android:text="Notification"
             android:textSize="19dp"
-            android:layout_marginLeft="30px"
-            android:layout_marginStart="30px"
-            android:layout_marginTop="27.19px"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="13.595dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
@@ -53,9 +53,9 @@
             android:layout_height="wrap_content"
             android:text="Alarm"
             android:textSize="16dp"
-            android:layout_marginLeft="30px"
-            android:layout_marginStart="30px"
-            android:layout_marginTop="117.22px"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="58.61dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
@@ -67,9 +67,9 @@
             android:layout_height="wrap_content"
             android:text="Ringtone"
             android:textSize="16dp"
-            android:layout_marginLeft="30px"
-            android:layout_marginStart="30px"
-            android:layout_marginTop="212.22px"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="106.11dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
@@ -81,9 +81,9 @@
             android:layout_height="wrap_content"
             android:text="Magnitude"
             android:textSize="16dp"
-            android:layout_marginLeft="30px"
-            android:layout_marginStart="30px"
-            android:layout_marginTop="314.22px"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="157.11dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
@@ -95,9 +95,9 @@
             android:layout_height="wrap_content"
             android:text="Viberation"
             android:textSize="16dp"
-            android:layout_marginLeft="309px"
-            android:layout_marginStart="309px"
-            android:layout_marginTop="117.22px"
+            android:layout_marginLeft="154.5dp"
+            android:layout_marginStart="154.5dp"
+            android:layout_marginTop="58.61dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
@@ -156,9 +156,9 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginLeft="30px"
-            android:layout_marginStart="30px"
-            android:layout_marginTop="17.9px"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="8.95dp"
             android:textColor="#ffffff"/>
 
         <Switch
@@ -190,9 +190,9 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginLeft="30px"
-            android:layout_marginStart="30px"
-            android:layout_marginTop="20.9px"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10.45dp"
             android:textColor="#ffffff"/>
 
         <TextView
@@ -204,9 +204,9 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginLeft="30px"
-            android:layout_marginStart="30px"
-            android:layout_marginTop="109.22px"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="54.61dp"
             android:textColor="#90ffffff"/>
 
         <TextView
@@ -218,9 +218,9 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginLeft="30px"
-            android:layout_marginStart="30px"
-            android:layout_marginTop="193.22px"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="96.61dp"
             android:textColor="#90ffffff"
             android:layout_alignRight="@+id/status"
             android:layout_alignEnd="@+id/status" />
@@ -247,10 +247,10 @@
 
     <RelativeLayout
         android:id="@+id/helpLayout"
-        android:layout_width="300px"
-        android:layout_height="410px"
-        android:layout_marginTop="634px"
-        android:layout_marginLeft="369px"
+        android:layout_width="150dp"
+        android:layout_height="205dp"
+        android:layout_marginTop="317dp"
+        android:layout_marginLeft="185dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         android:background="@drawable/help_frame">
@@ -265,9 +265,9 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginLeft="30px"
-            android:layout_marginStart="30px"
-            android:layout_marginTop="21.5px"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="10.75dp"
             android:textColor="#ffffff"/>
 
         <TextView
@@ -279,9 +279,9 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginLeft="30px"
-            android:layout_marginStart="30px"
-            android:layout_marginTop="117.22px"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="58.61dp"
             android:textColor="#90ffffff"/>
 
         <TextView
@@ -293,9 +293,9 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginLeft="30px"
-            android:layout_marginStart="30px"
-            android:layout_marginTop="216.22px"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="108.11dp"
             android:textColor="#90ffffff"/>
 
         <TextView
@@ -307,9 +307,9 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginLeft="30px"
-            android:layout_marginStart="30px"
-            android:layout_marginTop="311.22px"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="155.61dp"
             android:textColor="#90ffffff"/>
 
         <ImageView
