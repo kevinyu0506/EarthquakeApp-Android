@@ -7,8 +7,17 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 public class settings extends AppCompatActivity {
+
+
+//    private ImageButton magnitude3;
+//    private ImageButton magnitude4;
+//    private ImageButton magnitude5;
+//    private ImageButton magnitude6;
+//    public Button eqInfoButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +39,9 @@ public class settings extends AppCompatActivity {
             }
         });
 
-
     }
+
+
 
 
 }
