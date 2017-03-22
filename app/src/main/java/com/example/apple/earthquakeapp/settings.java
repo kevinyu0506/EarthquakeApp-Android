@@ -12,13 +12,6 @@ import android.widget.ImageButton;
 public class settings extends AppCompatActivity {
 
 
-//    private ImageButton magnitude3;
-//    private ImageButton magnitude4;
-//    private ImageButton magnitude5;
-//    private ImageButton magnitude6;
-//    public Button eqInfoButton;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
