@@ -45,7 +45,7 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:textColor="#ffffff"/>
+            android:textColor="#B3ffffff"/>
 
         <TextView
             android:id="@+id/alarm"
@@ -59,7 +59,7 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:textColor="#90ffffff"/>
+            android:textColor="#4Dffffff"/>
 
         <TextView
             android:id="@+id/ringtone"
@@ -73,7 +73,7 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:textColor="#90ffffff"/>
+            android:textColor="#4Dffffff"/>
 
         <TextView
             android:id="@+id/magnitude"
@@ -87,7 +87,7 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:textColor="#90ffffff"/>
+            android:textColor="#4Dffffff"/>
 
         <TextView
             android:id="@+id/viberation"
@@ -101,7 +101,7 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:textColor="#90ffffff"/>
+            android:textColor="#4Dffffff"/>
 
         <ImageView
             android:id="@+id/ringtoneArrow"
@@ -202,7 +202,7 @@
             android:layout_marginLeft="15dp"
             android:layout_marginStart="15dp"
             android:layout_marginTop="8.95dp"
-            android:textColor="#ffffff"/>
+            android:textColor="#B3ffffff"/>
 
         <Switch
             android:id="@+id/gpsSwitch"
@@ -236,7 +236,7 @@
             android:layout_marginLeft="15dp"
             android:layout_marginStart="15dp"
             android:layout_marginTop="10.45dp"
-            android:textColor="#ffffff"/>
+            android:textColor="#B3ffffff"/>
 
         <TextView
             android:id="@+id/wifi"
@@ -250,13 +250,13 @@
             android:layout_marginLeft="15dp"
             android:layout_marginStart="15dp"
             android:layout_marginTop="54.61dp"
-            android:textColor="#90ffffff"/>
+            android:textColor="#4Dffffff"/>
 
         <TextView
             android:id="@+id/chargeMode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Charge mode"
+            android:text="Charge\n mode"
             android:textSize="16dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
@@ -264,8 +264,8 @@
             android:layout_marginLeft="15dp"
             android:layout_marginStart="15dp"
             android:layout_marginTop="96.61dp"
-            android:textColor="#90ffffff"
-            android:layout_alignRight="@+id/status"
+            android:textColor="#4Dffffff"
+            android:layout_toStartOf="@+id/chargeModeSwitch"
             android:layout_alignEnd="@+id/status" />
 
         <Switch
@@ -311,7 +311,7 @@
             android:layout_marginLeft="15dp"
             android:layout_marginStart="15dp"
             android:layout_marginTop="10.75dp"
-            android:textColor="#ffffff"/>
+            android:textColor="#B3ffffff"/>
 
         <TextView
             android:id="@+id/earthquake"
@@ -325,7 +325,7 @@
             android:layout_marginLeft="15dp"
             android:layout_marginStart="15dp"
             android:layout_marginTop="58.61dp"
-            android:textColor="#90ffffff"/>
+            android:textColor="#4Dffffff"/>
 
         <TextView
             android:id="@+id/contactUs"
@@ -339,7 +339,7 @@
             android:layout_marginLeft="15dp"
             android:layout_marginStart="15dp"
             android:layout_marginTop="108.11dp"
-            android:textColor="#90ffffff"/>
+            android:textColor="#4Dffffff"/>
 
         <TextView
             android:id="@+id/about"
@@ -353,7 +353,7 @@
             android:layout_marginLeft="15dp"
             android:layout_marginStart="15dp"
             android:layout_marginTop="155.61dp"
-            android:textColor="#90ffffff"/>
+            android:textColor="#4Dffffff"/>
 
         <ImageView
             android:id="@+id/eqInfoArrow"
@@ -444,7 +444,7 @@
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/in_use"
         app:layout_constraintLeft_toRightOf="@+id/alarmButton"
-        android:layout_marginLeft="58.25dp"
+        android:layout_marginLeft="59dp"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="0dp" />
 
