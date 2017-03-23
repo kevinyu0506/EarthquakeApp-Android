@@ -28,8 +28,8 @@ public class settings_eqinfo extends AppCompatActivity {
                 Intent intent = new Intent();
                 intent.setClass(settings_eqinfo.this, settings.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_rightin, R.anim.slide_rightout);
             }
         });
-
     }
 }

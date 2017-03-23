@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:text="EARTHQUAKE INFO"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="30.5dp"
+        android:layout_marginTop="28dp"
         android:textSize="24dp"
         android:textColor="#ffffff"
         android:layout_marginLeft="76dp"

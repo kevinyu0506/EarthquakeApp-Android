@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.ImageButton;
 
 public class settings extends AppCompatActivity {
 
@@ -17,8 +16,7 @@ public class settings extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_settings);
 
@@ -29,8 +27,11 @@ public class settings extends AppCompatActivity {
                 Intent intent = new Intent();
                 intent.setClass(settings.this, settings_eqinfo.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_leftin, R.anim.slide_leftout);
             }
         });
+
+
 
     }
 
