@@ -13,12 +13,10 @@
         <activity android:name=".settings"></activity>
         <activity android:name=".settings_eqinfo"></activity>
         <activity android:name=".alert">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
     </application>
 
