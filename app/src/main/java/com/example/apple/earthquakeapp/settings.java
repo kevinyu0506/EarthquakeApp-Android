@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 public class settings extends AppCompatActivity {
 
@@ -26,6 +27,17 @@ public class settings extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent();
                 intent.setClass(settings.this, settings_eqinfo.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_leftin, R.anim.slide_leftout);
+            }
+        });
+
+        ImageButton alarmButton = (ImageButton)findViewById(R.id.alarmButton);
+        alarmButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(settings.this, alert.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_leftin, R.anim.slide_leftout);
             }
