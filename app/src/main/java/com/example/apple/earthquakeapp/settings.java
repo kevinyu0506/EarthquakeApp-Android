@@ -39,7 +39,7 @@ public class settings extends AppCompatActivity {
                 Intent intent = new Intent();
                 intent.setClass(settings.this, alert.class);
                 startActivity(intent);
-                overridePendingTransition(R.anim.slide_leftin, R.anim.slide_leftout);
+                overridePendingTransition(R.anim.slide_rightin, R.anim.slide_rightout);
             }
         });
 

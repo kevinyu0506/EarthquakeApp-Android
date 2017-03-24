@@ -10,7 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".settings">
+        <activity android:name=".settings"></activity>
+        <activity android:name=".settings_eqinfo"></activity>
+        <activity android:name=".alert">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,8 +20,6 @@
             </intent-filter>
 
         </activity>
-        <activity android:name=".settings_eqinfo"></activity>
-        <activity android:name=".alert"></activity>
     </application>
 
 </manifest>
