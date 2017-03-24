@@ -10,14 +10,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".settings"></activity>
-        <activity android:name=".settings_eqinfo"></activity>
-        <activity android:name=".alert">
+        <activity android:name=".alert" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".settings" android:exported="true"></activity>
+
+        <activity android:name=".settings_eqinfo" android:exported="true"></activity>
+
     </application>
 
 </manifest>
