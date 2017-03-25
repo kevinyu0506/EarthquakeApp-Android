@@ -58,8 +58,7 @@
 
     </RelativeLayout>
 
-    <ImageButton
-        android:id="@+id/settingButton"
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/return_arrow"
@@ -67,6 +66,17 @@
         android:layout_marginTop="28.5dp"
         android:layout_marginLeft="13.5dp"
         android:background="#00000000"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <Button
+        android:id="@+id/settingButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button"
+        android:alpha="0"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="-13dp"
         app:layout_constraintLeft_toLeftOf="parent" />
 
 

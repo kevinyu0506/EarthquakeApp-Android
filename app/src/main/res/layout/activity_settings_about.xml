@@ -32,8 +32,7 @@
         android:layout_marginStart="155dp"
         android:textSize="12dp"/>
 
-    <ImageButton
-        android:id="@+id/settingButton"
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/return_arrow"
@@ -43,6 +42,17 @@
         android:background="#00000000"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginStart="14dp" />
+
+    <Button
+        android:id="@+id/settingButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button"
+        android:alpha="0"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="-13dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
 
     <RelativeLayout
         android:id="@+id/versionframe"
@@ -113,6 +123,8 @@
             android:layout_marginLeft="15dp"/>
 
     </RelativeLayout>
+
+
 
 
 </android.support.constraint.ConstraintLayout>
