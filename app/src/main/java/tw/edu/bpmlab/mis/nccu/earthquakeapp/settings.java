@@ -54,6 +54,17 @@ public class settings extends AppCompatActivity {
             }
         });
 
+        Button ringtoneButton = (Button)findViewById(R.id.ringtoneButton);
+        ringtoneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(settings.this, settings_ringtone.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_leftin, R.anim.slide_leftout);
+            }
+        });
+
 
 
     }

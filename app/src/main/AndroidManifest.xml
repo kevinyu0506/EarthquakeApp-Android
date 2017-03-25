@@ -32,7 +32,8 @@
         <activity
             android:name=".Startup_4"
             android:label="@string/title_activity_welcome" />
-        <activity android:name=".settings_about"></activity>
+        <activity android:name=".settings_about" />
+        <activity android:name=".settings_ringtone"></activity>
     </application>
 
 </manifest>
