@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background">
+    <RelativeLayout
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="560dp">
+        <RelativeLayout
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_width="wrap_content"
+            android:layout_height="477dp">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="477dp"
+                android:background="@drawable/page"/>
+            <TextView
+                android:id="@+id/title"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="38dp"
+                android:layout_width="wrap_content"
+                android:layout_height="39dp"
+                android:textSize="17dp"
+                android:gravity="center"
+                android:text="Only turn on notifications\nwhen the magnitude level reach..."
+                android:textColor="#E6000000"/>
+            <ImageView
+                android:id="@+id/quake"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/title"
+                android:layout_marginTop="43dp"
+                android:layout_width="239dp"
+                android:layout_height="105dp"
+                android:background="@drawable/quake"/>
+            <RelativeLayout
+                android:id="@+id/fourButtons"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/quake"
+                android:layout_marginTop="47dp"
+                android:layout_width="155dp"
+                android:layout_height="147dp">
+                <ImageButton
+                    android:id="@+id/three"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_width="58dp"
+                    android:layout_height="58dp"
+                    android:background="@drawable/three_default"/>
+                <ImageButton
+                    android:id="@+id/four"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="58dp"
+                    android:layout_height="58dp"
+                    android:background="@drawable/four_default"/>
+                <ImageButton
+                    android:id="@+id/five"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_width="58dp"
+                    android:layout_height="58dp"
+                    android:background="@drawable/five_default"/>
+                <ImageButton
+                    android:id="@+id/six"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="58dp"
+                    android:layout_height="58dp"
+                    android:background="@drawable/six_default"/>
+            </RelativeLayout>
+
+        </RelativeLayout>
+        <Button
+            android:id="@+id/start"
+            android:text="START"
+            android:textSize="28dp"
+            android:textColor="#ffffff"
+            android:textAlignment="gravity"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="114dp"
+            android:background="@drawable/start_bar"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="470dp" />
+
+
+    </RelativeLayout>
+
+
+
+
+</RelativeLayout>

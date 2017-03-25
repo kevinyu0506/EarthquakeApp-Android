@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">EarthquakeApp</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_welcome">Welcome</string>
 </resources>

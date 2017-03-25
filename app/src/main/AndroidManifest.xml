@@ -11,15 +11,27 @@
         android:theme="@style/AppTheme">
 
         <activity android:name=".alert" android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN"/>-->
+                <!--<category android:name="android.intent.category.LAUNCHER"/>-->
+            <!--</intent-filter>-->
         </activity>
 
         <activity android:name=".settings"/>
 
         <activity android:name=".settings_eqinfo"/>
+        <activity
+            android:name="com.example.apple.earthquakeapp.Startup_3"
+            android:label="@string/title_activity_main">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.example.apple.earthquakeapp.Startup_4"
+            android:label="@string/title_activity_welcome"></activity>
 
     </application>
 
