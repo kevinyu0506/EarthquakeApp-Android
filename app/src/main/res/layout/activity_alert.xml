@@ -223,7 +223,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="9dp"
+        android:layout_marginBottom="10dp"
         android:src="@drawable/alert" />
 
     <ImageButton
