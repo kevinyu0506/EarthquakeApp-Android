@@ -43,6 +43,17 @@ public class settings extends AppCompatActivity {
             }
         });
 
+        Button eqAboutButton = (Button)findViewById(R.id.eqAboutButton);
+        eqAboutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(settings.this, settings_about.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_leftin, R.anim.slide_leftout);
+            }
+        });
+
 
 
     }
