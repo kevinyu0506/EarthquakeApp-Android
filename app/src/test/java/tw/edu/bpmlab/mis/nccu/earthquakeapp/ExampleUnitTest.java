@@ -1,4 +1,4 @@
-package com.example.apple.earthquakeapp;
+package tw.edu.bpmlab.mis.nccu.earthquakeapp;
 
 import org.junit.Test;
 

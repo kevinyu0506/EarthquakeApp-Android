@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/settings_background"
-    tools:context="com.example.apple.earthquakeapp.settings">
+    tools:context="com.example.apple.earthquakeapp.tw.example.apple.earthquakeapp.settings">
 
 
 

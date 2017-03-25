@@ -1,23 +1,14 @@
-package com.example.apple.earthquakeapp;
+package tw.edu.bpmlab.mis.nccu.earthquakeapp;
 
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.*;
 import android.widget.*;
 import java.util.Calendar;
-import java.util.Date;
-import android.os.Message;
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageButton;
 
 

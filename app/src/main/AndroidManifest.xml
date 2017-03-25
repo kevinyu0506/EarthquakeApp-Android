@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.apple.earthquakeapp">
+    package="tw.edu.bpmlab.mis.nccu.earthquakeapp">
 
     <application
         android:allowBackup="true"
@@ -10,18 +10,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".alert" android:exported="true">
+        <activity android:name="tw.edu.bpmlab.mis.nccu.earthquakeapp.alert" android:exported="true">
             <!--<intent-filter>-->
                 <!--<action android:name="android.intent.action.MAIN"/>-->
                 <!--<category android:name="android.intent.category.LAUNCHER"/>-->
             <!--</intent-filter>-->
         </activity>
 
-        <activity android:name=".settings"/>
+        <activity android:name="tw.edu.bpmlab.mis.nccu.earthquakeapp.settings"/>
 
-        <activity android:name=".settings_eqinfo"/>
+        <activity android:name="tw.edu.bpmlab.mis.nccu.earthquakeapp.settings_eqinfo"/>
         <activity
-            android:name="com.example.apple.earthquakeapp.Startup_3"
+            android:name="tw.edu.bpmlab.mis.nccu.earthquakeapp.Startup_3"
             android:label="@string/title_activity_main">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,7 +30,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.apple.earthquakeapp.Startup_4"
+            android:name="tw.edu.bpmlab.mis.nccu.earthquakeapp.Startup_4"
             android:label="@string/title_activity_welcome"></activity>
 
     </application>
