@@ -7,9 +7,8 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.ImageButton;
 
-public class settings_eqinfo extends AppCompatActivity {
+public class settings_ringtone extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,17 +17,18 @@ public class settings_eqinfo extends AppCompatActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        setContentView(R.layout.activity_settings_eqinfo);
+        setContentView(R.layout.activity_settings_ringtone);
 
         Button settingButton = (Button)findViewById(R.id.settingButton);
         settingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
-                intent.setClass(settings_eqinfo.this, settings.class);
+                intent.setClass(settings_ringtone.this, settings.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_rightin, R.anim.slide_rightout);
             }
         });
+
     }
 }

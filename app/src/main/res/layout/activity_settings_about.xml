@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/settings_background"
+    tools:context="tw.edu.bpmlab.mis.nccu.earthquakeapp.settings_about">
+
+    <TextView
+        android:id="@+id/about"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ABOUT"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="28dp"
+        android:layout_marginLeft="142dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:textColor="#ffffff"
+        android:textSize="24dp"
+        android:layout_marginStart="142dp" />
+
+    <TextView
+        android:id="@+id/settings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="settings"
+        app:layout_constraintTop_toBottomOf="@+id/about"
+        android:layout_marginLeft="155dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:textColor="#A6ffffff"
+        android:layout_marginStart="155dp"
+        android:textSize="12dp"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/return_arrow"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="29dp"
+        android:layout_marginLeft="14dp"
+        android:background="#00000000"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginStart="14dp" />
+
+    <Button
+        android:id="@+id/settingButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button"
+        android:alpha="0"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="-13dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <RelativeLayout
+        android:id="@+id/versionframe"
+        android:layout_width="300dp"
+        android:layout_height="318dp"
+        android:background="@drawable/version_frame"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="101dp"
+        android:layout_marginLeft="31dp"
+        app:layout_constraintLeft_toLeftOf="parent">
+
+        <RelativeLayout
+            android:id="@+id/versioninner"
+            android:layout_width="280dp"
+            android:layout_height="256dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/version_inner">
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/version"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Version"
+            android:layout_above="@+id/versioninner"
+            android:layout_marginBottom="14dp"
+            android:textColor="#B3ffffff"
+            android:textSize="18dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="15dp"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/developersframe"
+        android:layout_width="300dp"
+        android:layout_height="175dp"
+        android:background="@drawable/developers_frame"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="416dp"
+        android:layout_marginLeft="30dp"
+        app:layout_constraintLeft_toLeftOf="parent">
+
+        <RelativeLayout
+            android:id="@+id/developersinner"
+            android:layout_width="280dp"
+            android:layout_height="118.5dp"
+            android:background="@drawable/developers_inner"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="20dp">
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/developers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Developers"
+            android:textColor="#B3ffffff"
+            android:textSize="18dp"
+            android:layout_marginBottom="14dp"
+            android:layout_above="@+id/developersinner"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="15dp"/>
+
+    </RelativeLayout>
+
+
+
+
+</android.support.constraint.ConstraintLayout>

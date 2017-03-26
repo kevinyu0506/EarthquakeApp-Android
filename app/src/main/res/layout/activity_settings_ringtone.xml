@@ -10,15 +10,15 @@
 
 
     <TextView
-        android:id="@+id/earthquakeInfo"
+        android:id="@+id/ringtone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="EARTHQUAKE INFO"
+        android:text="RINGTONE"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="28dp"
         android:textSize="24dp"
         android:textColor="#ffffff"
-        android:layout_marginLeft="76dp"
+        android:layout_marginLeft="122dp"
         app:layout_constraintLeft_toLeftOf="parent" />
 
     <TextView
@@ -28,7 +28,7 @@
         android:text="settings"
         android:textColor="#A6ffffff"
         android:layout_marginTop="0dp"
-        app:layout_constraintTop_toBottomOf="@+id/earthquakeInfo"
+        app:layout_constraintTop_toBottomOf="@+id/ringtone"
         android:layout_marginLeft="155dp"
         app:layout_constraintLeft_toLeftOf="parent" />
 
@@ -82,3 +82,4 @@
 
 
 </android.support.constraint.ConstraintLayout>
+
