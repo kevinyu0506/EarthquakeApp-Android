@@ -101,6 +101,12 @@ public class settings extends AppCompatActivity {
 
 
         switch(magnitudevalue){
+            case 0:
+                magnitude3.setBackgroundResource(R.drawable.magnitude_3);
+                magnitude4.setBackgroundResource(R.drawable.magnitude_4);
+                magnitude5.setBackgroundResource(R.drawable.magnitude_5);
+                magnitude6.setBackgroundResource(R.drawable.magnitude_6);
+                break;
             case 3:
                 magnitude3.setBackgroundResource(R.drawable.magnitude_3_picked);
                 magnitude4.setBackgroundResource(R.drawable.magnitude_4);

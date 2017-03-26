@@ -16,8 +16,7 @@ import android.widget.ImageButton;
 public class Startup_3 extends Activity {
 
     private GestureDetector gesture;
-    SharedPreferences magnitude= getPreferences(MODE_PRIVATE);
-    SharedPreferences.Editor editor = magnitude.edit();
+
 
 
     @Override
@@ -29,6 +28,9 @@ public class Startup_3 extends Activity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_startup_3);
+
+        final SharedPreferences magnitude= getPreferences(MODE_PRIVATE);
+        final SharedPreferences.Editor editor = magnitude.edit();
 
         gesture = new GestureDetector(new SwipeGestureDetector());
         final ImageButton three = (ImageButton) findViewById(R.id.three);
@@ -45,7 +47,7 @@ public class Startup_3 extends Activity {
                 five.setBackgroundResource(R.drawable.five_unclicked);
                 six.setBackgroundResource(R.drawable.six_unclicked);
 
-                editor.clear();
+//                editor.clear();
                 magnitude.edit().putInt("btnChecked", 3).apply();
             }
         });
@@ -57,7 +59,7 @@ public class Startup_3 extends Activity {
                 five.setBackgroundResource(R.drawable.five_unclicked);
                 six.setBackgroundResource(R.drawable.six_unclicked);
 
-                editor.clear();
+//                editor.clear();
                 magnitude.edit().putInt("btnChecked", 4).apply();
 
             }
@@ -70,7 +72,7 @@ public class Startup_3 extends Activity {
                 five.setBackgroundResource(R.drawable.five_pressed);
                 six.setBackgroundResource(R.drawable.six_unclicked);
 
-                editor.clear();
+//                editor.clear();
                 magnitude.edit().putInt("btnChecked", 5).apply();
 
             }
@@ -83,7 +85,7 @@ public class Startup_3 extends Activity {
                 five.setBackgroundResource(R.drawable.five_unclicked);
                 six.setBackgroundResource(R.drawable.six_pressed);
 
-                editor.clear();
+//                editor.clear();
                 magnitude.edit().putInt("btnChecked", 6).apply();
 
             }
