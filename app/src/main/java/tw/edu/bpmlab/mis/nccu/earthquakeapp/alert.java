@@ -36,6 +36,7 @@ public class alert extends AppCompatActivity {
         setContentView(R.layout.activity_alert);
 
         ImageButton settingsButton = (ImageButton)findViewById(R.id.settingsButton);
+
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

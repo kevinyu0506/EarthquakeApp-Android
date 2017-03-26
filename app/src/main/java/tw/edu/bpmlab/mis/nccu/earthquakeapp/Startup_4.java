@@ -8,6 +8,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.RelativeLayout;
 
+
+
+
 public class Startup_4 extends Activity implements View.OnTouchListener {
     private static int TIME_OUT = 2500;
     private Handler handler = new Handler();

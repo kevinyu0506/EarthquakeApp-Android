@@ -63,7 +63,7 @@ public class Startup_3 extends Activity {
             public void onClick(View v) {
                 switch(v.getId()){
                     case R.id.start:
-                        Intent intent = new Intent(Startup_3.this, Startup_4.class);
+                        Intent intent = new Intent(Startup_3.this, MapsActivity.class);
                         startActivity(intent);
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                         break;
