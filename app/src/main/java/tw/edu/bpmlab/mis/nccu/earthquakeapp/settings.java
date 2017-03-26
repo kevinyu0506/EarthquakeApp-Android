@@ -28,8 +28,8 @@ public class settings extends AppCompatActivity {
                 Intent intent = new Intent();
                 intent.setClass(settings.this, settings_eqinfo.class);
                 startActivity(intent);
-                //overridePendingTransition(R.anim.slide_leftin, R.anim.slide_leftout);
-                overridePendingTransition(0, 0);
+                overridePendingTransition(R.anim.slide_leftin, R.anim.slide_leftout);
+                //overridePendingTransition(0, 0);
             }
         });
 
@@ -52,8 +52,8 @@ public class settings extends AppCompatActivity {
                 Intent intent = new Intent();
                 intent.setClass(settings.this, settings_about.class);
                 startActivity(intent);
-                //overridePendingTransition(R.anim.slide_leftin, R.anim.slide_leftout);
-                overridePendingTransition(0, 0);
+                overridePendingTransition(R.anim.slide_leftin, R.anim.slide_leftout);
+                //overridePendingTransition(0, 0);
             }
         });
 
@@ -64,8 +64,8 @@ public class settings extends AppCompatActivity {
                 Intent intent = new Intent();
                 intent.setClass(settings.this, settings_ringtone.class);
                 startActivity(intent);
-                //overridePendingTransition(R.anim.slide_leftin, R.anim.slide_leftout);
-                overridePendingTransition(0, 0);
+                overridePendingTransition(R.anim.slide_leftin, R.anim.slide_leftout);
+                //overridePendingTransition(0, 0);
             }
         });
 
