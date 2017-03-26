@@ -2,6 +2,7 @@ package tw.edu.bpmlab.mis.nccu.earthquakeapp;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -13,10 +14,16 @@ import android.widget.Button;
 import android.widget.ImageButton;
 
 public class Startup_3 extends Activity {
+
     private GestureDetector gesture;
+    SharedPreferences magnitude= getPreferences(MODE_PRIVATE);
+    SharedPreferences.Editor editor = magnitude.edit();
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -29,6 +36,7 @@ public class Startup_3 extends Activity {
         final ImageButton five = (ImageButton) findViewById(R.id.five);
         final ImageButton six = (ImageButton) findViewById(R.id.six);
         final Button start = (Button) findViewById(R.id.start);
+
         three.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -36,6 +44,9 @@ public class Startup_3 extends Activity {
                 four.setBackgroundResource(R.drawable.four_unclicked);
                 five.setBackgroundResource(R.drawable.five_unclicked);
                 six.setBackgroundResource(R.drawable.six_unclicked);
+
+                editor.clear();
+                magnitude.edit().putInt("btnChecked", 3).apply();
             }
         });
         four.setOnClickListener(new View.OnClickListener() {
@@ -45,6 +56,10 @@ public class Startup_3 extends Activity {
                 four.setBackgroundResource(R.drawable.four_pressed);
                 five.setBackgroundResource(R.drawable.five_unclicked);
                 six.setBackgroundResource(R.drawable.six_unclicked);
+
+                editor.clear();
+                magnitude.edit().putInt("btnChecked", 4).apply();
+
             }
         });
         five.setOnClickListener(new View.OnClickListener() {
@@ -54,6 +69,10 @@ public class Startup_3 extends Activity {
                 four.setBackgroundResource(R.drawable.four_unclicked);
                 five.setBackgroundResource(R.drawable.five_pressed);
                 six.setBackgroundResource(R.drawable.six_unclicked);
+
+                editor.clear();
+                magnitude.edit().putInt("btnChecked", 5).apply();
+
             }
         });
         six.setOnClickListener(new View.OnClickListener() {
@@ -63,6 +82,10 @@ public class Startup_3 extends Activity {
                 four.setBackgroundResource(R.drawable.four_unclicked);
                 five.setBackgroundResource(R.drawable.five_unclicked);
                 six.setBackgroundResource(R.drawable.six_pressed);
+
+                editor.clear();
+                magnitude.edit().putInt("btnChecked", 6).apply();
+
             }
         });
         start.setOnClickListener(new View.OnClickListener() {
@@ -80,6 +103,9 @@ public class Startup_3 extends Activity {
 
 
         });
+
+
+
 
     }
     public boolean onTouchEvent(MotionEvent event) {
