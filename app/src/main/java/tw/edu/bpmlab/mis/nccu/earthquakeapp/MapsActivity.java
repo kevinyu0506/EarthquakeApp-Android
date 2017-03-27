@@ -36,6 +36,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //                        overridePendingTransition(R.anim.slide_rightin, R.anim.slide_leftout);
                         overridePendingTransition(0, 0);
                         break;
+
                 }
             }
 
@@ -51,6 +52,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 //                        overridePendingTransition(R.anim.slide_rightin, R.anim.slide_leftout);
                         overridePendingTransition(0, 0);
                         break;
+
                 }
             }
 
