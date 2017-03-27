@@ -82,20 +82,6 @@ public class settings extends AppCompatActivity {
         ImageButton magnitude5 = (ImageButton) findViewById(R.id.magnitude5);
         ImageButton magnitude6 = (ImageButton) findViewById(R.id.magnitude6);
 
-//        boolean magnitude3Picked = magnitude3.performClick();
-//        boolean magnitude4Picked = magnitude4.performClick();
-//        boolean magnitude5Picked = magnitude5.performClick();
-//        boolean magnitude6Picked = magnitude6.performClick();
-
-//        boolean[] magnitudePicked = {magnitude3.performClick(), magnitude4.performClick(), magnitude5.performClick(), magnitude6.performClick()};
-//
-//        for (int i = 0; i < magnitudePicked.length; i++){
-//
-//            if (magnitudePicked[i] = true){
-//                magnitude3.setBackground();
-//            }
-//            else break;
-//        }
         final SharedPreferences magnitude= getSharedPreferences("magnitude", 0);
         int magnitudevalue = magnitude.getInt("btnChecked",0);
 
