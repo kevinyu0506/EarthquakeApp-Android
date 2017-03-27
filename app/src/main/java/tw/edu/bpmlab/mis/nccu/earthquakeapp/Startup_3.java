@@ -29,7 +29,7 @@ public class Startup_3 extends Activity {
 
         setContentView(R.layout.activity_startup_3);
 
-        final SharedPreferences magnitude= getPreferences(MODE_PRIVATE);
+        final SharedPreferences magnitude= getSharedPreferences("magnitude", 0);
         final SharedPreferences.Editor editor = magnitude.edit();
 
         gesture = new GestureDetector(new SwipeGestureDetector());
@@ -47,7 +47,7 @@ public class Startup_3 extends Activity {
                 five.setBackgroundResource(R.drawable.five_unclicked);
                 six.setBackgroundResource(R.drawable.six_unclicked);
 
-//                editor.clear();
+                editor.clear();
                 magnitude.edit().putInt("btnChecked", 3).apply();
             }
         });
@@ -59,7 +59,7 @@ public class Startup_3 extends Activity {
                 five.setBackgroundResource(R.drawable.five_unclicked);
                 six.setBackgroundResource(R.drawable.six_unclicked);
 
-//                editor.clear();
+                editor.clear();
                 magnitude.edit().putInt("btnChecked", 4).apply();
 
             }
@@ -72,7 +72,7 @@ public class Startup_3 extends Activity {
                 five.setBackgroundResource(R.drawable.five_pressed);
                 six.setBackgroundResource(R.drawable.six_unclicked);
 
-//                editor.clear();
+                editor.clear();
                 magnitude.edit().putInt("btnChecked", 5).apply();
 
             }
@@ -85,7 +85,7 @@ public class Startup_3 extends Activity {
                 five.setBackgroundResource(R.drawable.five_unclicked);
                 six.setBackgroundResource(R.drawable.six_pressed);
 
-//                editor.clear();
+                editor.clear();
                 magnitude.edit().putInt("btnChecked", 6).apply();
 
             }

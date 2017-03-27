@@ -86,19 +86,6 @@
             android:layout_alignParentEnd="true"
             android:layout_alignStart="@+id/viberation" />
 
-        <TextView
-            android:id="@+id/magnitude"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Magnitude"
-            android:textSize="16dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="157.11dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:textColor="#4Dffffff"/>
 
         <TextView
             android:id="@+id/viberation"
@@ -131,10 +118,9 @@
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/alarm"
             android:layout_alignBottom="@+id/alarm"
-            android:layout_toRightOf="@+id/magnitude"
-            android:layout_toEndOf="@+id/magnitude"
-            android:layout_marginLeft="15dp"
-            android:layout_marginStart="15dp" />
+            android:layout_toRightOf="@+id/alarm"
+            android:layout_marginLeft="50dp"
+            android:layout_marginStart="50dp" />
 
         <Switch
             android:id="@+id/viberationSwitch"
@@ -145,50 +131,70 @@
             android:layout_alignRight="@+id/ringtoneArrow"
             android:layout_alignEnd="@+id/ringtoneArrow" />
 
-        <ImageButton
-            android:id="@+id/magnitude3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="#00000000"
-            android:layout_alignTop="@+id/magnitude"
-            android:layout_alignBottom="@+id/magnitude"
-            android:layout_alignEnd="@+id/alarmSwitch" />
-        app:srcCompat="@drawable/magnitude_3"
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/ringtoneButton">
+
+            <TextView
+                android:id="@+id/magnitude"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Magnitude"
+                android:textSize="16dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="18dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:textColor="#4Dffffff"/>
+
+            <ImageButton
+                android:id="@+id/magnitude3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#00000000"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/magnitude"
+                android:layout_marginLeft="40dp"/>
+            app:srcCompat="@drawable/magnitude_3"
 
 
-        <ImageButton
-            android:id="@+id/magnitude4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="#00000000"
-            android:layout_alignTop="@+id/magnitude"
-            android:layout_alignBottom="@+id/magnitude"
-            android:layout_toRightOf="@+id/magnitude3"
-            android:layout_marginLeft="35dp"/>
-        app:srcCompat="@drawable/magnitude_4"
+            <ImageButton
+                android:id="@+id/magnitude4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#00000000"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/magnitude3"
+                android:layout_marginLeft="35dp"/>
+            app:srcCompat="@drawable/magnitude_4"
 
 
-        <ImageButton
-            android:id="@+id/magnitude5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="#00000000"
-            android:layout_alignTop="@+id/magnitude"
-            android:layout_alignBottom="@+id/magnitude"
-            android:layout_toRightOf="@+id/magnitude4"
-            android:layout_marginLeft="35dp"/>
-        app:srcCompat="@drawable/magnitude_5"
+            <ImageButton
+                android:id="@+id/magnitude5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#00000000"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/magnitude4"
+                android:layout_marginLeft="35dp"/>
+            app:srcCompat="@drawable/magnitude_5"
 
 
-        <ImageButton
-            android:id="@+id/magnitude6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="#00000000"
-            android:layout_alignTop="@+id/magnitude"
-            android:layout_alignBottom="@+id/magnitude"
-            android:layout_toRightOf="@+id/magnitude5"
-            android:layout_marginLeft="35dp"/>
+            <ImageButton
+                android:id="@+id/magnitude6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#00000000"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/magnitude5"
+                android:layout_marginLeft="35dp"/>
+
+
+        </RelativeLayout>
         app:srcCompat="@drawable/magnitude_6"
 
 

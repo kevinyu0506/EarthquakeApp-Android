@@ -96,7 +96,7 @@ public class settings extends AppCompatActivity {
 //            }
 //            else break;
 //        }
-      SharedPreferences magnitude = getPreferences(MODE_PRIVATE);
+        final SharedPreferences magnitude= getSharedPreferences("magnitude", 0);
         int magnitudevalue = magnitude.getInt("btnChecked",0);
 
 
