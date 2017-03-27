@@ -90,10 +90,10 @@ public class settings extends AppCompatActivity {
         });
 
 
-        ImageButton magnitude3 = (ImageButton) findViewById(R.id.magnitude3);
-        ImageButton magnitude4 = (ImageButton) findViewById(R.id.magnitude4);
-        ImageButton magnitude5 = (ImageButton) findViewById(R.id.magnitude5);
-        ImageButton magnitude6 = (ImageButton) findViewById(R.id.magnitude6);
+        final ImageButton magnitude3 = (ImageButton) findViewById(R.id.magnitude3);
+        final ImageButton magnitude4 = (ImageButton) findViewById(R.id.magnitude4);
+        final ImageButton magnitude5 = (ImageButton) findViewById(R.id.magnitude5);
+        final ImageButton magnitude6 = (ImageButton) findViewById(R.id.magnitude6);
 
         final SharedPreferences magnitude= getSharedPreferences("magnitude", 0);
         int magnitudevalue = magnitude.getInt("btnChecked",0);
@@ -135,21 +135,68 @@ public class settings extends AppCompatActivity {
 
 
 
+        magnitude3.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    magnitude.edit().clear();
+                    magnitude3.setBackgroundResource(R.drawable.magnitude_3_picked);
+                    magnitude4.setBackgroundResource(R.drawable.magnitude_4);
+                    magnitude5.setBackgroundResource(R.drawable.magnitude_5);
+                    magnitude6.setBackgroundResource(R.drawable.magnitude_6);
+                }
+            });
+
+        magnitude4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                magnitude.edit().clear();
+                magnitude3.setBackgroundResource(R.drawable.magnitude_3);
+                magnitude4.setBackgroundResource(R.drawable.magnitude_4_picked);
+                magnitude5.setBackgroundResource(R.drawable.magnitude_5);
+                magnitude6.setBackgroundResource(R.drawable.magnitude_6);
+            }
+        });
+
+        magnitude5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                magnitude.edit().clear();
+                magnitude3.setBackgroundResource(R.drawable.magnitude_3);
+                magnitude4.setBackgroundResource(R.drawable.magnitude_4);
+                magnitude5.setBackgroundResource(R.drawable.magnitude_5_picked);
+                magnitude6.setBackgroundResource(R.drawable.magnitude_6);
+            }
+        });
+
+        magnitude6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                magnitude.edit().clear();
+                magnitude3.setBackgroundResource(R.drawable.magnitude_3);
+                magnitude4.setBackgroundResource(R.drawable.magnitude_4);
+                magnitude5.setBackgroundResource(R.drawable.magnitude_5);
+                magnitude6.setBackgroundResource(R.drawable.magnitude_6_picked);
+            }
+        });
+
+
+
     }
 
 
-    private boolean isOpenGps() {
 
-        LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-        // 通過GPS衛星定位，定位級別可以精確到街（通過24顆衛星定位，在室外和空曠的地方定位準確、速度快）
-        boolean gps = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-        // 通過WLAN或移動網路(3G/2G)確定的位置（也稱作AGPS，輔助GPS定位。主要用於在室內或遮蓋物（建築群或茂密的深林等）密集的地方定位）
-        boolean network = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-        if (gps || network) {
-            return true;
-        }
-        return false;
-    }
+//    private boolean isOpenGps() {
+//
+//        LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+//        // 通過GPS衛星定位，定位級別可以精確到街（通過24顆衛星定位，在室外和空曠的地方定位準確、速度快）
+//        boolean gps = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+//        // 通過WLAN或移動網路(3G/2G)確定的位置（也稱作AGPS，輔助GPS定位。主要用於在室內或遮蓋物（建築群或茂密的深林等）密集的地方定位）
+//        boolean network = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+//        if (gps || network) {
+//            return true;
+//        }
+//        return false;
+//    }
 
 
 
