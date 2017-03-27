@@ -35,6 +35,7 @@ public class Startup_2 extends Activity {
 
         final Button yes = (Button) findViewById(R.id.yesbutton2);
         final Button no = (Button) findViewById(R.id.noButton2);
+        editor.clear().commit();
 
         yes.setOnClickListener(new View.OnClickListener() {
             @Override

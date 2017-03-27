@@ -99,6 +99,8 @@ public class settings extends AppCompatActivity {
         final SharedPreferences magnitude= getSharedPreferences("magnitude", 0);
         int magnitudevalue = magnitude.getInt("btnChecked",0);
 
+        magnitude.edit().clear().commit();
+
 
         switch(magnitudevalue){
             case 0:
