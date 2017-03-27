@@ -52,6 +52,19 @@ public class settings extends AppCompatActivity {
             }
         });
 
+        ImageButton mapButton = (ImageButton)findViewById(R.id.mapButton);
+
+        mapButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(settings.this, MapsActivity.class);
+                startActivity(intent);
+//                overridePendingTransition(R.anim.slide_leftin, R.anim.slide_leftout);
+                overridePendingTransition(0, 0);
+            }
+        });
+
         Button eqAboutButton = (Button)findViewById(R.id.eqAboutButton);
         eqAboutButton.setOnClickListener(new View.OnClickListener() {
             @Override
