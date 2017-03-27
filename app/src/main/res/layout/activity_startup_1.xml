@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:id="@+id/activity_main"
+    android:background="@drawable/background"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent">
+
+    <RelativeLayout android:id="@+id/pagee1"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content">
+
+    </RelativeLayout>
+
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="33dp"
+        app:srcCompat="@drawable/page2" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imageView"
+        android:layout_centerHorizontal="true"
+        app:srcCompat="@drawable/page3" />
+    <ImageView
+        android:id="@+id/page1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/page1" />
+    <RelativeLayout android:id="@+id/charge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/page1">
+
+
+        <ImageView
+            android:id="@+id/charging"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/charging"
+            android:layout_marginTop="118dp"
+            android:layout_marginBottom="187dp"
+            android:layout_centerHorizontal="true"/>
+
+
+
+
+    </RelativeLayout>
+
+
+    <TextView android:id="@+id/notification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Only turn on notification"
+        android:textColor="#7a7979"
+        android:textSize="15dp"
+        android:gravity="center_vertical"
+        android:fontFamily="fonts/Roboto-light.ttf"
+        android:layout_alignTop="@+id/page1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="44dp" />
+
+    <TextView
+        android:id="@+id/notification1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="79dp"
+        android:fontFamily="fonts/Roboto-light.ttf"
+        android:gravity="center_vertical"
+        android:text="while charging"
+        android:textColor="#7a7979"
+        android:textSize="15dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+
+        <Button
+            android:id="@+id/next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/relativeLayout2"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="69dp"
+            android:background="@drawable/next_bar"
+            android:text="NEXT"
+            android:textColor="#ffffff"
+            android:textSize="28sp" />
+
+        <RelativeLayout
+            android:layout_width="177dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="112dp"
+            android:layout_marginLeft="63dp"
+            android:layout_marginRight="63dp"
+            android:id="@+id/relativeLayout2"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true">
+
+            <Button
+                android:id="@+id/ybutton"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/success" />
+
+
+            <Button
+                android:id="@+id/noButton"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/error" />
+
+        </RelativeLayout>
+
+
+
+
+    </RelativeLayout>
+
+
+
+
+</RelativeLayout>

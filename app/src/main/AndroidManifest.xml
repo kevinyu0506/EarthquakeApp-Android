@@ -51,11 +51,6 @@
         <activity
             android:name=".Startup_3"
             android:label="@string/title_activity_main">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".Startup_4"
@@ -71,7 +66,19 @@
         -->
 
         <activity android:name=".settings_about" />
-        <activity android:name=".settings_ringtone"></activity>
+        <activity android:name=".settings_ringtone"/>
+        <activity android:name=".Startup_1" >
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            </activity>
+        <activity android:name=".Startup_2"/>
+
+
 
     </application>
 

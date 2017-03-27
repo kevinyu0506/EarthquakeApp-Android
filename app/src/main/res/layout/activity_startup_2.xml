@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout     android:id="@+id/activity_startup_2"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+
+    <RelativeLayout android:id="@+id/pagee1"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content">
+
+    </RelativeLayout>
+
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="33dp"
+        app:srcCompat="@drawable/page2" />
+
+    <ImageView
+        android:id="@+id/page1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/page1" />
+    <RelativeLayout android:id="@+id/charge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/page1">
+
+
+        <ImageView
+            android:id="@+id/wifi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/wifi_icon"
+            android:layout_marginTop="118dp"
+            android:layout_marginBottom="187dp"
+            android:layout_centerHorizontal="true"/>
+
+    </RelativeLayout>
+
+    <TextView android:id="@+id/wifinotification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Conect to Wifi"
+        android:textColor="#7a7979"
+        android:textSize="24dp"
+        android:gravity="center_vertical"
+        android:fontFamily="fonts/Roboto-light.ttf"
+        android:layout_alignTop="@+id/page1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="44dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/pagee1"
+        android:layout_alignParentLeft="true">
+        <Button
+            android:id="@+id/next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text= "NEXT"
+            android:textColor="#ffffff"
+            android:background="@drawable/next_bar"
+            android:textSize="28sp"
+            android:layout_alignTop="@+id/relativeLayout2"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="69dp" />
+
+
+        <RelativeLayout
+            android:layout_width="177dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="112dp"
+            android:layout_marginLeft="63dp"
+            android:layout_marginRight="63dp"
+            android:id="@+id/relativeLayout2"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true">
+
+
+            <Button
+                android:id="@+id/yesbutton2"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/success" />
+
+
+            <Button
+                android:id="@+id/noButton2"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/error" />
+
+        </RelativeLayout>
+
+
+
+
+
+    </RelativeLayout>
+
+
+
+</RelativeLayout>
