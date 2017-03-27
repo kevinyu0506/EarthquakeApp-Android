@@ -29,8 +29,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     case R.id.alarmButton:
                         Intent intent = new Intent(MapsActivity.this, alert.class);
                         startActivity(intent);
-                        overridePendingTransition(R.anim.slide_rightin, R.anim.slide_leftout);
-                        break;
                 }
             }
 
@@ -43,8 +41,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     case R.id.settingButton:
                         Intent intent = new Intent(MapsActivity.this, settings.class);
                         startActivity(intent);
-                        overridePendingTransition(R.anim.slide_rightin, R.anim.slide_leftout);
-                        break;
                 }
             }
 
