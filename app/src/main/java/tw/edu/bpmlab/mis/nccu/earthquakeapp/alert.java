@@ -43,10 +43,11 @@ public class alert extends AppCompatActivity {
                 Intent intent = new Intent();
                 intent.setClass(alert.this, settings.class);
                 startActivity(intent);
-                //overridePendingTransition(R.anim.slide_leftin, R.anim.slide_leftout);
-                overridePendingTransition(0, 0);
+//                overridePendingTransition(R.anim.slide_leftin, R.anim.slide_leftout);
+//                overridePendingTransition(0, 0);
             }
         });
+
 
         getTime();
 
