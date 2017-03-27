@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageButton;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -19,6 +21,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_maps);
         final ImageButton alert = (ImageButton) findViewById(R.id.alarmButton);
         final ImageButton settings = (ImageButton) findViewById(R.id.settingButton);
@@ -29,7 +33,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     case R.id.alarmButton:
                         Intent intent = new Intent(MapsActivity.this, alert.class);
                         startActivity(intent);
-                        overridePendingTransition(R.anim.slide_rightin, R.anim.slide_leftout);
+//                        overridePendingTransition(R.anim.slide_rightin, R.anim.slide_leftout);
+                        overridePendingTransition(0, 0);
                         break;
                 }
             }
@@ -43,7 +48,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     case R.id.settingButton:
                         Intent intent = new Intent(MapsActivity.this, settings.class);
                         startActivity(intent);
-                        overridePendingTransition(R.anim.slide_rightin, R.anim.slide_leftout);
+//                        overridePendingTransition(R.anim.slide_rightin, R.anim.slide_leftout);
+                        overridePendingTransition(0, 0);
                         break;
                 }
             }

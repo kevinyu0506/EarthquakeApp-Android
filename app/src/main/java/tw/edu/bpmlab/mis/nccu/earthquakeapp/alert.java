@@ -44,7 +44,20 @@ public class alert extends AppCompatActivity {
                 intent.setClass(alert.this, settings.class);
                 startActivity(intent);
 //                overridePendingTransition(R.anim.slide_leftin, R.anim.slide_leftout);
-//                overridePendingTransition(0, 0);
+                overridePendingTransition(0, 0);
+            }
+        });
+
+        ImageButton mapButton = (ImageButton)findViewById(R.id.map);
+
+        mapButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(alert.this, MapsActivity.class);
+                startActivity(intent);
+//                overridePendingTransition(R.anim.slide_leftin, R.anim.slide_leftout);
+                overridePendingTransition(0, 0);
             }
         });
 
