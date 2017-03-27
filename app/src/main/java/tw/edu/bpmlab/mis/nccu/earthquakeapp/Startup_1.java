@@ -28,8 +28,8 @@ public class Startup_1 extends Activity {
 
         setContentView(R.layout.activity_startup_1);
 
-//        final SharedPreferences magnitude= getSharedPreferences("magnitude", 0);
-//        final SharedPreferences.Editor editor = magnitude.edit();
+        final SharedPreferences charge = getSharedPreferences("charge", 0);
+        final SharedPreferences.Editor editor = charge.edit();
 
 //        gesture = new GestureDetector(new SwipeGestureDetector());
 
@@ -41,6 +41,8 @@ public class Startup_1 extends Activity {
             public void onClick(View v) {
                 yes.setBackgroundResource(R.drawable.success_true);
                 no.setBackgroundResource(R.drawable.error);
+                editor.clear();
+                editor.putBoolean("charge",true).commit();
             }
         });
 
@@ -49,6 +51,8 @@ public class Startup_1 extends Activity {
             public void onClick(View v) {
                 yes.setBackgroundResource(R.drawable.success);
                 no.setBackgroundResource(R.drawable.error_true);
+                editor.clear();
+                editor.putBoolean("charge",false).commit();
             }
         });
 

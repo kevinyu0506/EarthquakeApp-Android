@@ -28,8 +28,8 @@ public class Startup_2 extends Activity {
 
         setContentView(R.layout.activity_startup_2);
 
-//        final SharedPreferences magnitude = getSharedPreferences("magnitude", 0);
-//        final SharedPreferences.Editor editor = magnitude.edit();
+        final SharedPreferences wifi = getSharedPreferences("wifi", 0);
+        final SharedPreferences.Editor editor = wifi.edit();
 
 //        gesture = new GestureDetector(new SwipeGestureDetector());
 
@@ -41,6 +41,9 @@ public class Startup_2 extends Activity {
             public void onClick(View v) {
                 yes.setBackgroundResource(R.drawable.success_true);
                 no.setBackgroundResource(R.drawable.error);
+                editor.clear();
+                editor.putBoolean("wifi",true).commit();
+
             }
         });
 
@@ -49,6 +52,8 @@ public class Startup_2 extends Activity {
             public void onClick(View v) {
                 yes.setBackgroundResource(R.drawable.success);
                 no.setBackgroundResource(R.drawable.error_true);
+                editor.clear();
+                editor.putBoolean("wifi",false).commit();
             }
         });
 

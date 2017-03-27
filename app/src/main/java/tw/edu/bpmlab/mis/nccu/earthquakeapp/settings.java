@@ -13,6 +13,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Switch;
 
 import java.sql.Array;
 
@@ -179,6 +180,18 @@ public class settings extends AppCompatActivity {
             }
         });
 
+
+
+        final SharedPreferences chargeIsSet= getSharedPreferences("charge", 0);
+        boolean charge = chargeIsSet.getBoolean("charge",false);
+        final Switch chargeModeSwitch = (Switch) findViewById(R.id.chargeModeSwitch);
+        chargeModeSwitch.setChecked(charge);
+
+
+        final SharedPreferences wifiIsSet= getSharedPreferences("wifi", 0);
+        boolean wifi = wifiIsSet.getBoolean("wifi",false);
+        final Switch wifiSwitch = (Switch) findViewById(R.id.wifiSwitch);
+        wifiSwitch.setChecked(wifi);
 
 
     }
