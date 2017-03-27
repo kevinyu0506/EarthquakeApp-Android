@@ -207,14 +207,14 @@
 
 
     <ImageView
-        android:id="@+id/map"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="30dp"
-        android:layout_marginLeft="60dp"
-        android:src="@drawable/map" />
+    android:id="@+id/map"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:layout_alignParentStart="true"
+    android:layout_marginBottom="30dp"
+    android:layout_marginLeft="60dp"
+    android:src="@drawable/map" />
 
     <ImageView
         android:id="@+id/alert"

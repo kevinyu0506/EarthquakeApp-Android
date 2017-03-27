@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background">
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/map"
+        tools:context="tw.edu.bpmlab.mis.nccu.earthquakeapp.MapsActivity"
+        android:name="com.google.android.gms.maps.SupportMapFragment" />
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true">
+        <TextView
+            android:id="@+id/latlongLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignRight="@+id/searchView1"
+            android:background="#ff058fff"
+            android:gravity="bottom"
+            android:paddingBottom="5dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingTop="5dp"
+            android:textColor="#ffffffff" />
+
+        <EditText
+            android:id="@+id/searchView1"
+            android:layout_width="300dp"
+            android:layout_height="34dp"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="18dp"
+            android:layout_marginTop="14dp"
+            android:hint="Search Location"
+            android:textColor="@android:color/black"
+            android:background="@android:color/white" >
+        </EditText>
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="11dp"
+            android:layout_height="11dp"
+            android:layout_alignBaseline="@+id/searchView1"
+            android:layout_alignBottom="@+id/searchView1"
+            android:layout_alignRight="@+id/searchView1"
+            android:background="@drawable/search" />
+    </RelativeLayout>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/map_in_use"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/lower_frame"/>
+    <RelativeLayout
+        android:id="@+id/upper_frame"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/map_in_use"
+        android:layout_marginBottom="20dp"
+        android:layout_centerHorizontal="true">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/upper_frame"
+            />
+        <TextView
+            android:id="@+id/whatHappened"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="What just happened?"
+            android:textSize="13dp"
+            android:layout_marginTop="12dp"
+            android:layout_centerHorizontal="true"/>
+        <RelativeLayout
+            android:layout_width="200dp"
+            android:layout_height="70dp"
+            android:layout_below="@id/whatHappened"
+            android:layout_centerHorizontal="true">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Magnitude"
+                android:textSize="11dp"
+                android:textColor="#6f6d68"
+                android:layout_alignParentLeft="true"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="10dp"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ml_separate"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Location"
+                android:textSize="11dp"
+                android:textColor="#6f6d68"
+                android:layout_marginTop="8dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="18dp"
+                />
+
+        </RelativeLayout>
+    </RelativeLayout>
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/gps_location_symbol"
+        android:layout_toRightOf="@+id/upper_frame"
+        android:layout_marginLeft="3dp"
+        android:layout_above="@+id/switch_mode"/>
+    <ImageButton
+        android:id="@+id/switch_mode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/switch_mode"
+        android:layout_toRightOf="@+id/upper_frame"
+        android:layout_above="@+id/map_in_use"
+        android:layout_marginLeft="3dp"
+        android:layout_marginBottom="25dp"/>
+    
+    
+
+
+
+    <ImageButton
+        android:id="@+id/map_in_use"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/map_in_use"
+        android:background="#00000000"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="37dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"/>
+
+    <ImageButton
+        android:id="@+id/alarmButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/alarm"
+        android:background="#00000000"
+        android:layout_marginBottom="30dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/map_in_use"
+        android:layout_marginLeft="47.5dp" />
+
+    <ImageButton
+        android:id="@+id/settingButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/settings_not_used"
+        android:background="#00000000"
+       android:layout_toRightOf="@+id/alarmButton"
+        android:layout_marginLeft="70dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="30dp" />
+
+    <ImageView
+        android:id="@+id/inUse"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/in_use"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="48dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="0dp" />
+</RelativeLayout>
+

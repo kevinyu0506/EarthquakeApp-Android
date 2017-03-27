@@ -12,7 +12,7 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:layout_width="wrap_content"
-            android:layout_height="477dp">
+            android:layout_height="wrap_content">
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="477dp"
@@ -22,7 +22,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="38dp"
                 android:layout_width="wrap_content"
-                android:layout_height="39dp"
+                android:layout_height="wrap_content"
                 android:textSize="17dp"
                 android:gravity="center"
                 android:text="Only turn on notifications\nwhen the magnitude level reach..."
@@ -32,8 +32,8 @@
                 android:layout_centerHorizontal="true"
                 android:layout_below="@+id/title"
                 android:layout_marginTop="43dp"
-                android:layout_width="239dp"
-                android:layout_height="105dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:background="@drawable/quake"/>
             <RelativeLayout
                 android:id="@+id/fourButtons"

@@ -10,6 +10,9 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.RelativeLayout;
 
+
+
+
 public class Startup_4 extends Activity implements View.OnTouchListener {
     private static int TIME_OUT = 2500;
     private Handler handler = new Handler();
