@@ -85,6 +85,16 @@
                 android:textColor="#7a7979"
                 android:textSize="50dp" />
 
+            <ProgressBar
+                android:id="@+id/countDownBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="200dp"
+                android:layout_height="4dp"
+                android:layout_below="@+id/countDown"
+                android:layout_centerHorizontal="true"
+                android:progress="100"
+                android:progressDrawable="@drawable/countdownbar"/>
+
 
         </RelativeLayout>
 
@@ -244,6 +254,8 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:src="@drawable/inuse" />
+
+
 
 
 </RelativeLayout>
