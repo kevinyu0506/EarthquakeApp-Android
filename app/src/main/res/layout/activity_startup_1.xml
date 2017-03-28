@@ -63,27 +63,15 @@
     <TextView android:id="@+id/notification"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Only turn on notification"
-        android:textColor="#7a7979"
-        android:textSize="15dp"
-        android:gravity="center_vertical"
+        android:text="Only turn on notification\n while charging"
+        android:textColor="#E6000000"
+        android:textSize="17dp"
+        android:gravity="center"
         android:fontFamily="fonts/Roboto-light.ttf"
         android:layout_alignTop="@+id/page1"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="44dp" />
 
-    <TextView
-        android:id="@+id/notification1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="79dp"
-        android:fontFamily="fonts/Roboto-light.ttf"
-        android:gravity="center_vertical"
-        android:text="while charging"
-        android:textColor="#7a7979"
-        android:textSize="15dp" />
 
     <RelativeLayout
         android:layout_width="match_parent"

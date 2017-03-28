@@ -15,6 +15,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
@@ -36,6 +37,7 @@ import java.util.ListIterator;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
     private GoogleMap mMap;
+    private String typeLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +55,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         final ImageButton alert = (ImageButton) findViewById(R.id.alarmButton);
         final ImageButton settings = (ImageButton) findViewById(R.id.settingButton);
+        final EditText typeLocationField = (EditText) findViewById(R.id.typelocation);
+        final Button searchLocation = (Button) findViewById(R.id.search_button);
+        searchLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                typeLocation = typeLocationField.getText().toString();
+                addMarkerOnMap(typeLocation);
+            }
+        });
+
+
 
         alert.setOnClickListener(new View.OnClickListener() {
             @Override

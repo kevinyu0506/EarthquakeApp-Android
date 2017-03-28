@@ -54,7 +54,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Conect to Wifi"
-        android:textColor="#7a7979"
+        android:textColor="#E6000000"
         android:textSize="24dp"
         android:gravity="center_vertical"
         android:fontFamily="fonts/Roboto-light.ttf"

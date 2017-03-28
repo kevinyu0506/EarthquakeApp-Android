@@ -7,6 +7,9 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.*;
 import java.util.Calendar;
+import java.util.logging.Handler;
+import java.util.logging.LogRecord;
+
 import android.os.CountDownTimer;
 
 
@@ -25,7 +28,8 @@ public class alert extends AppCompatActivity {
     protected int thisHour;
     protected int thisMin;
     protected int thisSec;
-    private TextView countDown;
+    protected TextView countDown;
+    protected ProgressBar countDownBar;
 
 
 
@@ -39,8 +43,9 @@ public class alert extends AppCompatActivity {
 
         setContentView(R.layout.activity_alert);
 
-        ImageButton settingsButton = (ImageButton)findViewById(R.id.settingsButton);
 
+
+        ImageButton settingsButton = (ImageButton)findViewById(R.id.settingsButton);
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,7 +58,6 @@ public class alert extends AppCompatActivity {
         });
 
         ImageButton mapButton = (ImageButton)findViewById(R.id.map);
-
         mapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -144,6 +148,15 @@ public class alert extends AppCompatActivity {
 
             }
         }.start();
+
+    }
+
+    public void setCountDownBar(){
+        countDownBar = (ProgressBar) findViewById(R.id.countDownBar);
+        countDownBar.setVisibility(View.VISIBLE);
+        countDownBar.setProgress(150);
+
+
 
     }
 
