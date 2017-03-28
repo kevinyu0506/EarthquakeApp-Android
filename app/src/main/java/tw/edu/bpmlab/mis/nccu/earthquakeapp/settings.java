@@ -99,6 +99,8 @@ public class settings extends AppCompatActivity {
         final SharedPreferences magnitude= getSharedPreferences("magnitude", 0);
         int magnitudevalue = magnitude.getInt("btnChecked",0);
 
+        magnitude.edit().clear().commit();
+
 
         switch(magnitudevalue){
             case 0:
@@ -144,6 +146,7 @@ public class settings extends AppCompatActivity {
                     magnitude4.setBackgroundResource(R.drawable.magnitude_4);
                     magnitude5.setBackgroundResource(R.drawable.magnitude_5);
                     magnitude6.setBackgroundResource(R.drawable.magnitude_6);
+                    magnitude.edit().putInt("btnChecked", 3).commit();
                 }
             });
 
@@ -155,6 +158,7 @@ public class settings extends AppCompatActivity {
                 magnitude4.setBackgroundResource(R.drawable.magnitude_4_picked);
                 magnitude5.setBackgroundResource(R.drawable.magnitude_5);
                 magnitude6.setBackgroundResource(R.drawable.magnitude_6);
+                magnitude.edit().putInt("btnChecked", 4).commit();
             }
         });
 
@@ -166,6 +170,7 @@ public class settings extends AppCompatActivity {
                 magnitude4.setBackgroundResource(R.drawable.magnitude_4);
                 magnitude5.setBackgroundResource(R.drawable.magnitude_5_picked);
                 magnitude6.setBackgroundResource(R.drawable.magnitude_6);
+                magnitude.edit().putInt("btnChecked", 5).commit();
             }
         });
 
@@ -177,6 +182,7 @@ public class settings extends AppCompatActivity {
                 magnitude4.setBackgroundResource(R.drawable.magnitude_4);
                 magnitude5.setBackgroundResource(R.drawable.magnitude_5);
                 magnitude6.setBackgroundResource(R.drawable.magnitude_6_picked);
+                magnitude.edit().putInt("btnChecked", 6).commit();
             }
         });
 

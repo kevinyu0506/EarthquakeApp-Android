@@ -39,6 +39,8 @@ public class Startup_3 extends Activity {
         final ImageButton six = (ImageButton) findViewById(R.id.six);
         final Button start = (Button) findViewById(R.id.start);
 
+        editor.clear().commit();
+
         three.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
