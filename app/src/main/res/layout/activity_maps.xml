@@ -17,8 +17,8 @@
         android:background="#ffffff"
         android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/editText"
+        <AutoCompleteTextView
+            android:id="@+id/autocomplete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="4"
@@ -39,14 +39,14 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_above="@+id/map_in_use"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="20dp"
         android:background="@drawable/lower_frame"/>
     <RelativeLayout
         android:id="@+id/upper_frame"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/map_in_use"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="10dp"
         android:layout_centerHorizontal="true">
         <ImageView
             android:layout_width="wrap_content"
@@ -110,7 +110,7 @@
         android:layout_toRightOf="@+id/upper_frame"
         android:layout_above="@+id/map_in_use"
         android:layout_marginLeft="3dp"
-        android:layout_marginBottom="25dp"/>
+        android:layout_marginBottom="15dp"/>
     
     
 
