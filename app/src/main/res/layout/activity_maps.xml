@@ -17,8 +17,8 @@
         android:background="#ffffff"
         android:orientation="horizontal">
 
-        <AutoCompleteTextView
-            android:id="@+id/autocomplete"
+        <EditText
+            android:id="@+id/typelocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="4"
