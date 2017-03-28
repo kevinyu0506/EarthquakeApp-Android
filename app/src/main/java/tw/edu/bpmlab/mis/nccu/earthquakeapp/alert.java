@@ -7,6 +7,8 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.*;
 import java.util.Calendar;
+import android.os.CountDownTimer;
+
 
 import android.view.View;
 import android.widget.ImageButton;
@@ -23,6 +25,8 @@ public class alert extends AppCompatActivity {
     protected int thisHour;
     protected int thisMin;
     protected int thisSec;
+    private TextView countDown;
+
 
 
 
@@ -63,6 +67,7 @@ public class alert extends AppCompatActivity {
 
 
         getTime();
+        countDown();
 
     }
 
@@ -114,6 +119,34 @@ public class alert extends AppCompatActivity {
 
 
     }
+
+    public void countDown() {
+
+        countDown = (TextView) findViewById(R.id.countDown);
+
+
+        new CountDownTimer(70000, 1000) {
+
+            @Override
+            public void onFinish() {
+                countDown.setText("00:00");
+
+            }
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+
+                if(millisUntilFinished / 1000 % 60>10) {
+                    countDown.setText("0"+String.valueOf(millisUntilFinished / 60000)+":"+String.valueOf(millisUntilFinished / 1000 % 60));
+                }else{
+                    countDown.setText("0"+String.valueOf(millisUntilFinished / 60000)+":0"+String.valueOf(millisUntilFinished / 1000 % 60));
+                }
+
+            }
+        }.start();
+
+    }
+
 
 
 }
