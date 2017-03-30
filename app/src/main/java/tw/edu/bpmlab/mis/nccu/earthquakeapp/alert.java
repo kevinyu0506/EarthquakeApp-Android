@@ -11,6 +11,9 @@ import android.view.View;
 import android.widget.ImageButton;
 
 //db
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Connection;
 import java.util.Calendar;
@@ -44,6 +47,8 @@ public class alert extends AppCompatActivity implements SensorEventListener {
     private Sensor aSensor;
     private double gravity[] = new double[3];
 //    private double eqGal;
+
+    public TextView level;
 
 
     @Override
@@ -84,6 +89,7 @@ public class alert extends AppCompatActivity implements SensorEventListener {
         countDown();
         setCountDownBar();
         sensor();
+        getMagnitude();
 
 
     }
@@ -168,13 +174,22 @@ public class alert extends AppCompatActivity implements SensorEventListener {
 
     }
 
+    //countDownBar
     public void setCountDownBar() {
-        countDownBar = (ProgressBar) findViewById(R.id.countDownBar);
-        countDownBar.setVisibility(View.VISIBLE);
 
+        int progress = 0;
+
+        countDownBar = (ProgressBar) findViewById(R.id.countDownBar);
+        countDownBar.setProgress(progress);
+        countDownBar.setVisibility(View.VISIBLE);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        });
 
     }
-
 
     //acceleration
     private void sensor() {
@@ -196,33 +211,25 @@ public class alert extends AppCompatActivity implements SensorEventListener {
 
     }
 
+    public void getMagnitude() {
 
-    //getMagnitude
-//    public class getMagnitude extends AsyncTask<String, String, String> {
-//
-//        protected void onPreExecute() {
-//        }
-//
-//        protected String doInBackground(String... strings) {
-//
-//            try {
-//                Connection conn = connectDataBase.CONN();
-//                if (conn == null) {
-//                } else {
-//                    String query = "select magnitude from datatemp where datetime = 2017/3/30";
-//                    Statement stmt = conn.createStatement();
-//                    String re = stmt.executeReader(query);
-//
-//                }
-//                conn.close();
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//            return null;
-//        }
-//
-//        protected void onPostExecute(String msg) {
-//        }
-//    }
+        level = (TextView) findViewById(R.id.level);
+
+        Connection conn = connectDataBase.CONN();
+
+        try {
+            String query = "select accelerationz from datatemp where datetime = 2017/3/30";
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+//            ResultSetMetaData rsmd = rs.getMetaData();
+
+            while (rs.next()) {
+                level.setText(rs.getString("accelerationz"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }
