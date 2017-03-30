@@ -1,5 +1,6 @@
 package tw.edu.bpmlab.mis.nccu.earthquakeapp;
 
+import android.app.NotificationManager;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
@@ -8,6 +9,7 @@ import android.location.LocationManager;
 import android.media.AudioManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.MediaStore;
 import android.support.v4.content.res.TypedArrayUtils;
 import android.support.v7.app.AppCompatActivity;
@@ -22,6 +24,9 @@ import android.widget.ImageButton;
 import android.widget.Switch;
 
 import java.sql.Array;
+
+import static android.media.AudioManager.RINGER_MODE_NORMAL;
+import static android.media.AudioManager.RINGER_MODE_SILENT;
 
 public class settings extends AppCompatActivity {
 
@@ -101,29 +106,51 @@ public class settings extends AppCompatActivity {
 
         //紀錄viberation開關設定
 
-        final SharedPreferences viberation = getSharedPreferences("viberation",0);
-        boolean viberate = viberation.getBoolean("viberation",false);
+        final AudioManager myAudioManager;
+        myAudioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
 
-        Switch viberationSwitch = (Switch)findViewById(R.id.viberationSwitch);
+        final SharedPreferences viberationIsSet = getSharedPreferences("viberation",0);
+        boolean viberate = viberationIsSet.getBoolean("viberation",false);
+        final Switch viberationSwitch = (Switch)findViewById(R.id.viberationSwitch);
+        viberationIsSet.edit().clear().commit();
+        viberationSwitch.setChecked(viberate);
+
+
         viberationSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                AudioManager myAudioManager;
-                myAudioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
+
+
+                NotificationManager notificationManager =
+                        (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
+                        && !notificationManager.isNotificationPolicyAccessGranted()) {
+
+                    Intent intent = new Intent(
+                            android.provider.Settings
+                                    .ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
+
+                    startActivity(intent);
+                }
+
 
                 if (isChecked){
-                    myAudioManager.setRingerMode(myAudioManager.RINGER_MODE_NORMAL);
-                    viberation.edit().clear();
-                    viberation.edit().putBoolean("viberation",true).commit();
+                    viberationIsSet.edit().clear();
+                    viberationSwitch.setChecked(true);
+                    viberationIsSet.edit().putBoolean("viberation",true).commit();
+                    myAudioManager.setRingerMode(RINGER_MODE_NORMAL);
+
                 }
                 else {
-                    myAudioManager.setRingerMode(myAudioManager.RINGER_MODE_SILENT);
-                    viberation.edit().clear();
-                    viberation.edit().putBoolean("viberation",false).commit();
+                    viberationIsSet.edit().clear();
+                    viberationSwitch.setChecked(false);
+                    viberationIsSet.edit().putBoolean("viberation",false).commit();
+                    myAudioManager.setRingerMode(RINGER_MODE_SILENT);
+
                 }
             }
         });
-        viberationSwitch.setChecked(viberate);
 
 
 
@@ -251,23 +278,21 @@ public class settings extends AppCompatActivity {
         final Switch chargeModeSwitch = (Switch) findViewById(R.id.chargeModeSwitch);
         chargeModeSwitch.setChecked(charge);
 
-        chargeModeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
-                                                    {
-                                                        @Override
-                                                        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                                                            if (isChecked){
-                                                                chargeIsSet.edit().clear();
-                                                                chargeModeSwitch.setChecked(true);
-                                                                chargeIsSet.edit().putBoolean("charge",true).commit();
-                                                            }
-                                                            else {
-                                                                chargeIsSet.edit().clear();
-                                                                chargeModeSwitch.setChecked(false);
-                                                                chargeIsSet.edit().putBoolean("charge",false).commit();
-                                                            }
+        chargeModeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
-                                                        }
-                                                    }
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    chargeIsSet.edit().clear();
+                    chargeModeSwitch.setChecked(true);
+                    chargeIsSet.edit().putBoolean("charge",true).commit();
+                }
+                else {
+                    chargeIsSet.edit().clear();
+                    chargeModeSwitch.setChecked(false);
+                    chargeIsSet.edit().putBoolean("charge",false).commit();
+                }
+            }}
         );
 
 
@@ -280,23 +305,21 @@ public class settings extends AppCompatActivity {
         wifiSwitch.setChecked(wifi);
 
 
-        wifiSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
-                                                    {
-                                                        @Override
-                                                        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                                                            if (isChecked){
-                                                                wifiIsSet.edit().clear();
-                                                                wifiSwitch.setChecked(true);
-                                                                wifiIsSet.edit().putBoolean("wifi",true).commit();
-                                                            }
-                                                            else {
-                                                                wifiIsSet.edit().clear();
-                                                                wifiSwitch.setChecked(false);
-                                                                wifiIsSet.edit().putBoolean("wifi",false).commit();
-                                                            }
+        wifiSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
-                                                        }
-                                                    }
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    wifiIsSet.edit().clear();
+                    wifiSwitch.setChecked(true);
+                    wifiIsSet.edit().putBoolean("wifi",true).commit();
+                                                            }
+                else {
+                    wifiIsSet.edit().clear();
+                    wifiSwitch.setChecked(false);
+                    wifiIsSet.edit().putBoolean("wifi",false).commit();
+                }
+            }}
         );
 
     }
