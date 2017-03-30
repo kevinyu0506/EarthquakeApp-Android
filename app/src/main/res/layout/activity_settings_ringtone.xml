@@ -33,6 +33,9 @@
         app:layout_constraintLeft_toLeftOf="parent" />
 
 
+
+
+
     <RelativeLayout
         android:layout_width="300dp"
         android:layout_height="490dp"
@@ -51,9 +54,20 @@
             android:layout_marginTop="10dp"
             android:background="@drawable/info_inner"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/relativeLayout3">
 
         </RelativeLayout>
+
+        <TextView
+            android:id="@+id/ringtoneList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:layout_alignTop="@+id/relativeLayout3"
+            android:layout_alignStart="@+id/relativeLayout3"
+            android:layout_alignParentBottom="true"
+            android:layout_alignEnd="@+id/relativeLayout3" />
 
 
     </RelativeLayout>

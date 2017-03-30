@@ -1,9 +1,13 @@
 package tw.edu.bpmlab.mis.nccu.earthquakeapp;
 
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.LocationManager;
+import android.media.RingtoneManager;
+import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.v4.content.res.TypedArrayUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -21,6 +25,7 @@ import java.sql.Array;
 public class settings extends AppCompatActivity {
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +34,8 @@ public class settings extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_settings);
+
+
 
         Button eqInfoButton = (Button)findViewById(R.id.eqInfoButton);
         eqInfoButton.setOnClickListener(new View.OnClickListener() {
@@ -79,17 +86,33 @@ public class settings extends AppCompatActivity {
             }
         });
 
+
+
+
+
+
         Button ringtoneButton = (Button)findViewById(R.id.ringtoneButton);
         ringtoneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setClass(settings.this, settings_ringtone.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.slide_leftin, R.anim.slide_leftout);
-                //overridePendingTransition(0, 0);
+
+                Intent intent = new Intent(RingtoneManager.ACTION_RINGTONE_PICKER);
+                Uri currenturi = ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, 1l);
+                intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TITLE, "Select ringtone for notifications:");
+                intent.putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_SILENT, false);
+                intent.putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_DEFAULT, true);
+                intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE,RingtoneManager.TYPE_NOTIFICATION);
+                intent.putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, currenturi);
+                startActivityForResult( intent, 999);
+
             }
+
         });
+//        RingtoneManager.setActualDefaultRingtoneUri(settings.this, RingtoneManager.TYPE_RINGTONE, currenturi);
+
+
+
+
 
 
         final ImageButton magnitude3 = (ImageButton) findViewById(R.id.magnitude3);
@@ -99,9 +122,6 @@ public class settings extends AppCompatActivity {
 
         final SharedPreferences magnitude= getSharedPreferences("magnitude", 0);
         int magnitudevalue = magnitude.getInt("btnChecked",0);
-
-        //magnitude.edit().clear().commit();
-
 
         switch(magnitudevalue){
             case 0:
