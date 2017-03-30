@@ -59,16 +59,6 @@
 
         </RelativeLayout>
 
-        <TextView
-            android:id="@+id/ringtoneList"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView"
-            android:layout_alignTop="@+id/relativeLayout3"
-            android:layout_alignStart="@+id/relativeLayout3"
-            android:layout_alignParentBottom="true"
-            android:layout_alignEnd="@+id/relativeLayout3" />
-
 
     </RelativeLayout>
 

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.LocationManager;
+import android.media.AudioManager;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.provider.MediaStore;
@@ -37,6 +38,8 @@ public class settings extends AppCompatActivity {
 
 
 
+        //eqInfoButton連接到settings_eqinfo頁面
+
         Button eqInfoButton = (Button)findViewById(R.id.eqInfoButton);
         eqInfoButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -45,34 +48,12 @@ public class settings extends AppCompatActivity {
                 intent.setClass(settings.this, settings_eqinfo.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_leftin, R.anim.slide_leftout);
-                //overridePendingTransition(0, 0);
             }
         });
 
-        ImageButton alarmButton = (ImageButton)findViewById(R.id.alarmButton);
-        alarmButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setClass(settings.this, alert.class);
-                startActivity(intent);
-                //overridePendingTransition(R.anim.slide_rightin, R.anim.slide_rightout);
-                overridePendingTransition(0, 0);
-            }
-        });
 
-        ImageButton mapButton = (ImageButton)findViewById(R.id.mapButton);
 
-        mapButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setClass(settings.this, MapsActivity.class);
-                startActivity(intent);
-//                overridePendingTransition(R.anim.slide_leftin, R.anim.slide_leftout);
-                overridePendingTransition(0, 0);
-            }
-        });
+        //eqAboutButton連結到settings_about頁面
 
         Button eqAboutButton = (Button)findViewById(R.id.eqAboutButton);
         eqAboutButton.setOnClickListener(new View.OnClickListener() {
@@ -82,14 +63,71 @@ public class settings extends AppCompatActivity {
                 intent.setClass(settings.this, settings_about.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_leftin, R.anim.slide_leftout);
-                //overridePendingTransition(0, 0);
             }
         });
 
 
 
+        //alarmButton連結到alert頁面
+
+        ImageButton alarmButton = (ImageButton)findViewById(R.id.alarmButton);
+        alarmButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(settings.this, alert.class);
+                startActivity(intent);
+                overridePendingTransition(0, 0);
+            }
+        });
 
 
+
+        //mapButton連結到map頁面
+
+        ImageButton mapButton = (ImageButton)findViewById(R.id.mapButton);
+
+        mapButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(settings.this, MapsActivity.class);
+                startActivity(intent);
+                overridePendingTransition(0, 0);
+            }
+        });
+
+
+
+        //紀錄viberation開關設定
+
+        final SharedPreferences viberation = getSharedPreferences("viberation",0);
+        boolean viberate = viberation.getBoolean("viberation",false);
+
+        Switch viberationSwitch = (Switch)findViewById(R.id.viberationSwitch);
+        viberationSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                AudioManager myAudioManager;
+                myAudioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
+
+                if (isChecked){
+                    myAudioManager.setRingerMode(myAudioManager.RINGER_MODE_NORMAL);
+                    viberation.edit().clear();
+                    viberation.edit().putBoolean("viberation",true).commit();
+                }
+                else {
+                    myAudioManager.setRingerMode(myAudioManager.RINGER_MODE_SILENT);
+                    viberation.edit().clear();
+                    viberation.edit().putBoolean("viberation",false).commit();
+                }
+            }
+        });
+        viberationSwitch.setChecked(viberate);
+
+
+
+        //ringtoneButton打開設定提示聲視窗
 
         Button ringtoneButton = (Button)findViewById(R.id.ringtoneButton);
         ringtoneButton.setOnClickListener(new View.OnClickListener() {
@@ -156,10 +194,6 @@ public class settings extends AppCompatActivity {
                 break;
 
     }
-
-
-
-
         magnitude3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -211,6 +245,7 @@ public class settings extends AppCompatActivity {
 
 
         // 讀取前面charge設定到settings頁面，以及可以在settings頁面複寫掉設定
+
         final SharedPreferences chargeIsSet= getSharedPreferences("charge", 0);
         boolean charge = chargeIsSet.getBoolean("charge",false);
         final Switch chargeModeSwitch = (Switch) findViewById(R.id.chargeModeSwitch);
@@ -238,6 +273,7 @@ public class settings extends AppCompatActivity {
 
 
         // 讀取前面wifi設定到settings頁面，以及可以在settings頁面複寫掉設定
+
         final SharedPreferences wifiIsSet= getSharedPreferences("wifi", 0);
         boolean wifi = wifiIsSet.getBoolean("wifi",false);
         final Switch wifiSwitch = (Switch) findViewById(R.id.wifiSwitch);
