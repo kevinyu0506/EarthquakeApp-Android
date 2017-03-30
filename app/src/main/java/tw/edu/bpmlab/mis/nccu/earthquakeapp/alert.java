@@ -72,6 +72,8 @@ public class alert extends AppCompatActivity {
 
         getTime();
         countDown();
+        setCountDownBar();
+
 
     }
 
@@ -154,8 +156,6 @@ public class alert extends AppCompatActivity {
     public void setCountDownBar(){
         countDownBar = (ProgressBar) findViewById(R.id.countDownBar);
         countDownBar.setVisibility(View.VISIBLE);
-        countDownBar.setProgress(150);
-
 
 
     }
