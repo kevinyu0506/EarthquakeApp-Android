@@ -1,9 +1,16 @@
 package tw.edu.bpmlab.mis.nccu.earthquakeapp;
 
+import android.app.NotificationManager;
+import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.LocationManager;
+import android.media.AudioManager;
+import android.media.RingtoneManager;
+import android.net.Uri;
+import android.os.Build;
+import android.provider.MediaStore;
 import android.support.v4.content.res.TypedArrayUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -18,7 +25,11 @@ import android.widget.Switch;
 
 import java.sql.Array;
 
+import static android.media.AudioManager.RINGER_MODE_NORMAL;
+import static android.media.AudioManager.RINGER_MODE_SILENT;
+
 public class settings extends AppCompatActivity {
+
 
 
     @Override
@@ -30,6 +41,10 @@ public class settings extends AppCompatActivity {
 
         setContentView(R.layout.activity_settings);
 
+
+
+        //eqInfoButton連接到settings_eqinfo頁面
+
         Button eqInfoButton = (Button)findViewById(R.id.eqInfoButton);
         eqInfoButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -38,34 +53,12 @@ public class settings extends AppCompatActivity {
                 intent.setClass(settings.this, settings_eqinfo.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_leftin, R.anim.slide_leftout);
-                //overridePendingTransition(0, 0);
             }
         });
 
-        ImageButton alarmButton = (ImageButton)findViewById(R.id.alarmButton);
-        alarmButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setClass(settings.this, alert.class);
-                startActivity(intent);
-                //overridePendingTransition(R.anim.slide_rightin, R.anim.slide_rightout);
-                overridePendingTransition(0, 0);
-            }
-        });
 
-        ImageButton mapButton = (ImageButton)findViewById(R.id.mapButton);
 
-        mapButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setClass(settings.this, MapsActivity.class);
-                startActivity(intent);
-//                overridePendingTransition(R.anim.slide_leftin, R.anim.slide_leftout);
-                overridePendingTransition(0, 0);
-            }
-        });
+        //eqAboutButton連結到settings_about頁面
 
         Button eqAboutButton = (Button)findViewById(R.id.eqAboutButton);
         eqAboutButton.setOnClickListener(new View.OnClickListener() {
@@ -75,21 +68,116 @@ public class settings extends AppCompatActivity {
                 intent.setClass(settings.this, settings_about.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_leftin, R.anim.slide_leftout);
-                //overridePendingTransition(0, 0);
             }
         });
+
+
+
+        //alarmButton連結到alert頁面
+
+        ImageButton alarmButton = (ImageButton)findViewById(R.id.alarmButton);
+        alarmButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(settings.this, alert.class);
+                startActivity(intent);
+                overridePendingTransition(0, 0);
+            }
+        });
+
+
+
+        //mapButton連結到map頁面
+
+        ImageButton mapButton = (ImageButton)findViewById(R.id.mapButton);
+
+        mapButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(settings.this, MapsActivity.class);
+                startActivity(intent);
+                overridePendingTransition(0, 0);
+            }
+        });
+
+
+
+        //紀錄viberation開關設定
+
+        final AudioManager myAudioManager;
+        myAudioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
+
+        final SharedPreferences viberationIsSet = getSharedPreferences("viberation",0);
+        boolean viberate = viberationIsSet.getBoolean("viberation",false);
+        final Switch viberationSwitch = (Switch)findViewById(R.id.viberationSwitch);
+        viberationIsSet.edit().clear().commit();
+        viberationSwitch.setChecked(viberate);
+
+
+        viberationSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+
+                NotificationManager notificationManager =
+                        (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
+                        && !notificationManager.isNotificationPolicyAccessGranted()) {
+
+                    Intent intent = new Intent(
+                            android.provider.Settings
+                                    .ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
+
+                    startActivity(intent);
+                }
+
+
+                if (isChecked){
+                    viberationIsSet.edit().clear();
+                    viberationSwitch.setChecked(true);
+                    viberationIsSet.edit().putBoolean("viberation",true).commit();
+                    myAudioManager.setRingerMode(RINGER_MODE_NORMAL);
+
+                }
+                else {
+                    viberationIsSet.edit().clear();
+                    viberationSwitch.setChecked(false);
+                    viberationIsSet.edit().putBoolean("viberation",false).commit();
+                    myAudioManager.setRingerMode(RINGER_MODE_SILENT);
+
+                }
+            }
+        });
+
+
+
+        //ringtoneButton打開設定提示聲視窗
 
         Button ringtoneButton = (Button)findViewById(R.id.ringtoneButton);
         ringtoneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setClass(settings.this, settings_ringtone.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.slide_leftin, R.anim.slide_leftout);
-                //overridePendingTransition(0, 0);
+
+                Intent intent = new Intent(RingtoneManager.ACTION_RINGTONE_PICKER);
+                Uri currenturi = ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, 1l);
+                intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TITLE, "Select ringtone for notifications:");
+                intent.putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_SILENT, false);
+                intent.putExtra(RingtoneManager.EXTRA_RINGTONE_SHOW_DEFAULT, true);
+                intent.putExtra(RingtoneManager.EXTRA_RINGTONE_TYPE,RingtoneManager.TYPE_NOTIFICATION);
+                intent.putExtra(RingtoneManager.EXTRA_RINGTONE_EXISTING_URI, currenturi);
+                startActivityForResult( intent, 999);
+
             }
+
         });
+//        RingtoneManager.setActualDefaultRingtoneUri(settings.this, RingtoneManager.TYPE_RINGTONE, currenturi);
+
+
+
+
 
 
         final ImageButton magnitude3 = (ImageButton) findViewById(R.id.magnitude3);
@@ -99,9 +187,6 @@ public class settings extends AppCompatActivity {
 
         final SharedPreferences magnitude= getSharedPreferences("magnitude", 0);
         int magnitudevalue = magnitude.getInt("btnChecked",0);
-
-        //magnitude.edit().clear().commit();
-
 
         switch(magnitudevalue){
             case 0:
@@ -136,10 +221,6 @@ public class settings extends AppCompatActivity {
                 break;
 
     }
-
-
-
-
         magnitude3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -191,56 +272,54 @@ public class settings extends AppCompatActivity {
 
 
         // 讀取前面charge設定到settings頁面，以及可以在settings頁面複寫掉設定
+
         final SharedPreferences chargeIsSet= getSharedPreferences("charge", 0);
         boolean charge = chargeIsSet.getBoolean("charge",false);
         final Switch chargeModeSwitch = (Switch) findViewById(R.id.chargeModeSwitch);
         chargeModeSwitch.setChecked(charge);
 
-        chargeModeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
-                                                    {
-                                                        @Override
-                                                        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                                                            if (isChecked){
-                                                                chargeIsSet.edit().clear();
-                                                                chargeModeSwitch.setChecked(true);
-                                                                chargeIsSet.edit().putBoolean("charge",true).commit();
-                                                            }
-                                                            else {
-                                                                chargeIsSet.edit().clear();
-                                                                chargeModeSwitch.setChecked(false);
-                                                                chargeIsSet.edit().putBoolean("charge",false).commit();
-                                                            }
+        chargeModeSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
-                                                        }
-                                                    }
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    chargeIsSet.edit().clear();
+                    chargeModeSwitch.setChecked(true);
+                    chargeIsSet.edit().putBoolean("charge",true).commit();
+                }
+                else {
+                    chargeIsSet.edit().clear();
+                    chargeModeSwitch.setChecked(false);
+                    chargeIsSet.edit().putBoolean("charge",false).commit();
+                }
+            }}
         );
 
 
 
         // 讀取前面wifi設定到settings頁面，以及可以在settings頁面複寫掉設定
+
         final SharedPreferences wifiIsSet= getSharedPreferences("wifi", 0);
         boolean wifi = wifiIsSet.getBoolean("wifi",false);
         final Switch wifiSwitch = (Switch) findViewById(R.id.wifiSwitch);
         wifiSwitch.setChecked(wifi);
 
 
-        wifiSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
-                                                    {
-                                                        @Override
-                                                        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                                                            if (isChecked){
-                                                                wifiIsSet.edit().clear();
-                                                                wifiSwitch.setChecked(true);
-                                                                wifiIsSet.edit().putBoolean("wifi",true).commit();
-                                                            }
-                                                            else {
-                                                                wifiIsSet.edit().clear();
-                                                                wifiSwitch.setChecked(false);
-                                                                wifiIsSet.edit().putBoolean("wifi",false).commit();
-                                                            }
+        wifiSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
-                                                        }
-                                                    }
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    wifiIsSet.edit().clear();
+                    wifiSwitch.setChecked(true);
+                    wifiIsSet.edit().putBoolean("wifi",true).commit();
+                                                            }
+                else {
+                    wifiIsSet.edit().clear();
+                    wifiSwitch.setChecked(false);
+                    wifiIsSet.edit().putBoolean("wifi",false).commit();
+                }
+            }}
         );
 
     }

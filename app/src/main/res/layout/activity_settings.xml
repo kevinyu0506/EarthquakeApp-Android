@@ -263,7 +263,7 @@
             android:id="@+id/wifi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Wifi"
+            android:text="Charge"
             android:textSize="16dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
@@ -277,7 +277,7 @@
             android:id="@+id/chargeMode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Charge\n mode"
+            android:text="Wifi"
             android:textSize="16dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
@@ -293,17 +293,16 @@
             android:id="@+id/wifiSwitch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/wifi"
-            android:layout_alignBottom="@+id/wifi"
-            android:layout_alignParentRight="true"
+            android:layout_alignBaseline="@+id/chargeMode"
+            android:layout_alignBottom="@+id/chargeMode"
             android:layout_alignParentEnd="true" />
 
         <Switch
             android:id="@+id/chargeModeSwitch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/chargeMode"
-            android:layout_alignParentRight="true"
+            android:layout_alignBaseline="@+id/wifi"
+            android:layout_alignBottom="@+id/wifi"
             android:layout_alignParentEnd="true" />
 
 

@@ -33,6 +33,9 @@
         app:layout_constraintLeft_toLeftOf="parent" />
 
 
+
+
+
     <RelativeLayout
         android:layout_width="300dp"
         android:layout_height="490dp"
@@ -51,7 +54,8 @@
             android:layout_marginTop="10dp"
             android:background="@drawable/info_inner"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            android:id="@+id/relativeLayout3">
 
         </RelativeLayout>
 
