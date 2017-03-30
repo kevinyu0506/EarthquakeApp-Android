@@ -3,9 +3,7 @@ package tw.edu.bpmlab.mis.nccu.earthquakeapp;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
-import android.nfc.tech.NfcBarcode;
 import android.os.Bundle;
-import android.os.RemoteException;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
@@ -14,7 +12,6 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -34,7 +31,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
-
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
     private GoogleMap mMap;
     private String typeLocation;
@@ -50,23 +46,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-
-
-
         final ImageButton alert = (ImageButton) findViewById(R.id.alarmButton);
         final ImageButton settings = (ImageButton) findViewById(R.id.settingButton);
-        final EditText typeLocationField = (EditText) findViewById(R.id.typelocation);
-        final Button searchLocation = (Button) findViewById(R.id.search_button);
-        searchLocation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                typeLocation = typeLocationField.getText().toString();
-                addMarkerOnMap(typeLocation);
-            }
-        });
-
-
-
         alert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,8 +55,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     case R.id.alarmButton:
                         Intent intent = new Intent(MapsActivity.this, alert.class);
                         startActivity(intent);
-////                        overridePendingTransition(R.anim.slide_rightin, R.anim.slide_leftout);
-//                        overridePendingTransition(0, 0);
                         break;
                 }
             }
@@ -87,13 +66,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     case R.id.settingButton:
                         Intent intent = new Intent(MapsActivity.this, settings.class);
                         startActivity(intent);
-////                        overridePendingTransition(R.anim.slide_rightin, R.anim.slide_leftout);
-//                        overridePendingTransition(0, 0);
                         break;
                 }
             }
         });
+
+        final EditText typeLocationField = (EditText) findViewById(R.id.typelocation);
+        final Button searchLocation = (Button) findViewById(R.id.search_button);
+        searchLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                typeLocation = typeLocationField.getText().toString();
+                addMarkerOnMap(typeLocation);
+            }
+        });
     }
+
     public void addMarkerOnMap(String string){
         Geocoder coder = new Geocoder(this);
         List<Address> addresses=new List<Address>() {
@@ -241,8 +229,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        boolean success = mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(
-                this, R.raw.style_json));
+        boolean success = mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.style_json));
         addMarkerOnMap("政治大學");
 
         // Add a marker in Sydney, Australia, and move the camera.
