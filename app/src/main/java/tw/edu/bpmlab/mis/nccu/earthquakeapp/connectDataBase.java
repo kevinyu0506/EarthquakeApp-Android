@@ -13,7 +13,7 @@ public class connectDataBase {
     private static final String USER = "willy";
     private static final String PASS = "Password123";
 
-    public Connection CONN(){
+    public static Connection CONN(){
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
                 .permitAll().build();
         StrictMode.setThreadPolicy(policy);
