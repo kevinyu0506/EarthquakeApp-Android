@@ -42,6 +42,8 @@ public class alert extends AppCompatActivity implements SensorEventListener {
 
     protected TextView countDown;
     protected ProgressBar countDownBar;
+    protected int setCountDownTime;
+    protected long timeUntilFinish;
 
     private SensorManager aSensorManager;
     private Sensor aSensor;
@@ -153,7 +155,8 @@ public class alert extends AppCompatActivity implements SensorEventListener {
 
         countDown = (TextView) findViewById(R.id.countDown);
 
-        new CountDownTimer(70000, 1000) {
+        setCountDownTime = (int)(Math.random()*10+1)*10000;
+        new CountDownTimer(setCountDownTime, 1000) {
 
             @Override
             public void onFinish() {
@@ -162,6 +165,8 @@ public class alert extends AppCompatActivity implements SensorEventListener {
 
             @Override
             public void onTick(long millisUntilFinished) {
+
+                timeUntilFinish = millisUntilFinished;
 
                 if (millisUntilFinished / 1000 % 60 > 10) {
                     countDown.setText("0" + String.valueOf(millisUntilFinished / 60000) + ":" + String.valueOf(millisUntilFinished / 1000 % 60));
@@ -177,17 +182,31 @@ public class alert extends AppCompatActivity implements SensorEventListener {
     //countDownBar
     public void setCountDownBar() {
 
-        int progress = 0;
-
         countDownBar = (ProgressBar) findViewById(R.id.countDownBar);
-        countDownBar.setProgress(progress);
         countDownBar.setVisibility(View.VISIBLE);
-        new Thread(new Runnable() {
+
+        countDownBar.setProgress(100);
+
+
+        final Thread t = new Thread() {
             @Override
             public void run() {
+                int progress = 100;
 
+                while(progress > 0) {
+                    try {
+                        progress -= 100/(setCountDownTime/1000);
+                        countDownBar.setProgress(progress);
+                        sleep(100);
+                    } catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
             }
-        });
+        };
+        t.start();
+
 
     }
 
