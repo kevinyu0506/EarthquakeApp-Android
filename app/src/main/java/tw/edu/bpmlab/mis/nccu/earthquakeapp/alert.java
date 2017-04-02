@@ -155,7 +155,7 @@ public class alert extends AppCompatActivity implements SensorEventListener {
 
         countDown = (TextView) findViewById(R.id.countDown);
 
-        setCountDownTime = (int)(Math.random()*10+1)*10000;
+        setCountDownTime = (int) (Math.random() * 10 + 1) * 10000;
         new CountDownTimer(setCountDownTime, 1000) {
 
             @Override
@@ -168,7 +168,7 @@ public class alert extends AppCompatActivity implements SensorEventListener {
 
                 timeUntilFinish = millisUntilFinished;
 
-                if (millisUntilFinished / 1000 % 60 > 10) {
+                if (millisUntilFinished / 1000 % 60 >= 10) {
                     countDown.setText("0" + String.valueOf(millisUntilFinished / 60000) + ":" + String.valueOf(millisUntilFinished / 1000 % 60));
                 } else {
                     countDown.setText("0" + String.valueOf(millisUntilFinished / 60000) + ":0" + String.valueOf(millisUntilFinished / 1000 % 60));
@@ -187,7 +187,7 @@ public class alert extends AppCompatActivity implements SensorEventListener {
 
         countDownBar.setProgress(100);
 
-
+//        final int totalProgressTime = setCountDownTime;
         final Thread t = new Thread() {
             @Override
             public void run() {
@@ -195,9 +195,9 @@ public class alert extends AppCompatActivity implements SensorEventListener {
 
                 while(progress > 0) {
                     try {
-                        progress -= 100/(setCountDownTime/1000);
                         countDownBar.setProgress(progress);
                         sleep(100);
+                        progress = progress -  100/(90000/100);
                     } catch (InterruptedException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
