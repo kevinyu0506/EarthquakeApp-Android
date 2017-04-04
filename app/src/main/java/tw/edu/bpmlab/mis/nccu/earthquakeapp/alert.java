@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.*;
@@ -51,6 +52,7 @@ public class alert extends AppCompatActivity implements SensorEventListener {
 //    private double eqGal;
 
     public TextView level;
+    public TextView levelDescribe;
 
 
     @Override
@@ -92,6 +94,7 @@ public class alert extends AppCompatActivity implements SensorEventListener {
         setCountDownBar();
         sensor();
         getMagnitude();
+        levelDescribe();
 
 
     }
@@ -193,16 +196,19 @@ public class alert extends AppCompatActivity implements SensorEventListener {
             public void run() {
                 int progress = 100;
 
-                while(progress > 0) {
+                while (progress > 0) {
                     try {
                         countDownBar.setProgress(progress);
                         sleep(100);
-                        progress = progress -  100/(90000/100);
+                        progress = progress - 100 / (setCountDownTime / 100);
+                        Log.d("1", Integer.toString(progress));
                     } catch (InterruptedException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
                 }
+                countDownBar.setProgress(0);
+
             }
         };
         t.start();
@@ -248,6 +254,27 @@ public class alert extends AppCompatActivity implements SensorEventListener {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void levelDescribe(){
+        String levelString = level.toString();
+        int levelInt = Integer.parseInt(levelString);
+
+        levelDescribe = (TextView) findViewById(R.id.levelDescribe);
+        if((levelInt) >= 0&& levelInt <= 2){
+            levelDescribe.setText("Light");
+
+        }if((levelInt) >= 3&& levelInt <= 4){
+            levelDescribe.setText("Medium");
+
+        }if((levelInt) >= 5&& levelInt <= 7){
+            levelDescribe.setText("Severe");
+
+        }
+
+
+
+
     }
 
 
