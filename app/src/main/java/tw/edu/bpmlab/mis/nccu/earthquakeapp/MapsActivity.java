@@ -20,6 +20,8 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -85,6 +87,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void addMarkerOnMap(String string){
         Geocoder coder = new Geocoder(this);
         List<Address> addresses=new List<Address>() {
+
             @Override
             public int size() {
                 return 0;
@@ -218,8 +221,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         double lng = location.getLongitude();
         Log.i("Lat", "" + lat);
         Log.i("Lng", "" + lng);
+        BitmapDescriptor icon = BitmapDescriptorFactory.fromResource(R.drawable.spot);
         LatLng latLng = new LatLng(lat, lng);
-        MarkerOptions markerOptions = new MarkerOptions().position(latLng);
+        MarkerOptions markerOptions = new MarkerOptions().position(latLng)
+                .title("Current Location")
+                .snippet("Thinking of finding some thing...")
+                .icon(icon);
         mMap.addMarker(markerOptions);
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 12));
     }
