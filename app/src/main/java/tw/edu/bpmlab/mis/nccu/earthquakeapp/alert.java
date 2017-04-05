@@ -55,6 +55,7 @@ public class alert extends AppCompatActivity implements SensorEventListener {
     public TextView levelDescribe;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -237,13 +238,15 @@ public class alert extends AppCompatActivity implements SensorEventListener {
 
     }
 
+
+    static connectDataBase connectDataBase = new connectDataBase();
     public void getMagnitude() {
 
         level = (TextView) findViewById(R.id.level);
 
-        Connection conn = connectDataBase.CONN();
 
         try {
+            Connection conn = connectDataBase.CONN();
             String query = "select accelerationz from datatemp where datetime = 2017/3/30";
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(query);
@@ -262,13 +265,13 @@ public class alert extends AppCompatActivity implements SensorEventListener {
 //        int levelInt = Integer.parseInt(levelString);
 //
 //        levelDescribe = (TextView) findViewById(R.id.levelDescribe);
-//        if((levelInt) >= 0&& levelInt <= 2){
+//        if((levelInt) >= 0 && levelInt <= 2){
 //            levelDescribe.setText("Light");
 //
-//        }if((levelInt) >= 3&& levelInt <= 4){
+//        }if((levelInt) >= 3 && levelInt <= 4){
 //            levelDescribe.setText("Medium");
 //
-//        }if((levelInt) >= 5&& levelInt <= 7){
+//        }if((levelInt) >= 5 && levelInt <= 7){
 //            levelDescribe.setText("Severe");
 //
 //        }
