@@ -94,7 +94,7 @@ public class alert extends AppCompatActivity implements SensorEventListener {
         setCountDownBar();
         sensor();
         getMagnitude();
-        levelDescribe();
+//        levelDescribe();
 
 
     }
@@ -200,8 +200,9 @@ public class alert extends AppCompatActivity implements SensorEventListener {
                     try {
                         countDownBar.setProgress(progress);
                         sleep(100);
-                        progress = progress - 100 / (setCountDownTime / 100);
-                        Log.d("1", Integer.toString(progress));
+//                        progress = progress - 5;
+                        progress = progress - (100 / (setCountDownTime / 100));
+//                        Log.d("1", Integer.toString(progress));
                     } catch (InterruptedException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
@@ -256,26 +257,26 @@ public class alert extends AppCompatActivity implements SensorEventListener {
         }
     }
 
-    public void levelDescribe(){
-        String levelString = level.toString();
-        int levelInt = Integer.parseInt(levelString);
-
-        levelDescribe = (TextView) findViewById(R.id.levelDescribe);
-        if((levelInt) >= 0&& levelInt <= 2){
-            levelDescribe.setText("Light");
-
-        }if((levelInt) >= 3&& levelInt <= 4){
-            levelDescribe.setText("Medium");
-
-        }if((levelInt) >= 5&& levelInt <= 7){
-            levelDescribe.setText("Severe");
-
-        }
-
-
-
-
-    }
+//    public void levelDescribe(){
+//        String levelString = level.toString();
+//        int levelInt = Integer.parseInt(levelString);
+//
+//        levelDescribe = (TextView) findViewById(R.id.levelDescribe);
+//        if((levelInt) >= 0&& levelInt <= 2){
+//            levelDescribe.setText("Light");
+//
+//        }if((levelInt) >= 3&& levelInt <= 4){
+//            levelDescribe.setText("Medium");
+//
+//        }if((levelInt) >= 5&& levelInt <= 7){
+//            levelDescribe.setText("Severe");
+//
+//        }
+//
+//
+//
+//
+//    }
 
 
 }
