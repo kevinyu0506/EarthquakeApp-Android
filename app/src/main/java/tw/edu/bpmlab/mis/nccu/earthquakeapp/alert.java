@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.*;
@@ -42,6 +43,8 @@ public class alert extends AppCompatActivity implements SensorEventListener {
 
     protected TextView countDown;
     protected ProgressBar countDownBar;
+    protected int setCountDownTime;
+    protected long timeUntilFinish;
 
     private SensorManager aSensorManager;
     private Sensor aSensor;
@@ -49,6 +52,8 @@ public class alert extends AppCompatActivity implements SensorEventListener {
 //    private double eqGal;
 
     public TextView level;
+    public TextView levelDescribe;
+
 
 
     @Override
@@ -90,6 +95,7 @@ public class alert extends AppCompatActivity implements SensorEventListener {
         setCountDownBar();
         sensor();
         getMagnitude();
+//        levelDescribe();
 
 
     }
@@ -153,7 +159,8 @@ public class alert extends AppCompatActivity implements SensorEventListener {
 
         countDown = (TextView) findViewById(R.id.countDown);
 
-        new CountDownTimer(70000, 1000) {
+        setCountDownTime = (int) (Math.random() * 10 + 1) * 10000;
+        new CountDownTimer(setCountDownTime, 1000) {
 
             @Override
             public void onFinish() {
@@ -163,7 +170,9 @@ public class alert extends AppCompatActivity implements SensorEventListener {
             @Override
             public void onTick(long millisUntilFinished) {
 
-                if (millisUntilFinished / 1000 % 60 > 10) {
+                timeUntilFinish = millisUntilFinished;
+
+                if (millisUntilFinished / 1000 % 60 >= 10) {
                     countDown.setText("0" + String.valueOf(millisUntilFinished / 60000) + ":" + String.valueOf(millisUntilFinished / 1000 % 60));
                 } else {
                     countDown.setText("0" + String.valueOf(millisUntilFinished / 60000) + ":0" + String.valueOf(millisUntilFinished / 1000 % 60));
@@ -177,17 +186,35 @@ public class alert extends AppCompatActivity implements SensorEventListener {
     //countDownBar
     public void setCountDownBar() {
 
-        int progress = 0;
-
         countDownBar = (ProgressBar) findViewById(R.id.countDownBar);
-        countDownBar.setProgress(progress);
         countDownBar.setVisibility(View.VISIBLE);
-        new Thread(new Runnable() {
+
+        countDownBar.setProgress(100);
+
+//        final int totalProgressTime = setCountDownTime;
+        final Thread t = new Thread() {
             @Override
             public void run() {
+                int progress = 100;
+
+                while (progress > 0) {
+                    try {
+                        countDownBar.setProgress(progress);
+                        sleep(100);
+//                        progress = progress - 5;
+                        progress = progress - (100 / (setCountDownTime / 100));
+//                        Log.d("1", Integer.toString(progress));
+                    } catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                }
+                countDownBar.setProgress(0);
 
             }
-        });
+        };
+        t.start();
+
 
     }
 
@@ -211,13 +238,15 @@ public class alert extends AppCompatActivity implements SensorEventListener {
 
     }
 
+
+    static connectDataBase connectDataBase = new connectDataBase();
     public void getMagnitude() {
 
         level = (TextView) findViewById(R.id.level);
 
-        Connection conn = connectDataBase.CONN();
 
         try {
+            Connection conn = connectDataBase.CONN();
             String query = "select accelerationz from datatemp where datetime = 2017/3/30";
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(query);
@@ -230,6 +259,27 @@ public class alert extends AppCompatActivity implements SensorEventListener {
             e.printStackTrace();
         }
     }
+
+//    public void levelDescribe(){
+//        String levelString = level.toString();
+//        int levelInt = Integer.parseInt(levelString);
+//
+//        levelDescribe = (TextView) findViewById(R.id.levelDescribe);
+//        if((levelInt) >= 0 && levelInt <= 2){
+//            levelDescribe.setText("Light");
+//
+//        }if((levelInt) >= 3 && levelInt <= 4){
+//            levelDescribe.setText("Medium");
+//
+//        }if((levelInt) >= 5 && levelInt <= 7){
+//            levelDescribe.setText("Severe");
+//
+//        }
+//
+//
+//
+//
+//    }
 
 
 }

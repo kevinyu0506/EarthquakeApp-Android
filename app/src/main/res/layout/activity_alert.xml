@@ -92,7 +92,6 @@
                 android:layout_height="4dp"
                 android:layout_below="@+id/countDown"
                 android:layout_centerHorizontal="true"
-                android:progress="100"
                 android:progressDrawable="@drawable/countdownbar"/>
 
 
