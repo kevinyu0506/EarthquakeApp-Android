@@ -1,6 +1,7 @@
 package tw.edu.bpmlab.mis.nccu.earthquakeapp;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -95,7 +96,6 @@ public class alert extends AppCompatActivity implements SensorEventListener {
         setCountDownBar();
         sensor();
         getMagnitude();
-//        levelDescribe();
 
 
     }
@@ -243,43 +243,41 @@ public class alert extends AppCompatActivity implements SensorEventListener {
     public void getMagnitude() {
 
         level = (TextView) findViewById(R.id.level);
+        levelDescribe = (TextView) findViewById(R.id.levelDescribe);
 
 
         try {
             Connection conn = connectDataBase.CONN();
-            String query = "select accelerationz from datatemp where datetime = 2017/3/30";
+            String query = "select accelerationz from datatemp where productid = 5";
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(query);
 //            ResultSetMetaData rsmd = rs.getMetaData();
 
             while (rs.next()) {
                 level.setText(rs.getString("accelerationz"));
+                System.out.print(rs.getFloat("accelerationz"));
+                if(rs.getFloat("accelerationz") <= 2){
+                    levelDescribe.setText("LIGHT");
+                    levelDescribe.setTextColor(Color.rgb(92, 201, 255));
+                    level.setTextColor(Color.rgb(92, 201, 255));
+
+                }else if(rs.getFloat("accelerationz") >= 3 && rs.getFloat("accelerationz") <= 4){
+                    levelDescribe.setText("MEDIUM");
+                    levelDescribe.setTextColor(Color.rgb(255, 209, 5));
+                    level.setTextColor(Color.rgb(255, 209, 5));
+
+                }else if(rs.getFloat("accelerationz") >= 5){
+                    levelDescribe.setText("SEVERE");
+                    levelDescribe.setTextColor(Color.rgb(235, 61, 125));
+                    level.setTextColor(Color.rgb(235, 61, 125));
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-//    public void levelDescribe(){
-//        String levelString = level.toString();
-//        int levelInt = Integer.parseInt(levelString);
-//
-//        levelDescribe = (TextView) findViewById(R.id.levelDescribe);
-//        if((levelInt) >= 0 && levelInt <= 2){
-//            levelDescribe.setText("Light");
-//
-//        }if((levelInt) >= 3 && levelInt <= 4){
-//            levelDescribe.setText("Medium");
-//
-//        }if((levelInt) >= 5 && levelInt <= 7){
-//            levelDescribe.setText("Severe");
-//
-//        }
-//
-//
-//
-//
-//    }
+
 
 
 }

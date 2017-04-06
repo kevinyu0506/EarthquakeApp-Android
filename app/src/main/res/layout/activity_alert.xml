@@ -43,9 +43,9 @@
             android:id="@+id/relativeLayoutTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
+            android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true">
+            android:layout_marginTop="18dp">
 
             <ImageView
                 android:id="@+id/timeframeshadow"
@@ -92,7 +92,7 @@
                 android:layout_height="4dp"
                 android:layout_below="@+id/countDown"
                 android:layout_centerHorizontal="true"
-                android:progressDrawable="@drawable/countdownbar"/>
+                android:progressDrawable="@drawable/countdownbar" />
 
 
         </RelativeLayout>
@@ -152,7 +152,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="24dp"
                     android:layout_marginTop="123dp"
-                    android:text="LIGHT"
                     android:textColor="#5cc8ff"
                     android:textSize="12dp" />
 
@@ -160,7 +159,7 @@
                     android:id="@+id/level"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="69.5dp"
+                    android:layout_marginLeft="80dp"
                     android:layout_marginTop="113.5dp"
                     android:text="2"
                     android:textColor="#5cc8ff"
@@ -216,15 +215,15 @@
 
 
     <ImageButton
-    android:id="@+id/map"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_alignParentBottom="true"
-    android:layout_alignParentStart="true"
-    android:layout_marginBottom="30dp"
-    android:layout_marginLeft="60dp"
+        android:id="@+id/map"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="30dp"
+        android:layout_marginLeft="60dp"
         android:background="#00000000"
-    android:src="@drawable/map" />
+        android:src="@drawable/map" />
 
     <ImageView
         android:id="@+id/alert"
@@ -240,11 +239,11 @@
         android:id="@+id/settingsButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/alertsettings"
-        android:background="#00000000"
-        android:layout_alignTop="@+id/map"
         android:layout_alignEnd="@+id/relativeLayoutFirst"
-        android:layout_marginEnd="17dp" />
+        android:layout_alignTop="@+id/map"
+        android:layout_marginEnd="17dp"
+        android:background="#00000000"
+        android:src="@drawable/alertsettings" />
 
     <ImageView
         android:id="@+id/inuse"
@@ -253,8 +252,6 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:src="@drawable/inuse" />
-
-
 
 
 </RelativeLayout>
