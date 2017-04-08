@@ -1,0 +1,181 @@
+{
+  "type": "FeatureCollection",
+  "metadata": {
+    "generated": 1491651585000,
+    "url": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_month.geojson",
+    "title": "USGS Magnitude 2.5+ Earthquakes, Past Month",
+    "status": 200,
+    "api": "1.5.7",
+    "count": 1335
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 2.6,
+        "place": "11km NNW of Caldwell, Kansas",
+        "time": 1491647680890,
+        "updated": 1491648542040,
+        "tz": -360,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us10008ftl",
+        "detail": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/detail/us10008ftl.geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 104,
+        "net": "us",
+        "code": "10008ftl",
+        "ids": ",us10008ftl,",
+        "sources": ",us,",
+        "types": ",geoserve,origin,phase-data,",
+        "nst": null,
+        "dmin": 0.044,
+        "rms": 0.21,
+        "gap": 53,
+        "magType": "mb_lg",
+        "type": "earthquake",
+        "title": "M 2.6 - 11km NNW of Caldwell, Kansas"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -97.672,
+          37.1241,
+          5
+        ]
+      },
+      "id": "us10008ftl"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 2.97,
+        "place": "6km SE of Tijuana, B.C., MX",
+        "time": 1491646865280,
+        "updated": 1491650897626,
+        "tz": -480,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/ci37851960",
+        "detail": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/detail/ci37851960.geojson",
+        "felt": 30,
+        "cdi": 4.1,
+        "mmi": 4.06,
+        "alert": null,
+        "status": "automatic",
+        "tsunami": 0,
+        "sig": 148,
+        "net": "ci",
+        "code": "37851960",
+        "ids": ",ci37851960,",
+        "sources": ",ci,",
+        "types": ",dyfi,focal-mechanism,geoserve,nearby-cities,origin,phase-data,scitech-link,shakemap,",
+        "nst": 66,
+        "dmin": 0.07265,
+        "rms": 0.22,
+        "gap": 121,
+        "magType": "ml",
+        "type": "earthquake",
+        "title": "M 3.0 - 6km SE of Tijuana, B.C., MX"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -116.9690018,
+          32.5009995,
+          10.16
+        ]
+      },
+      "id": "ci37851960"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 4.8,
+        "place": "106km SSE of Pondaguitan, Philippines",
+        "time": 1491646561640,
+        "updated": 1491647583040,
+        "tz": 480,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us10008ftg",
+        "detail": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/detail/us10008ftg.geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 354,
+        "net": "us",
+        "code": "10008ftg",
+        "ids": ",us10008ftg,",
+        "sources": ",us,",
+        "types": ",geoserve,origin,phase-data,",
+        "nst": null,
+        "dmin": 1.846,
+        "rms": 1.12,
+        "gap": 76,
+        "magType": "mb",
+        "type": "earthquake",
+        "title": "M 4.8 - 106km SSE of Pondaguitan, Philippines"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.4953,
+          5.4528,
+          134.46
+        ]
+      },
+      "id": "us10008ftg"
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "mag": 4.4,
+        "place": "89km WSW of Masachapa, Nicaragua",
+        "time": 1491645888700,
+        "updated": 1491647897040,
+        "tz": -360,
+        "url": "https://earthquake.usgs.gov/earthquakes/eventpage/us10008fte",
+        "detail": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/detail/us10008fte.geojson",
+        "felt": null,
+        "cdi": null,
+        "mmi": null,
+        "alert": null,
+        "status": "reviewed",
+        "tsunami": 0,
+        "sig": 298,
+        "net": "us",
+        "code": "10008fte",
+        "ids": ",us10008fte,",
+        "sources": ",us,",
+        "types": ",geoserve,origin,phase-data,",
+        "nst": null,
+        "dmin": 1.128,
+        "rms": 0.69,
+        "gap": 166,
+        "magType": "mb",
+        "type": "earthquake",
+        "title": "M 4.4 - 89km WSW of Masachapa, Nicaragua"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -87.288,
+          11.5243,
+          35
+        ]
+      },
+      "id": "us10008fte"
+    }
+  ],
+  "bbox": [
+    -179.9169,
+    -64.3879,
+    -1.66,
+    179.9396,
+    84.9861,
+    595.95
+  ]
+}

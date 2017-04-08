@@ -96,6 +96,7 @@
         </RelativeLayout>
     </RelativeLayout>
     <ImageButton
+        android:id="@+id/currentLocation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/gps_location_symbol"
