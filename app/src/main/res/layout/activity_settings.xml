@@ -123,8 +123,13 @@
                 android:layout_marginLeft="121dp"
                 android:id="@+id/button3">
 
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:alpha="0"
+                    android:id="@+id/mag3"/>
 
-                <ImageButton
+                <ImageView
                     android:id="@+id/magnitude3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -142,8 +147,13 @@
                 android:layout_marginLeft="16.5dp"
                 android:id="@+id/button4">
 
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:alpha="0"
+                    android:id="@+id/mag4"/>
 
-                <ImageButton
+                <ImageView
                     android:id="@+id/magnitude4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -161,8 +171,13 @@
                 android:layout_marginLeft="16.5dp"
                 android:id="@+id/button5">
 
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:alpha="0"
+                    android:id="@+id/mag5"/>
 
-                <ImageButton
+                <ImageView
                     android:id="@+id/magnitude5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -180,8 +195,13 @@
                 android:layout_marginLeft="16.5dp"
                 android:id="@+id/button6">
 
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:alpha="0"
+                    android:id="@+id/mag6"/>
 
-                <ImageButton
+                <ImageView
                     android:id="@+id/magnitude6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -296,7 +316,7 @@
             android:layout_alignParentStart="true"
             android:layout_marginLeft="15dp"
             android:layout_marginStart="15dp"
-            android:layout_marginTop="96.61dp"
+            android:layout_marginTop="98.77dp"
             android:textColor="#4Dffffff"
             android:layout_toStartOf="@+id/chargeModeSwitch"
             android:layout_alignEnd="@+id/status" />

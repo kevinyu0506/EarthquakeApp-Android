@@ -19,6 +19,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Switch;
 
 import static android.media.AudioManager.RINGER_MODE_NORMAL;
@@ -232,10 +233,15 @@ public class settings extends AppCompatActivity {
 
 
 
-        final ImageButton magnitude3 = (ImageButton) findViewById(R.id.magnitude3);
-        final ImageButton magnitude4 = (ImageButton) findViewById(R.id.magnitude4);
-        final ImageButton magnitude5 = (ImageButton) findViewById(R.id.magnitude5);
-        final ImageButton magnitude6 = (ImageButton) findViewById(R.id.magnitude6);
+        final Button mag3 = (Button) findViewById(R.id.mag3);
+        final Button mag4 = (Button) findViewById(R.id.mag4);
+        final Button mag5 = (Button) findViewById(R.id.mag5);
+        final Button mag6 = (Button) findViewById(R.id.mag6);
+
+        final ImageView magnitude3 = (ImageView) findViewById(R.id.magnitude3);
+        final ImageView magnitude4 = (ImageView) findViewById(R.id.magnitude4);
+        final ImageView magnitude5 = (ImageView) findViewById(R.id.magnitude5);
+        final ImageView magnitude6 = (ImageView) findViewById(R.id.magnitude6);
 
         final SharedPreferences magnitude= getSharedPreferences("magnitude", 0);
         int magnitudevalue = magnitude.getInt("btnChecked",0);
@@ -273,7 +279,7 @@ public class settings extends AppCompatActivity {
                 break;
 
     }
-        magnitude3.setOnClickListener(new View.OnClickListener() {
+        mag3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     magnitude.edit().clear();
@@ -285,7 +291,7 @@ public class settings extends AppCompatActivity {
                 }
             });
 
-        magnitude4.setOnClickListener(new View.OnClickListener() {
+        mag4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 magnitude.edit().clear();
@@ -297,7 +303,7 @@ public class settings extends AppCompatActivity {
             }
         });
 
-        magnitude5.setOnClickListener(new View.OnClickListener() {
+        mag5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 magnitude.edit().clear();
@@ -309,7 +315,7 @@ public class settings extends AppCompatActivity {
             }
         });
 
-        magnitude6.setOnClickListener(new View.OnClickListener() {
+        mag6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 magnitude.edit().clear();
