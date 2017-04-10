@@ -84,22 +84,9 @@
             android:layout_alignBaseline="@+id/ringtone"
             android:layout_alignBottom="@+id/ringtone"
             android:layout_alignParentEnd="true"
-            android:layout_alignStart="@+id/viberation" />
+            android:layout_toEndOf="@+id/alarmSwitch"
+            android:layout_alignStart="@+id/alarmSwitch" />
 
-
-        <TextView
-            android:id="@+id/viberation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Viberation"
-            android:textSize="16dp"
-            android:layout_marginLeft="154.5dp"
-            android:layout_marginStart="154.5dp"
-            android:layout_marginTop="58.61dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:textColor="#4Dffffff"/>
 
         <ImageView
             android:id="@+id/ringtoneArrow"
@@ -116,27 +103,114 @@
             android:id="@+id/alarmSwitch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/alarm"
             android:layout_alignBottom="@+id/alarm"
             android:layout_toRightOf="@+id/alarm"
-            android:layout_marginLeft="50dp"
-            android:layout_marginStart="50dp" />
-
-        <Switch
-            android:id="@+id/viberationSwitch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/viberation"
-            android:layout_alignBottom="@+id/viberation"
-            android:layout_alignRight="@+id/ringtoneArrow"
-            android:layout_alignEnd="@+id/ringtoneArrow" />
+            android:layout_marginLeft="190dp"
+            android:layout_marginStart="190dp"
+            android:layout_alignTop="@+id/alarm" />
 
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="76dp"
             android:layout_alignParentEnd="true"
             android:layout_below="@+id/ringtoneButton">
+
+
+            <RelativeLayout
+                android:layout_width="28dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="121dp"
+                android:id="@+id/button3">
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:alpha="0"
+                    android:id="@+id/mag3"/>
+
+                <ImageView
+                    android:id="@+id/magnitude3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#00000000"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="28dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/button3"
+                android:layout_marginLeft="16.5dp"
+                android:id="@+id/button4">
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:alpha="0"
+                    android:id="@+id/mag4"/>
+
+                <ImageView
+                    android:id="@+id/magnitude4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#00000000"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="28dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/button4"
+                android:layout_marginLeft="16.5dp"
+                android:id="@+id/button5">
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:alpha="0"
+                    android:id="@+id/mag5"/>
+
+                <ImageView
+                    android:id="@+id/magnitude5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#00000000"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="28dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/button5"
+                android:layout_marginLeft="16.5dp"
+                android:id="@+id/button6">
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:alpha="0"
+                    android:id="@+id/mag6"/>
+
+                <ImageView
+                    android:id="@+id/magnitude6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#00000000"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true"/>
+
+            </RelativeLayout>
+
 
             <TextView
                 android:id="@+id/magnitude"
@@ -146,56 +220,13 @@
                 android:textSize="16dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginStart="15dp"
-                android:layout_marginTop="18dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:textColor="#4Dffffff"/>
-
-            <ImageButton
-                android:id="@+id/magnitude3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="#00000000"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/magnitude"
-                android:layout_marginLeft="40dp"/>
-            app:srcCompat="@drawable/magnitude_3"
-
-
-            <ImageButton
-                android:id="@+id/magnitude4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="#00000000"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/magnitude3"
-                android:layout_marginLeft="35dp"/>
-            app:srcCompat="@drawable/magnitude_4"
-
-
-            <ImageButton
-                android:id="@+id/magnitude5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="#00000000"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/magnitude4"
-                android:layout_marginLeft="35dp"/>
-            app:srcCompat="@drawable/magnitude_5"
-
-
-            <ImageButton
-                android:id="@+id/magnitude6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="#00000000"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/magnitude5"
-                android:layout_marginLeft="35dp"/>
+                android:textColor="#4Dffffff"
+                android:layout_centerVertical="true"/>
 
 
         </RelativeLayout>
-        app:srcCompat="@drawable/magnitude_6"
 
 
 
@@ -205,11 +236,11 @@
         android:id="@+id/gpsLayout"
         android:layout_width="150dp"
         android:layout_height="40dp"
-        android:layout_marginTop="317dp"
         android:layout_marginLeft="26dp"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:background="@drawable/gps_frame">
+        android:background="@drawable/gps_frame"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="317dp">
 
         <TextView
             android:id="@+id/GPS"
@@ -229,9 +260,10 @@
             android:id="@+id/gpsSwitch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentEnd="true"
+            android:layout_alignBottom="@+id/GPS"
+            android:layout_alignTop="@+id/GPS" />
 
     </RelativeLayout>
 
@@ -284,7 +316,7 @@
             android:layout_alignParentStart="true"
             android:layout_marginLeft="15dp"
             android:layout_marginStart="15dp"
-            android:layout_marginTop="96.61dp"
+            android:layout_marginTop="98.77dp"
             android:textColor="#4Dffffff"
             android:layout_toStartOf="@+id/chargeModeSwitch"
             android:layout_alignEnd="@+id/status" />
@@ -293,17 +325,16 @@
             android:id="@+id/wifiSwitch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/chargeMode"
-            android:layout_alignBottom="@+id/chargeMode"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentEnd="true"
+            android:layout_alignBottom="@+id/chargeMode" />
 
         <Switch
             android:id="@+id/chargeModeSwitch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBaseline="@+id/wifi"
             android:layout_alignBottom="@+id/wifi"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@+id/wifi" />
 
 
     </RelativeLayout>

@@ -73,6 +73,7 @@
             </RelativeLayout>
 
         </RelativeLayout>
+
         <Button
             android:id="@+id/start"
             android:text="START"
@@ -85,7 +86,6 @@
             android:background="@drawable/start_bar"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="470dp" />
-
 
     </RelativeLayout>
 
