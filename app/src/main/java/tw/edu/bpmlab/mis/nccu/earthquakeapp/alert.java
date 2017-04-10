@@ -177,11 +177,11 @@ public class alert extends AppCompatActivity implements SensorEventListener, Loc
         setCountDownTime = (int) (Math.random() * 10 + 1) * 10000;
 //        setCountDownTime = 9000;
 
-        new CountDownTimer(setCountDownTime, 1000) {
+        new CountDownTimer(setCountDownTime, 10) {
 
             @Override
             public void onFinish() {
-//                countDown.setText("00:00");
+                countDown.setText("00:00");
             }
 
             @Override
@@ -194,10 +194,10 @@ public class alert extends AppCompatActivity implements SensorEventListener, Loc
                 } else {
                     countDown.setText("0" + String.valueOf(millisUntilFinished / 60000) + ":0" + String.valueOf(millisUntilFinished / 1000 % 60));
                 }
-                if(millisUntilFinished == 0){
-                    countDown.setText("00:00");
-
-                }
+//                if(millisUntilFinished == 0){
+//                    countDown.setText("00:00");
+//
+//                }
 
             }
         }.start();
