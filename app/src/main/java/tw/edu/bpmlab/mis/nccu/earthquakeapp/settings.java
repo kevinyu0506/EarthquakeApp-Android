@@ -229,10 +229,6 @@ public class settings extends AppCompatActivity {
             }
 
         });
-//        RingtoneManager.setActualDefaultRingtoneUri(settings.this, RingtoneManager.TYPE_RINGTONE, currenturi);
-
-
-
 
 
 
