@@ -129,7 +129,7 @@
                     android:background="@drawable/magnitudeframe" />
 
                 <TextView
-                    android:id="@+id/magnitude"
+                    android:id="@+id/magnitudeTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="24dp"
@@ -180,7 +180,7 @@
                     android:background="@drawable/locationframe" />
 
                 <TextView
-                    android:id="@+id/location"
+                    android:id="@+id/locationTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="24dp"
@@ -198,12 +198,12 @@
                     android:background="@drawable/worldlocation" />
 
                 <TextView
-                    android:id="@+id/place"
+                    android:id="@+id/location"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="121dp"
-                    android:text="Taipei\nTaiwan"
+
                     android:textColor="#eb3b7d" />
             </RelativeLayout>
 
