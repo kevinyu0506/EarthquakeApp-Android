@@ -177,7 +177,8 @@ public class alert extends AppCompatActivity implements SensorEventListener, Loc
         setCountDownTime = (int) (Math.random() * 10 + 1) * 10000;
 //        setCountDownTime = 9000;
 
-        new CountDownTimer(setCountDownTime, 1000) {
+
+        new CountDownTimer(setCountDownTime, 10) {
 
             @Override
             public void onFinish() {
