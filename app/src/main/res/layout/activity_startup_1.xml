@@ -23,6 +23,12 @@
         android:layout_alignBottom="@+id/imageView"
         android:layout_centerHorizontal="true"
         app:srcCompat="@drawable/page3" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="570dp"
+        android:layout_centerVertical="true">
+
     <ImageView
         android:id="@+id/page1"
         android:layout_width="wrap_content"
@@ -66,12 +72,7 @@
         android:layout_marginTop="44dp" />
 
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+
 
 
         <RelativeLayout
@@ -105,23 +106,22 @@
 
         </RelativeLayout>
 
-
-
+        <Button
+            android:id="@+id/next"
+            android:background="@drawable/next_bar"
+            android:text="NEXT"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="470dp"
+            android:textSize="28dp"
+            android:textColor="#ffffff"
+            android:textAlignment="gravity"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="114dp"/>
 
     </RelativeLayout>
 
-    <Button
-        android:id="@+id/next"
-        android:background="@drawable/next_bar"
-        android:text="NEXT"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="470dp"
-        android:textSize="28dp"
-        android:textColor="#ffffff"
-        android:textAlignment="gravity"
-        android:gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="114dp"/>
+
 
 
 </RelativeLayout>
