@@ -11,11 +11,8 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
-import android.provider.Settings;
-import android.support.v4.content.res.TypedArrayUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.GestureDetector;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -24,13 +21,12 @@ import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.Switch;
 
-import java.sql.Array;
-
 import static android.media.AudioManager.RINGER_MODE_NORMAL;
 import static android.media.AudioManager.RINGER_MODE_SILENT;
 
 public class settings extends AppCompatActivity {
 
+    private static final int MY_PERMISSIONS_REQUEST_READ_CONTACTS = 100;
 
 
     @Override
@@ -107,17 +103,75 @@ public class settings extends AppCompatActivity {
 
         //紀錄viberation開關設定
 
+//        final AudioManager myAudioManager;
+//        myAudioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
+//
+//        final SharedPreferences vibrationIsSet = getSharedPreferences("vibration",0);
+//        boolean vibrate = vibrationIsSet.getBoolean("vibration",false);
+//        final Switch viberationSwitch = (Switch)findViewById(R.id.vibrationSwitch);
+//        vibrationIsSet.edit().clear().commit();
+//        viberationSwitch.setChecked(vibrate);
+//
+//
+//        viberationSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//
+//
+//                NotificationManager notificationManager =
+//                        (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+//
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
+//                        && !notificationManager.isNotificationPolicyAccessGranted()) {
+//
+//                    Intent intent = new Intent(
+//                            android.provider.Settings
+//                                    .ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
+//
+//                    startActivity(intent);
+//                }
+//
+//
+//                if (isChecked){
+//                    vibrationIsSet.edit().clear();
+//                    viberationSwitch.setChecked(true);
+//                    vibrationIsSet.edit().putBoolean("vibration",true).commit();
+//                    myAudioManager.setRingerMode(RINGER_MODE_NORMAL);
+//
+//                }
+//                else {
+//                    vibrationIsSet.edit().clear();
+//                    viberationSwitch.setChecked(false);
+//                    vibrationIsSet.edit().putBoolean("vibration",false).commit();
+//                    myAudioManager.setRingerMode(RINGER_MODE_SILENT);
+//
+//                }
+//            }
+//        });
+
+
+
+        //alarm開關設定
+
         final AudioManager myAudioManager;
         myAudioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
 
-        final SharedPreferences viberationIsSet = getSharedPreferences("viberation",0);
-        boolean viberate = viberationIsSet.getBoolean("viberation",false);
-        final Switch viberationSwitch = (Switch)findViewById(R.id.viberationSwitch);
-        viberationIsSet.edit().clear().commit();
-        viberationSwitch.setChecked(viberate);
+        final SharedPreferences alarmIsSet = getSharedPreferences("alarm",0);
+        boolean alarm = alarmIsSet.getBoolean("alarm",false);
+        final Switch alarmSwitch = (Switch)findViewById(R.id.alarmSwitch);
+        alarmIsSet.edit().clear().commit();
+        alarmSwitch.setChecked(alarm);
 
+        switch (myAudioManager.getRingerMode()) {
+            case AudioManager.RINGER_MODE_NORMAL:
+                alarmSwitch.setChecked(true);
+                break;
+            case AudioManager.RINGER_MODE_SILENT:
+                alarmSwitch.setChecked(false);
+                break;
+        }
 
-        viberationSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        alarmSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
@@ -137,21 +191,22 @@ public class settings extends AppCompatActivity {
 
 
                 if (isChecked){
-                    viberationIsSet.edit().clear();
-                    viberationSwitch.setChecked(true);
-                    viberationIsSet.edit().putBoolean("viberation",true).commit();
+                    alarmIsSet.edit().clear();
+                    alarmSwitch.setChecked(true);
+                    alarmIsSet.edit().putBoolean("alarm",true).commit();
                     myAudioManager.setRingerMode(RINGER_MODE_NORMAL);
 
                 }
                 else {
-                    viberationIsSet.edit().clear();
-                    viberationSwitch.setChecked(false);
-                    viberationIsSet.edit().putBoolean("viberation",false).commit();
+                    alarmIsSet.edit().clear();
+                    alarmSwitch.setChecked(false);
+                    alarmIsSet.edit().putBoolean("alarm",false).commit();
                     myAudioManager.setRingerMode(RINGER_MODE_SILENT);
 
                 }
             }
         });
+
 
 
 
@@ -325,6 +380,8 @@ public class settings extends AppCompatActivity {
 
 
 
+        //GPS開關，可以導向手機設定GPS頁面
+
         final boolean gpsCheck = isOpenGps();
         final Switch gpsSwitch = (Switch) findViewById(R.id.gpsSwitch);
         gpsSwitch.setChecked(gpsCheck);
@@ -344,7 +401,60 @@ public class settings extends AppCompatActivity {
         );
 
 
+//        if (ContextCompat.checkSelfPermission(settings.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+//                ContextCompat.checkSelfPermission(settings.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//            if (ActivityCompat.shouldShowRequestPermissionRationale(settings.this,
+//                    Manifest.permission.ACCESS_COARSE_LOCATION)) {
+//                new AlertDialog.Builder(settings.this)
+//                        .setMessage("我真的沒有要做壞事, 給我權限吧?")
+//                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                ActivityCompat.requestPermissions(settings.this,
+//                                        new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+//                                        MY_PERMISSIONS_REQUEST_READ_CONTACTS);
+//                            }
+//                        })
+//                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                finish();
+//                            }
+//                        })
+//                        .show();
+//            } else {
+//
+//                ActivityCompat.requestPermissions(settings.this,
+//                        new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION},
+//                        MY_PERMISSIONS_REQUEST_READ_CONTACTS);
+//            }
+//        }
     }
+
+
+//    public void onRequestPermissionsResult(int requestCode,
+//                                           String permissions[], int[] grantResults) {
+//        switch (requestCode) {
+//            case MY_PERMISSIONS_REQUEST_READ_CONTACTS: {
+//
+//                // If request is cancelled, the result arrays are empty.
+//                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                    // permission was granted, yay! Do the
+//                    // contacts-related task you need to do.
+//                } else {
+//                    finish();
+//                    // permission denied, boo! Disable the
+//                    // functionality that depends on this permission.
+//                }
+//                return;
+//            }
+//
+//            // other 'case' lines to check for other
+//            // permissions this app might request
+//        }
+//    }
+
+
 
 
 
@@ -360,7 +470,6 @@ public class settings extends AppCompatActivity {
         }
         return false;
     }
-
 
 
 }
