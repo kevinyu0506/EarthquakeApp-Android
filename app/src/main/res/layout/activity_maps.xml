@@ -34,83 +34,18 @@
             android:text="Search" />
 
     </LinearLayout>
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_above="@+id/map_in_use"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/lower_frame"/>
-    <RelativeLayout
-        android:id="@+id/upper_frame"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/map_in_use"
-        android:layout_marginBottom="10dp"
-        android:layout_centerHorizontal="true">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:background="@drawable/upper_frame"
-            />
-        <TextView
-            android:id="@+id/whatHappened"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="What just happened?"
-            android:textSize="13dp"
-            android:layout_marginTop="12dp"
-            android:layout_centerHorizontal="true"/>
-        <RelativeLayout
-            android:layout_width="200dp"
-            android:layout_height="70dp"
-            android:layout_below="@id/whatHappened"
-            android:layout_centerHorizontal="true">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Magnitude"
-                android:textSize="11dp"
-                android:textColor="#6f6d68"
-                android:layout_alignParentLeft="true"
-                android:layout_marginTop="8dp"
-                android:layout_marginLeft="10dp"/>
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/ml_separate"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Location"
-                android:textSize="11dp"
-                android:textColor="#6f6d68"
-                android:layout_marginTop="8dp"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="18dp"
-                />
 
-        </RelativeLayout>
-    </RelativeLayout>
     <ImageButton
+        android:id="@+id/currentLocation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/gps_location_symbol"
-        android:layout_toRightOf="@+id/upper_frame"
         android:layout_marginLeft="3dp"
-        android:layout_above="@+id/switch_mode"/>
-    <ImageButton
-        android:id="@+id/switch_mode"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/switch_mode"
-        android:layout_toRightOf="@+id/upper_frame"
-        android:layout_above="@+id/map_in_use"
-        android:layout_marginLeft="3dp"
-        android:layout_marginBottom="15dp"/>
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:layout_above="@+id/settingButton"
+        android:layout_marginBottom="30dp"/>
+
     
     
 
