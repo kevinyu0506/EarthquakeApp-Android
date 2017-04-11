@@ -1,10 +1,15 @@
 package tw.edu.bpmlab.mis.nccu.earthquakeapp;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -39,7 +44,14 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 
-public class alert extends AppCompatActivity implements SensorEventListener, LocationListener {
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
+import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
+import com.google.android.gms.location.LocationServices;
+
+public class alert extends AppCompatActivity implements
+        SensorEventListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     protected TextView Date;
     protected int thisYear;
@@ -63,11 +75,12 @@ public class alert extends AppCompatActivity implements SensorEventListener, Loc
     public TextView level;
     public TextView levelDescribe;
 
-    public long latitude;
-    public long longtitude;
-    public TextView location;
-    public String address;
-
+    protected static final String TAG = "MainActivity";
+    protected GoogleApiClient mGoogleApiClient;
+    protected Location mLastLocation;
+    protected double latitude;
+    protected double longtitude;
+    protected TextView location;
 
 
     @Override
@@ -109,8 +122,7 @@ public class alert extends AppCompatActivity implements SensorEventListener, Loc
         setCountDownBar();
         sensor();
         getMagnitude();
-        findLocation(23.222,121.3232);
-        location.setText("123");
+        buildGoogleApiClient();
 
 
     }
@@ -302,79 +314,74 @@ public class alert extends AppCompatActivity implements SensorEventListener, Loc
         }
     }
 
+    //gps
+    protected synchronized void buildGoogleApiClient() {
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build();
+    }
 
-    public String[] findLocation(double lon, double lat) {
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mGoogleApiClient.connect();
+    }
 
-        location = (TextView)findViewById(R.id.location) ;
-
-        String locationData[] = new String[3];
-        try {
-            String http = "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," + lon + "&language=zh-TW&sensor=true";
-            URL url = new URL(http);
-            HttpURLConnection huc = (HttpURLConnection)url.openConnection();
-            BufferedReader br = new BufferedReader(new InputStreamReader(huc.getInputStream(),"UTF-8"));
-            String str = "";
-            StringBuffer sb = new StringBuffer();
-
-            while (null != ((str=br.readLine()))){
-                sb.append(str);
-                if(str.contains("formatted_address")){
-                    str = str.replace("formatted_address","");
-                    str = str.replace(" ","");
-                    str = str.replace(":","");
-                    str = str.replace("Unnamed Road","");
-                    str = str.replace(",","");
-                    locationData[0] = str;
-                }else if(str.contains("coordinates")){
-                    str = str.replace("coordinates","");
-                    str = str.replace("Point","");
-                    str = str.replace(" ","");
-                    str = str.replace(">","");
-                    str = str.replace("<","");
-                    str = str.replace("/","");
-                    String tmp[] = str.split(",");
-                    locationData[1] = tmp[0];
-                    locationData[2] = tmp[1];
-                }
-            }
-            br.close();
-            String xmlResponse = sb.toString();
-            huc.disconnect();
-
-
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (mGoogleApiClient.isConnected()) {
+            mGoogleApiClient.disconnect();
         }
-        address = locationData[0];
-        return locationData;
+    }
 
+    @Override
+    protected void onPause() {
+// TODO Auto-generated method stub
+/* 取消註冊SensorEventListener */
+        aSensorManager.unregisterListener(this);
+//        Toast.makeText(this, "Unregister accelerometerListener", Toast.LENGTH_LONG).show();
+        super.onPause();
     }
 
 
     @Override
-    public void onLocationChanged(Location loc) {
-        if(loc != null){
-            String add[] = findLocation(loc.getLongitude(), loc.getLatitude());
-//            location.setText(add[0]);
-
+    public void onConnected(Bundle connectionHint) {
+        // Provides a simple way of getting a device's location and is well suited for
+        // applications that do not require a fine-grained location and that do not need location
+        // updates. Gets the best and most recent location currently available, which may be null
+        // in rare cases when a location is not available.
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
         }
+        mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+        if (mLastLocation != null) {
+            latitude = mLastLocation.getLatitude();
+            longtitude = mLastLocation.getLatitude();
 
+        } else {
+            Toast.makeText(this, R.string.no_location_detected, Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
-
+    public void onConnectionSuspended(int cause) {
+        Log.i(TAG, "Connection suspended");
+        mGoogleApiClient.connect();
     }
 
     @Override
-    public void onProviderEnabled(String provider) {
-
-    }
-
-    @Override
-    public void onProviderDisabled(String provider) {
+    public void onConnectionFailed(ConnectionResult result) {
+        Log.i(TAG, "Connection failed: ConnectionResult.getErrorCode() = " + result.getErrorCode());
 
     }
 }
