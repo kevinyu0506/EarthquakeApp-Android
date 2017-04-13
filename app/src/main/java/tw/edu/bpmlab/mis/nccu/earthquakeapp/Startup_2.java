@@ -28,7 +28,7 @@ public class Startup_2 extends Activity {
 
         setContentView(R.layout.activity_startup_2);
 
-        final SharedPreferences wifi = getSharedPreferences("wifi", 0);
+        final SharedPreferences charge = getSharedPreferences("charge", 0);
 
         final Button yes = (Button) findViewById(R.id.yesbutton2);
         final Button no = (Button) findViewById(R.id.noButton2);
@@ -39,8 +39,8 @@ public class Startup_2 extends Activity {
             public void onClick(View v) {
                 yes.setBackgroundResource(R.drawable.success_true);
                 no.setBackgroundResource(R.drawable.error);
-                wifi.edit().clear();
-                wifi.edit().putBoolean("wifi",true).commit();
+                charge.edit().clear();
+                charge.edit().putBoolean("charge",true).commit();
 
             }
         });
@@ -50,8 +50,8 @@ public class Startup_2 extends Activity {
             public void onClick(View v) {
                 yes.setBackgroundResource(R.drawable.success);
                 no.setBackgroundResource(R.drawable.error_true);
-                wifi.edit().clear();
-                wifi.edit().putBoolean("wifi",false).commit();
+                charge.edit().clear();
+                charge.edit().putBoolean("charge",false).commit();
             }
         });
 

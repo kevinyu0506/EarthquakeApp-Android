@@ -25,6 +25,7 @@ import android.widget.ImageButton;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -46,14 +47,23 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 
+//gps
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 import com.google.android.gms.location.LocationServices;
 
+//address
+import java.net.HttpURLConnection;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
+import android.widget.AdapterView.OnItemSelectedListener;
+
+
 public class alert extends AppCompatActivity implements
-        SensorEventListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+        SensorEventListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
     protected TextView Date;
     protected int thisYear;
@@ -82,6 +92,7 @@ public class alert extends AppCompatActivity implements
     protected Location mLastLocation;
     protected double latitude;
     protected double longtitude;
+
     protected TextView location;
 
 
@@ -126,6 +137,7 @@ public class alert extends AppCompatActivity implements
         getMagnitude();
         buildGoogleApiClient();
         openDialog();
+        getAddress(23, 121);
 
 
     }
@@ -407,4 +419,70 @@ public class alert extends AppCompatActivity implements
 
     }
 
+
+    //getAddress
+    public void getAddress(double lat, double lon) {
+        location = (TextView) findViewById(R.id.location);
+        String addressData[] = new String[3];
+        try {
+            String htp = "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," + lon + "&language=zh-TW&sensor=true";
+            URL url = new URL(htp);
+            HttpURLConnection huc = (HttpURLConnection) url.openConnection();
+            BufferedReader br = new BufferedReader(new InputStreamReader(huc.getInputStream(), "UTF-8"));
+            String str = "";
+            StringBuffer sb = new StringBuffer();
+
+            while (null != ((str = br.readLine()))) {
+                sb.append(str);
+                if (str.contains("formatted_address")) {
+                    str = str.replace("formatted_address", "");
+                    str = str.replace("Unnamed Road", "");
+                    str = str.replace(" ", "");
+                    str = str.replace(":", "");
+                    str = str.replace(",", "");
+                    str = str.replace("\"", "");
+
+                    addressData[0] = str;
+                    if(addressData[0] != null){
+                        location.setText(addressData[0]);
+                    }
+                    break;
+                }
+
+
+
+            }
+            br.close();
+            String xmlResponse = sb.toString();
+            huc.disconnect();
+            System.out.print(xmlResponse);
+//            location.setText(addressData[0]);
+
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @Override
+    public void onLocationChanged(Location loc) {
+
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
+    }
 }
