@@ -1,7 +1,9 @@
 package tw.edu.bpmlab.mis.nccu.earthquakeapp;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
@@ -10,6 +12,7 @@ import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -134,12 +137,14 @@ public class alert extends AppCompatActivity implements
         sensor();
         getMagnitude();
         buildGoogleApiClient();
+        openDialog();
         getAddress(23, 121);
 
         
 
 
     }
+
 
 
     //time
@@ -198,11 +203,14 @@ public class alert extends AppCompatActivity implements
     //countDown
     public void countDown() {
 
+
+        final SharedPreferences countdown = getSharedPreferences("countdown", 0);
+        final SharedPreferences.Editor editor = countdown.edit();
+
         countDown = (TextView) findViewById(R.id.countDown);
 
         setCountDownTime = (int) (Math.random() * 10 + 1) * 10000;
-//        setCountDownTime = 9000;
-
+        editor.putInt("countdown",setCountDownTime).commit();
 
         new CountDownTimer(setCountDownTime, 10) {
 
@@ -230,6 +238,25 @@ public class alert extends AppCompatActivity implements
         }.start();
 
     }
+
+
+    public void openDialog() {
+
+
+        final SharedPreferences countdownTime= getSharedPreferences("countdown", 0);
+        int countdown = countdownTime.getInt("countdown",0);
+
+        new AlertDialog.Builder (alert.this)
+                .setTitle ("地震警報")
+                .setMessage (countdown +"秒")
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener(){
+                    public void onClick(
+                            DialogInterface dialogInterface, int i){}
+                })
+                .show();
+    }
+
+
 
     //countDownBar
     public void setCountDownBar() {
@@ -398,6 +425,7 @@ public class alert extends AppCompatActivity implements
         Log.i(TAG, "Connection failed: ConnectionResult.getErrorCode() = " + result.getErrorCode());
 
     }
+
 
     //getAddress
     public void getAddress(double lat, double lon) {

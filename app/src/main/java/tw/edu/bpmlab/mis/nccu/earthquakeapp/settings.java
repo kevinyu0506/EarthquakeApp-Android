@@ -1,8 +1,10 @@
 package tw.edu.bpmlab.mis.nccu.earthquakeapp;
 
+import android.app.Dialog;
 import android.app.NotificationManager;
 import android.content.ContentUris;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.LocationManager;
@@ -11,6 +13,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -357,28 +360,28 @@ public class settings extends AppCompatActivity {
 
         // 讀取前面wifi設定到settings頁面，以及可以在settings頁面複寫掉設定
 
-//        final SharedPreferences wifiIsSet= getSharedPreferences("wifi", 0);
-//        boolean wifi = wifiIsSet.getBoolean("wifi",false);
-//        final Switch wifiSwitch = (Switch) findViewById(R.id.wifiSwitch);
-//        wifiSwitch.setChecked(wifi);
-//
-//
-//        wifiSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//
-//            @Override
-//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                if (isChecked){
-//                    wifiIsSet.edit().clear();
-//                    wifiSwitch.setChecked(true);
-//                    wifiIsSet.edit().putBoolean("wifi",true).commit();
-//                                                            }
-//                else {
-//                    wifiIsSet.edit().clear();
-//                    wifiSwitch.setChecked(false);
-//                    wifiIsSet.edit().putBoolean("wifi",false).commit();
-//                }
-//            }}
-//        );
+        final SharedPreferences wifiIsSet= getSharedPreferences("wifi", 0);
+        boolean wifi = wifiIsSet.getBoolean("wifi",false);
+        final Switch wifiSwitch = (Switch) findViewById(R.id.wifiSwitch);
+        wifiSwitch.setChecked(wifi);
+
+
+        wifiSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    wifiIsSet.edit().clear();
+                    wifiSwitch.setChecked(true);
+                    wifiIsSet.edit().putBoolean("wifi",true).commit();
+                                                            }
+                else {
+                    wifiIsSet.edit().clear();
+                    wifiSwitch.setChecked(false);
+                    wifiIsSet.edit().putBoolean("wifi",false).commit();
+                }
+            }}
+        );
 
 
 

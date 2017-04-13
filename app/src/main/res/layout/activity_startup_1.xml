@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:src="@drawable/wifi_icon"
             android:layout_marginTop="118dp"
-            android:layout_marginBottom="40dp"
+            android:layout_marginBottom="160dp"
             android:layout_centerHorizontal="true"/>
 
 
@@ -62,15 +62,28 @@
     <TextView android:id="@+id/notification"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="H.E.R.O requires Wifi to operate. \nPlease make sure you \nhave connected to the internet. "
+        android:text="H.E.R.O. requires Internet \nto operate successfully."
         android:textColor="#E6000000"
-        android:lineSpacingMultiplier="1.7"
-        android:textSize="18dp"
+        android:lineSpacingMultiplier="1.2"
+        android:textSize="20dp"
         android:gravity="center"
         android:fontFamily="fonts/Roboto-light.ttf"
         android:layout_alignTop="@+id/page1"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="44dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Please make sure you \nhave connected to the internet."
+            android:textColor="#E6000000"
+            android:lineSpacingMultiplier="1.7"
+            android:textSize="18dp"
+            android:gravity="center"
+            android:fontFamily="fonts/Roboto-light.ttf"
+            android:layout_alignTop="@+id/page1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="350dp" />
 
 
 
