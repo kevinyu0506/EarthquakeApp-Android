@@ -11,25 +11,23 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
-import android.support.v4.content.res.TypedArrayUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.GestureDetector;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Switch;
-
-import java.sql.Array;
 
 import static android.media.AudioManager.RINGER_MODE_NORMAL;
 import static android.media.AudioManager.RINGER_MODE_SILENT;
 
 public class settings extends AppCompatActivity {
 
+    private static final int MY_PERMISSIONS_REQUEST_READ_CONTACTS = 100;
 
 
     @Override
@@ -106,17 +104,75 @@ public class settings extends AppCompatActivity {
 
         //紀錄viberation開關設定
 
+//        final AudioManager myAudioManager;
+//        myAudioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
+//
+//        final SharedPreferences vibrationIsSet = getSharedPreferences("vibration",0);
+//        boolean vibrate = vibrationIsSet.getBoolean("vibration",false);
+//        final Switch viberationSwitch = (Switch)findViewById(R.id.vibrationSwitch);
+//        vibrationIsSet.edit().clear().commit();
+//        viberationSwitch.setChecked(vibrate);
+//
+//
+//        viberationSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//
+//
+//                NotificationManager notificationManager =
+//                        (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+//
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
+//                        && !notificationManager.isNotificationPolicyAccessGranted()) {
+//
+//                    Intent intent = new Intent(
+//                            android.provider.Settings
+//                                    .ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS);
+//
+//                    startActivity(intent);
+//                }
+//
+//
+//                if (isChecked){
+//                    vibrationIsSet.edit().clear();
+//                    viberationSwitch.setChecked(true);
+//                    vibrationIsSet.edit().putBoolean("vibration",true).commit();
+//                    myAudioManager.setRingerMode(RINGER_MODE_NORMAL);
+//
+//                }
+//                else {
+//                    vibrationIsSet.edit().clear();
+//                    viberationSwitch.setChecked(false);
+//                    vibrationIsSet.edit().putBoolean("vibration",false).commit();
+//                    myAudioManager.setRingerMode(RINGER_MODE_SILENT);
+//
+//                }
+//            }
+//        });
+
+
+
+        //alarm開關設定
+
         final AudioManager myAudioManager;
         myAudioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
 
-        final SharedPreferences viberationIsSet = getSharedPreferences("viberation",0);
-        boolean viberate = viberationIsSet.getBoolean("viberation",false);
-        final Switch viberationSwitch = (Switch)findViewById(R.id.viberationSwitch);
-        viberationIsSet.edit().clear().commit();
-        viberationSwitch.setChecked(viberate);
+        final SharedPreferences alarmIsSet = getSharedPreferences("alarm",0);
+        boolean alarm = alarmIsSet.getBoolean("alarm",false);
+        final Switch alarmSwitch = (Switch)findViewById(R.id.alarmSwitch);
+        alarmIsSet.edit().clear().commit();
+        alarmSwitch.setChecked(alarm);
 
+        switch (myAudioManager.getRingerMode()) {
+            case AudioManager.RINGER_MODE_NORMAL:
+                alarmSwitch.setChecked(true);
+                break;
+            case AudioManager.RINGER_MODE_SILENT:
+                alarmSwitch.setChecked(false);
+                break;
+        }
 
-        viberationSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        alarmSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
@@ -136,21 +192,22 @@ public class settings extends AppCompatActivity {
 
 
                 if (isChecked){
-                    viberationIsSet.edit().clear();
-                    viberationSwitch.setChecked(true);
-                    viberationIsSet.edit().putBoolean("viberation",true).commit();
+                    alarmIsSet.edit().clear();
+                    alarmSwitch.setChecked(true);
+                    alarmIsSet.edit().putBoolean("alarm",true).commit();
                     myAudioManager.setRingerMode(RINGER_MODE_NORMAL);
 
                 }
                 else {
-                    viberationIsSet.edit().clear();
-                    viberationSwitch.setChecked(false);
-                    viberationIsSet.edit().putBoolean("viberation",false).commit();
+                    alarmIsSet.edit().clear();
+                    alarmSwitch.setChecked(false);
+                    alarmIsSet.edit().putBoolean("alarm",false).commit();
                     myAudioManager.setRingerMode(RINGER_MODE_SILENT);
 
                 }
             }
         });
+
 
 
 
@@ -173,17 +230,18 @@ public class settings extends AppCompatActivity {
             }
 
         });
-//        RingtoneManager.setActualDefaultRingtoneUri(settings.this, RingtoneManager.TYPE_RINGTONE, currenturi);
 
 
 
+        final Button mag3 = (Button) findViewById(R.id.mag3);
+        final Button mag4 = (Button) findViewById(R.id.mag4);
+        final Button mag5 = (Button) findViewById(R.id.mag5);
+        final Button mag6 = (Button) findViewById(R.id.mag6);
 
-
-
-        final ImageButton magnitude3 = (ImageButton) findViewById(R.id.magnitude3);
-        final ImageButton magnitude4 = (ImageButton) findViewById(R.id.magnitude4);
-        final ImageButton magnitude5 = (ImageButton) findViewById(R.id.magnitude5);
-        final ImageButton magnitude6 = (ImageButton) findViewById(R.id.magnitude6);
+        final ImageView magnitude3 = (ImageView) findViewById(R.id.magnitude3);
+        final ImageView magnitude4 = (ImageView) findViewById(R.id.magnitude4);
+        final ImageView magnitude5 = (ImageView) findViewById(R.id.magnitude5);
+        final ImageView magnitude6 = (ImageView) findViewById(R.id.magnitude6);
 
         final SharedPreferences magnitude= getSharedPreferences("magnitude", 0);
         int magnitudevalue = magnitude.getInt("btnChecked",0);
@@ -221,7 +279,7 @@ public class settings extends AppCompatActivity {
                 break;
 
     }
-        magnitude3.setOnClickListener(new View.OnClickListener() {
+        mag3.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     magnitude.edit().clear();
@@ -233,7 +291,7 @@ public class settings extends AppCompatActivity {
                 }
             });
 
-        magnitude4.setOnClickListener(new View.OnClickListener() {
+        mag4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 magnitude.edit().clear();
@@ -245,7 +303,7 @@ public class settings extends AppCompatActivity {
             }
         });
 
-        magnitude5.setOnClickListener(new View.OnClickListener() {
+        mag5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 magnitude.edit().clear();
@@ -257,7 +315,7 @@ public class settings extends AppCompatActivity {
             }
         });
 
-        magnitude6.setOnClickListener(new View.OnClickListener() {
+        mag6.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 magnitude.edit().clear();
@@ -322,23 +380,98 @@ public class settings extends AppCompatActivity {
             }}
         );
 
+
+
+        //GPS開關，可以導向手機設定GPS頁面
+
+        final boolean gpsCheck = isOpenGps();
+        final Switch gpsSwitch = (Switch) findViewById(R.id.gpsSwitch);
+        gpsSwitch.setChecked(gpsCheck);
+
+        gpsSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    Intent i = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                    startActivity(i);
+                }
+                else {
+                    gpsSwitch.setChecked(false);
+                }
+            }}
+        );
+
+
+//        if (ContextCompat.checkSelfPermission(settings.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+//                ContextCompat.checkSelfPermission(settings.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//            if (ActivityCompat.shouldShowRequestPermissionRationale(settings.this,
+//                    Manifest.permission.ACCESS_COARSE_LOCATION)) {
+//                new AlertDialog.Builder(settings.this)
+//                        .setMessage("我真的沒有要做壞事, 給我權限吧?")
+//                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                ActivityCompat.requestPermissions(settings.this,
+//                                        new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+//                                        MY_PERMISSIONS_REQUEST_READ_CONTACTS);
+//                            }
+//                        })
+//                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                finish();
+//                            }
+//                        })
+//                        .show();
+//            } else {
+//
+//                ActivityCompat.requestPermissions(settings.this,
+//                        new String[]{Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION},
+//                        MY_PERMISSIONS_REQUEST_READ_CONTACTS);
+//            }
+//        }
     }
 
 
-
-//    private boolean isOpenGps() {
+//    public void onRequestPermissionsResult(int requestCode,
+//                                           String permissions[], int[] grantResults) {
+//        switch (requestCode) {
+//            case MY_PERMISSIONS_REQUEST_READ_CONTACTS: {
 //
-//        LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-//        // 通過GPS衛星定位，定位級別可以精確到街（通過24顆衛星定位，在室外和空曠的地方定位準確、速度快）
-//        boolean gps = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-//        // 通過WLAN或移動網路(3G/2G)確定的位置（也稱作AGPS，輔助GPS定位。主要用於在室內或遮蓋物（建築群或茂密的深林等）密集的地方定位）
-//        boolean network = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-//        if (gps || network) {
-//            return true;
+//                // If request is cancelled, the result arrays are empty.
+//                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                    // permission was granted, yay! Do the
+//                    // contacts-related task you need to do.
+//                } else {
+//                    finish();
+//                    // permission denied, boo! Disable the
+//                    // functionality that depends on this permission.
+//                }
+//                return;
+//            }
+//
+//            // other 'case' lines to check for other
+//            // permissions this app might request
 //        }
-//        return false;
 //    }
 
+
+
+
+
+    private boolean isOpenGps() {
+
+        LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+        // 通過GPS衛星定位，定位級別可以精確到街（通過24顆衛星定位，在室外和空曠的地方定位準確、速度快）
+        boolean gps = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        // 通過WLAN或移動網路(3G/2G)確定的位置（也稱作AGPS，輔助GPS定位。主要用於在室內或遮蓋物（建築群或茂密的深林等）密集的地方定位）
+        boolean network = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        if (gps || network) {
+            return true;
+        }
+        return false;
+    }
 
 
 }

@@ -1,7 +1,15 @@
 package tw.edu.bpmlab.mis.nccu.earthquakeapp;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Color;
+import android.location.Location;
+import android.location.LocationListener;
 import android.os.AsyncTask;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +20,12 @@ import android.view.View;
 import android.widget.ImageButton;
 
 //db
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -30,7 +44,14 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 
-public class alert extends AppCompatActivity implements SensorEventListener {
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
+import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
+import com.google.android.gms.location.LocationServices;
+
+public class alert extends AppCompatActivity implements
+        SensorEventListener, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     protected TextView Date;
     protected int thisYear;
@@ -46,14 +67,20 @@ public class alert extends AppCompatActivity implements SensorEventListener {
     protected int setCountDownTime;
     protected long timeUntilFinish;
 
-    private SensorManager aSensorManager;
-    private Sensor aSensor;
-    private double gravity[] = new double[3];
+    public SensorManager aSensorManager;
+    public Sensor aSensor;
+    public double gravity[] = new double[3];
 //    private double eqGal;
 
     public TextView level;
     public TextView levelDescribe;
 
+    protected static final String TAG = "MainActivity";
+    protected GoogleApiClient mGoogleApiClient;
+    protected Location mLastLocation;
+    protected double latitude;
+    protected double longtitude;
+    protected TextView location;
 
 
     @Override
@@ -95,7 +122,7 @@ public class alert extends AppCompatActivity implements SensorEventListener {
         setCountDownBar();
         sensor();
         getMagnitude();
-//        levelDescribe();
+        buildGoogleApiClient();
 
 
     }
@@ -160,7 +187,10 @@ public class alert extends AppCompatActivity implements SensorEventListener {
         countDown = (TextView) findViewById(R.id.countDown);
 
         setCountDownTime = (int) (Math.random() * 10 + 1) * 10000;
-        new CountDownTimer(setCountDownTime, 1000) {
+//        setCountDownTime = 9000;
+
+
+        new CountDownTimer(setCountDownTime, 10) {
 
             @Override
             public void onFinish() {
@@ -170,13 +200,17 @@ public class alert extends AppCompatActivity implements SensorEventListener {
             @Override
             public void onTick(long millisUntilFinished) {
 
-                timeUntilFinish = millisUntilFinished;
+//                timeUntilFinish = millisUntilFinished;
 
                 if (millisUntilFinished / 1000 % 60 >= 10) {
                     countDown.setText("0" + String.valueOf(millisUntilFinished / 60000) + ":" + String.valueOf(millisUntilFinished / 1000 % 60));
                 } else {
                     countDown.setText("0" + String.valueOf(millisUntilFinished / 60000) + ":0" + String.valueOf(millisUntilFinished / 1000 % 60));
                 }
+//                if(millisUntilFinished == 0){
+//                    countDown.setText("00:00");
+//
+//                }
 
             }
         }.start();
@@ -200,9 +234,11 @@ public class alert extends AppCompatActivity implements SensorEventListener {
                 while (progress > 0) {
                     try {
                         countDownBar.setProgress(progress);
-                        sleep(100);
+                        sleep((setCountDownTime / 100));
 //                        progress = progress - 5;
-                        progress = progress - (100 / (setCountDownTime / 100));
+//                        progress = progress - (100 / (setCountDownTime / 100));
+                        progress = progress - 1;
+
 //                        Log.d("1", Integer.toString(progress));
                     } catch (InterruptedException e) {
                         // TODO Auto-generated catch block
@@ -240,46 +276,112 @@ public class alert extends AppCompatActivity implements SensorEventListener {
 
 
     static connectDataBase connectDataBase = new connectDataBase();
+
     public void getMagnitude() {
 
         level = (TextView) findViewById(R.id.level);
+        levelDescribe = (TextView) findViewById(R.id.levelDescribe);
 
 
         try {
             Connection conn = connectDataBase.CONN();
-            String query = "select accelerationz from datatemp where datetime = 2017/3/30";
+            String query = "select accelerationz from datatemp where productid = 5";
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(query);
 //            ResultSetMetaData rsmd = rs.getMetaData();
 
             while (rs.next()) {
                 level.setText(rs.getString("accelerationz"));
+                System.out.print(rs.getFloat("accelerationz"));
+                if (rs.getFloat("accelerationz") <= 2) {
+                    levelDescribe.setText("LIGHT");
+                    levelDescribe.setTextColor(Color.rgb(92, 201, 255));
+                    level.setTextColor(Color.rgb(92, 201, 255));
+
+                } else if (rs.getFloat("accelerationz") >= 3 && rs.getFloat("accelerationz") <= 4) {
+                    levelDescribe.setText("MEDIUM");
+                    levelDescribe.setTextColor(Color.rgb(255, 209, 5));
+                    level.setTextColor(Color.rgb(255, 209, 5));
+
+                } else if (rs.getFloat("accelerationz") >= 5) {
+                    levelDescribe.setText("SEVERE");
+                    levelDescribe.setTextColor(Color.rgb(235, 61, 125));
+                    level.setTextColor(Color.rgb(235, 61, 125));
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-//    public void levelDescribe(){
-//        String levelString = level.toString();
-//        int levelInt = Integer.parseInt(levelString);
-//
-//        levelDescribe = (TextView) findViewById(R.id.levelDescribe);
-//        if((levelInt) >= 0 && levelInt <= 2){
-//            levelDescribe.setText("Light");
-//
-//        }if((levelInt) >= 3 && levelInt <= 4){
-//            levelDescribe.setText("Medium");
-//
-//        }if((levelInt) >= 5 && levelInt <= 7){
-//            levelDescribe.setText("Severe");
-//
-//        }
-//
-//
-//
-//
-//    }
+    //gps
+    protected synchronized void buildGoogleApiClient() {
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .build();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mGoogleApiClient.connect();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (mGoogleApiClient.isConnected()) {
+            mGoogleApiClient.disconnect();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+// TODO Auto-generated method stub
+/* 取消註冊SensorEventListener */
+        aSensorManager.unregisterListener(this);
+//        Toast.makeText(this, "Unregister accelerometerListener", Toast.LENGTH_LONG).show();
+        super.onPause();
+    }
 
 
+    @Override
+    public void onConnected(Bundle connectionHint) {
+        // Provides a simple way of getting a device's location and is well suited for
+        // applications that do not require a fine-grained location and that do not need location
+        // updates. Gets the best and most recent location currently available, which may be null
+        // in rare cases when a location is not available.
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+        if (mLastLocation != null) {
+            latitude = mLastLocation.getLatitude();
+            longtitude = mLastLocation.getLatitude();
+
+        } else {
+            Toast.makeText(this, R.string.no_location_detected, Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    public void onConnectionSuspended(int cause) {
+        Log.i(TAG, "Connection suspended");
+        mGoogleApiClient.connect();
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult result) {
+        Log.i(TAG, "Connection failed: ConnectionResult.getErrorCode() = " + result.getErrorCode());
+
+    }
 }
