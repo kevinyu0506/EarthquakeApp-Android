@@ -1,6 +1,7 @@
 package tw.edu.bpmlab.mis.nccu.earthquakeapp;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -10,6 +11,7 @@ import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -123,9 +125,11 @@ public class alert extends AppCompatActivity implements
         sensor();
         getMagnitude();
         buildGoogleApiClient();
+        openDialog();
 
 
     }
+
 
 
     //time
@@ -216,6 +220,24 @@ public class alert extends AppCompatActivity implements
         }.start();
 
     }
+
+
+    public void openDialog() {
+
+        countDown = (TextView) findViewById(R.id.countDown);
+        String text = countDown.getText().toString();
+
+        new AlertDialog.Builder (alert.this)
+                .setTitle ("地震警報")
+                .setMessage (text)
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener(){
+                    public void onClick(
+                            DialogInterface dialogInterface, int i){}
+                })
+                .show();
+    }
+
+
 
     //countDownBar
     public void setCountDownBar() {
@@ -384,4 +406,5 @@ public class alert extends AppCompatActivity implements
         Log.i(TAG, "Connection failed: ConnectionResult.getErrorCode() = " + result.getErrorCode());
 
     }
+
 }

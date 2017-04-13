@@ -81,9 +81,9 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/timeLeft"
                 android:layout_centerHorizontal="true"
-                android:text="00:00"
                 android:textColor="#7a7979"
-                android:textSize="50dp" />
+                android:textSize="50dp"
+                android:text="00:00"/>
 
             <ProgressBar
                 android:id="@+id/countDownBar"
