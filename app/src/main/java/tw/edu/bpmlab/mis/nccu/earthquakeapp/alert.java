@@ -3,6 +3,7 @@ package tw.edu.bpmlab.mis.nccu.earthquakeapp;
 import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
@@ -200,11 +201,14 @@ public class alert extends AppCompatActivity implements
     //countDown
     public void countDown() {
 
+
+        final SharedPreferences countdown = getSharedPreferences("countdown", 0);
+        final SharedPreferences.Editor editor = countdown.edit();
+
         countDown = (TextView) findViewById(R.id.countDown);
 
         setCountDownTime = (int) (Math.random() * 10 + 1) * 10000;
-//        setCountDownTime = 9000;
-
+        editor.putInt("countdown",setCountDownTime).commit();
 
         new CountDownTimer(setCountDownTime, 10) {
 
@@ -236,12 +240,13 @@ public class alert extends AppCompatActivity implements
 
     public void openDialog() {
 
-        countDown = (TextView) findViewById(R.id.countDown);
-        String text = countDown.getText().toString();
+
+        final SharedPreferences countdownTime= getSharedPreferences("countdown", 0);
+        int countdown = countdownTime.getInt("countdown",0);
 
         new AlertDialog.Builder (alert.this)
                 .setTitle ("地震警報")
-                .setMessage (text)
+                .setMessage (countdown +"秒")
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener(){
                     public void onClick(
                             DialogInterface dialogInterface, int i){}
