@@ -246,7 +246,7 @@ public class alert extends AppCompatActivity implements
 
         new AlertDialog.Builder (alert.this)
                 .setTitle ("地震警報")
-                .setMessage (countdown +"秒")
+                .setMessage (countdown/1000 +"秒")
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener(){
                     public void onClick(
                             DialogInterface dialogInterface, int i){}
