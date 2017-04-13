@@ -28,15 +28,15 @@ public class Startup_1 extends Activity {
 
         setContentView(R.layout.activity_startup_1);
 
-//        final SharedPreferences charge = getSharedPreferences("charge", 0);
-//        final SharedPreferences.Editor editor = charge.edit();
-//
-////        gesture = new GestureDetector(new SwipeGestureDetector());
-//
+        final SharedPreferences wifi = getSharedPreferences("wifi", 0);
+        final SharedPreferences.Editor editor = wifi.edit();
+
+//        gesture = new GestureDetector(new SwipeGestureDetector());
+
 //        final Button yes = (Button) findViewById(R.id.ybutton);
 //        final Button no = (Button) findViewById(R.id.noButton);
-//        editor.clear().commit();
-//
+        editor.clear().commit();
+
 //        yes.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -61,6 +61,8 @@ public class Startup_1 extends Activity {
         nextPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                editor.clear();
+                editor.putBoolean("wifi",true).commit();
                 Intent intent = new Intent(Startup_1.this, Startup_2.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

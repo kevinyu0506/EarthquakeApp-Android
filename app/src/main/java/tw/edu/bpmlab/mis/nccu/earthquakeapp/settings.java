@@ -360,28 +360,28 @@ public class settings extends AppCompatActivity {
 
         // 讀取前面wifi設定到settings頁面，以及可以在settings頁面複寫掉設定
 
-//        final SharedPreferences wifiIsSet= getSharedPreferences("wifi", 0);
-//        boolean wifi = wifiIsSet.getBoolean("wifi",false);
-//        final Switch wifiSwitch = (Switch) findViewById(R.id.wifiSwitch);
-//        wifiSwitch.setChecked(wifi);
-//
-//
-//        wifiSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//
-//            @Override
-//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                if (isChecked){
-//                    wifiIsSet.edit().clear();
-//                    wifiSwitch.setChecked(true);
-//                    wifiIsSet.edit().putBoolean("wifi",true).commit();
-//                                                            }
-//                else {
-//                    wifiIsSet.edit().clear();
-//                    wifiSwitch.setChecked(false);
-//                    wifiIsSet.edit().putBoolean("wifi",false).commit();
-//                }
-//            }}
-//        );
+        final SharedPreferences wifiIsSet= getSharedPreferences("wifi", 0);
+        boolean wifi = wifiIsSet.getBoolean("wifi",false);
+        final Switch wifiSwitch = (Switch) findViewById(R.id.wifiSwitch);
+        wifiSwitch.setChecked(wifi);
+
+
+        wifiSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    wifiIsSet.edit().clear();
+                    wifiSwitch.setChecked(true);
+                    wifiIsSet.edit().putBoolean("wifi",true).commit();
+                                                            }
+                else {
+                    wifiIsSet.edit().clear();
+                    wifiSwitch.setChecked(false);
+                    wifiIsSet.edit().putBoolean("wifi",false).commit();
+                }
+            }}
+        );
 
 
 
