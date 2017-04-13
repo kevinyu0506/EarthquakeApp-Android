@@ -49,27 +49,27 @@
 
 
         <ImageView
-            android:id="@+id/wifi"
+            android:id="@+id/charging"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/wifi_icon"
+            android:src="@drawable/charging"
             android:layout_marginTop="118dp"
-            android:layout_marginBottom="187dp"
+            android:layout_marginBottom="170dp"
             android:layout_centerHorizontal="true"/>
 
     </RelativeLayout>
 
-    <TextView android:id="@+id/wifinotification"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Conect to Wifi"
-        android:textColor="#E6000000"
-        android:textSize="24dp"
-        android:gravity="center_vertical"
-        android:fontFamily="fonts/Roboto-light.ttf"
-        android:layout_alignTop="@+id/page1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="44dp" />
+        <TextView android:id="@+id/notification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Only turn on notification\n while charging"
+            android:textColor="#E6000000"
+            android:textSize="20dp"
+            android:gravity="center"
+            android:fontFamily="fonts/Roboto-light.ttf"
+            android:layout_alignTop="@+id/page1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="44dp" />
 
 
 
