@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "138813743818",
+    "firebase_url": "https://earthquakeapp-15c03.firebaseio.com",
+    "project_id": "earthquakeapp-15c03",
+    "storage_bucket": "earthquakeapp-15c03.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:138813743818:android:cbadf0303d979d58",
+        "android_client_info": {
+          "package_name": "tw.edu.bpmlab.mis.nccu.earthquakeapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "138813743818-fi9os2saci89d4oj6jfqd2d8btevocdr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "tw.edu.bpmlab.mis.nccu.earthquakeapp",
+            "certificate_hash": "c444f16a110072099705804781d84d942be8d2d1"
+          }
+        },
+        {
+          "client_id": "138813743818-qje1grdooptmui03b2naaq6vd70q5mre.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAh6zCI-zF6aQDGLlG9NypbNoZ044scFEE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "138813743818-qje1grdooptmui03b2naaq6vd70q5mre.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -136,6 +136,8 @@ public class alert extends AppCompatActivity implements
         buildGoogleApiClient();
         getAddress(23, 121);
 
+        
+
 
     }
 
@@ -406,6 +408,7 @@ public class alert extends AppCompatActivity implements
             URL url = new URL(htp);
             HttpURLConnection huc = (HttpURLConnection) url.openConnection();
             BufferedReader br = new BufferedReader(new InputStreamReader(huc.getInputStream(), "UTF-8"));
+//            String str[] = new String[100];
             String str = "";
             StringBuffer sb = new StringBuffer();
 
@@ -428,12 +431,14 @@ public class alert extends AppCompatActivity implements
 
 
 
+
+
             }
             br.close();
             String xmlResponse = sb.toString();
             huc.disconnect();
             System.out.print(xmlResponse);
-//            location.setText(addressData[0]);
+//            location.setText(addressData[0]);git
 
         } catch (MalformedURLException e) {
             e.printStackTrace();
