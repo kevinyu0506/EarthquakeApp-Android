@@ -159,7 +159,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         boolean success = mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.style_json));
         Location loc = getLastBestLocation();
         if (loc != null){
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(new LatLng(loc.getLatitude(), loc.getLongitude())));
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(loc.getLatitude(), loc.getLongitude()), 12));
+            Log.e("!!",""+loc.toString());
         }
 
         // Add a marker in Sydney, Australia, and move the camera.
