@@ -148,7 +148,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             .snippet(new StringBuilder("Mag:").append(feature.getProperties().getMag().toString()).append("  ").append(new SimpleDateFormat("yyyy/MM/dd").format(new Date(feature.getProperties().getTime()))).toString())
                             .icon(icon);
                     mMap.addMarker(markerOptions);
-                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 8));
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 3));
                 }
             }
         }
@@ -161,7 +161,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         boolean success = mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.style_json));
         Location loc = getLastBestLocation();
         if (loc != null){
-            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(loc.getLatitude(), loc.getLongitude()), 12));
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(loc.getLatitude(), loc.getLongitude()), 18));
             Log.e("!!",""+loc.toString());
         }
 
