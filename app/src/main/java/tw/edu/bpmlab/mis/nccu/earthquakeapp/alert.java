@@ -54,6 +54,8 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 import com.google.android.gms.location.LocationServices;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 //address
 import java.net.HttpURLConnection;
@@ -92,9 +94,11 @@ public class alert extends AppCompatActivity implements
     protected GoogleApiClient mGoogleApiClient;
     protected Location mLastLocation;
     protected double latitude;
-    protected double longtitude;
+    protected double longitude;
 
     protected TextView location;
+
+    protected DatabaseReference mDataBase;
 
 
     @Override
@@ -140,7 +144,10 @@ public class alert extends AppCompatActivity implements
         openDialog();
         getAddress(23, 121);
 
-        
+        mDataBase = FirebaseDatabase.getInstance().getReference();
+
+
+
 
 
     }
@@ -407,7 +414,7 @@ public class alert extends AppCompatActivity implements
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         if (mLastLocation != null) {
             latitude = mLastLocation.getLatitude();
-            longtitude = mLastLocation.getLatitude();
+            longitude = mLastLocation.getLatitude();
 
         } else {
             Toast.makeText(this, R.string.no_location_detected, Toast.LENGTH_LONG).show();
@@ -495,4 +502,6 @@ public class alert extends AppCompatActivity implements
     public void onProviderDisabled(String provider) {
 
     }
+
+
 }
