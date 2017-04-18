@@ -54,6 +54,8 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 import com.google.android.gms.location.LocationServices;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 //address
 import java.net.HttpURLConnection;
@@ -83,7 +85,8 @@ public class alert extends AppCompatActivity implements
     public SensorManager aSensorManager;
     public Sensor aSensor;
     public double gravity[] = new double[3];
-//    private double eqGal;
+    private double eqGal;
+    private Integer magnitude;
 
     public TextView level;
     public TextView levelDescribe;
@@ -92,9 +95,12 @@ public class alert extends AppCompatActivity implements
     protected GoogleApiClient mGoogleApiClient;
     protected Location mLastLocation;
     protected double latitude;
-    protected double longtitude;
+    protected double longitude;
 
     protected TextView location;
+    private  FirebaseDatabase mFirebaseDatabase;
+    private DatabaseReference mFirebaseDatabaseReference;
+
 
 
     @Override
@@ -140,9 +146,22 @@ public class alert extends AppCompatActivity implements
         openDialog();
 //        getAddress(23, 121);
 
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        mFirebaseDatabaseReference = mFirebaseDatabase.getReference().child("eqData");
+
+        Button uploadButton = (Button) findViewById(R.id.upload);
+        uploadButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EqData eqData = new EqData(magnitude, longitude, latitude, eqGal);
+                mFirebaseDatabaseReference.push().setValue(eqData);
+            }
+        });
+
+        location = (TextView) findViewById(R.id.location);
+
 
     }
-
 
 
     //time
@@ -208,7 +227,7 @@ public class alert extends AppCompatActivity implements
         countDown = (TextView) findViewById(R.id.countDown);
 
         setCountDownTime = (int) (Math.random() * 10 + 1) * 10000;
-        editor.putInt("countdown",setCountDownTime).commit();
+        editor.putInt("countdown", setCountDownTime).commit();
 
         new CountDownTimer(setCountDownTime, 10) {
 
@@ -241,19 +260,19 @@ public class alert extends AppCompatActivity implements
     public void openDialog() {
 
 
-        final SharedPreferences countdownTime= getSharedPreferences("countdown", 0);
-        int countdown = countdownTime.getInt("countdown",0);
+        final SharedPreferences countdownTime = getSharedPreferences("countdown", 0);
+        int countdown = countdownTime.getInt("countdown", 0);
 
-        new AlertDialog.Builder (alert.this)
-                .setTitle ("地震警報")
-                .setMessage (countdown/1000 +"秒")
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener(){
+        new AlertDialog.Builder(alert.this)
+                .setTitle("地震警報")
+                .setMessage(countdown / 1000 + "秒")
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     public void onClick(
-                            DialogInterface dialogInterface, int i){}
+                            DialogInterface dialogInterface, int i) {
+                    }
                 })
                 .show();
     }
-
 
 
     //countDownBar
@@ -305,6 +324,46 @@ public class alert extends AppCompatActivity implements
         gravity[0] = event.values[0];
         gravity[1] = event.values[1];
         gravity[2] = event.values[2];
+
+        eqGal = (Math.sqrt(Math.pow(gravity[0], 2) + Math.pow(gravity[1], 2) + Math.pow(gravity[2], 2)) - 9.81) * 100;
+//        eqData.setAccelerator(eqGal);
+//        location.setText(eqGal+"");
+
+
+
+        if (eqGal < 0.8) {
+//            eqData.setMagnitude(0);
+            magnitude = 0;
+        }
+        if (eqGal >= 0.8 && eqGal < 2.5) {
+//            eqData.setMagnitude(1);
+            magnitude = 1;
+        }
+        if (eqGal >= 2.5 && eqGal < 8) {
+//            eqData.setMagnitude(2);
+            magnitude = 2;
+        }
+        if (eqGal >= 8 && eqGal < 25) {
+//            eqData.setMagnitude(3);
+            magnitude = 3;
+        }
+        if (eqGal >= 25 && eqGal < 80) {
+//            eqData.setMagnitude(4);
+            magnitude = 4;
+        }
+        if (eqGal >= 80 && eqGal < 250) {
+//            eqData.setMagnitude(5);
+            magnitude = 5;
+        }
+        if (eqGal >= 250 && eqGal < 400) {
+//            eqData.setMagnitude(6);
+            magnitude = 6;
+        }
+        if (eqGal >= 400) {
+//            eqData.setMagnitude(7);
+            magnitude = 7;
+        }
+
 
     }
 
@@ -404,8 +463,11 @@ public class alert extends AppCompatActivity implements
         }
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         if (mLastLocation != null) {
+//            eqData.setLatitude(mLastLocation.getLatitude());
+//            eqData.setLongitude(mLastLocation.getLongitude());
             latitude = mLastLocation.getLatitude();
-            longtitude = mLastLocation.getLatitude();
+            longitude = mLastLocation.getLongitude();
+
 
         } else {
             Toast.makeText(this, R.string.no_location_detected, Toast.LENGTH_LONG).show();
@@ -490,4 +552,6 @@ public class alert extends AppCompatActivity implements
     public void onProviderDisabled(String provider) {
 
     }
+
+
 }
