@@ -76,6 +76,7 @@ public class alert extends AppCompatActivity implements
 //    protected int thisHour;
 //    protected int thisMin;
 //    protected int thisSec;
+    public String Time;
 
     protected TextView countDown;
     protected ProgressBar countDownBar;
@@ -98,7 +99,7 @@ public class alert extends AppCompatActivity implements
 
     protected TextView location;
 
-    protected DatabaseReference mDataBase;
+//    protected DatabaseReference mDataBase;
 
 
     @Override
@@ -139,13 +140,12 @@ public class alert extends AppCompatActivity implements
         countDown();
         setCountDownBar();
         sensor();
-        getMagnitude();
+//        getMagnitude();
         buildGoogleApiClient();
         openDialog();
-        getAddress(23, 121);
+//        getAddress(23, 121);
 
-        mDataBase = FirebaseDatabase.getInstance().getReference();
-
+//        mDataBase = FirebaseDatabase.getInstance().getReference();
 
 
 
@@ -315,6 +315,7 @@ public class alert extends AppCompatActivity implements
         gravity[1] = event.values[1];
         gravity[2] = event.values[2];
 
+
     }
 
     @Override
@@ -323,44 +324,44 @@ public class alert extends AppCompatActivity implements
     }
 
 
-    static connectDataBase connectDataBase = new connectDataBase();
+//    static connectDataBase connectDataBase = new connectDataBase();
 
-    public void getMagnitude() {
-
-        level = (TextView) findViewById(R.id.level);
-        levelDescribe = (TextView) findViewById(R.id.levelDescribe);
-
-
-        try {
-            Connection conn = connectDataBase.CONN();
-            String query = "select accelerationz from datatemp where productid = 5";
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(query);
-//            ResultSetMetaData rsmd = rs.getMetaData();
-
-            while (rs.next()) {
-                level.setText(rs.getString("accelerationz"));
-                System.out.print(rs.getFloat("accelerationz"));
-                if (rs.getFloat("accelerationz") <= 2) {
-                    levelDescribe.setText("LIGHT");
-                    levelDescribe.setTextColor(Color.rgb(92, 201, 255));
-                    level.setTextColor(Color.rgb(92, 201, 255));
-
-                } else if (rs.getFloat("accelerationz") >= 3 && rs.getFloat("accelerationz") <= 4) {
-                    levelDescribe.setText("MEDIUM");
-                    levelDescribe.setTextColor(Color.rgb(255, 209, 5));
-                    level.setTextColor(Color.rgb(255, 209, 5));
-
-                } else if (rs.getFloat("accelerationz") >= 5) {
-                    levelDescribe.setText("SEVERE");
-                    levelDescribe.setTextColor(Color.rgb(235, 61, 125));
-                    level.setTextColor(Color.rgb(235, 61, 125));
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+//    public void getMagnitude() {
+//
+//        level = (TextView) findViewById(R.id.level);
+//        levelDescribe = (TextView) findViewById(R.id.levelDescribe);
+//
+//
+//        try {
+//            Connection conn = connectDataBase.CONN();
+//            String query = "select accelerationz from datatemp where productid = 5";
+//            Statement stmt = conn.createStatement();
+//            ResultSet rs = stmt.executeQuery(query);
+////            ResultSetMetaData rsmd = rs.getMetaData();
+//
+//            while (rs.next()) {
+//                level.setText(rs.getString("accelerationz"));
+//                System.out.print(rs.getFloat("accelerationz"));
+//                if (rs.getFloat("accelerationz") <= 2) {
+//                    levelDescribe.setText("LIGHT");
+//                    levelDescribe.setTextColor(Color.rgb(92, 201, 255));
+//                    level.setTextColor(Color.rgb(92, 201, 255));
+//
+//                } else if (rs.getFloat("accelerationz") >= 3 && rs.getFloat("accelerationz") <= 4) {
+//                    levelDescribe.setText("MEDIUM");
+//                    levelDescribe.setTextColor(Color.rgb(255, 209, 5));
+//                    level.setTextColor(Color.rgb(255, 209, 5));
+//
+//                } else if (rs.getFloat("accelerationz") >= 5) {
+//                    levelDescribe.setText("SEVERE");
+//                    levelDescribe.setTextColor(Color.rgb(235, 61, 125));
+//                    level.setTextColor(Color.rgb(235, 61, 125));
+//                }
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     //gps
     protected synchronized void buildGoogleApiClient() {
@@ -414,7 +415,7 @@ public class alert extends AppCompatActivity implements
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         if (mLastLocation != null) {
             latitude = mLastLocation.getLatitude();
-            longitude = mLastLocation.getLatitude();
+            longitude = mLastLocation.getLongitude();
 
         } else {
             Toast.makeText(this, R.string.no_location_detected, Toast.LENGTH_LONG).show();
@@ -435,54 +436,54 @@ public class alert extends AppCompatActivity implements
 
 
     //getAddress
-    public void getAddress(double lat, double lon) {
-        location = (TextView) findViewById(R.id.location);
-        String addressData[] = new String[3];
-        try {
-            String htp = "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," + lon + "&language=zh-TW&sensor=true";
-            URL url = new URL(htp);
-            HttpURLConnection huc = (HttpURLConnection) url.openConnection();
-            BufferedReader br = new BufferedReader(new InputStreamReader(huc.getInputStream(), "UTF-8"));
-//            String str[] = new String[100];
-            String str = "";
-            StringBuffer sb = new StringBuffer();
-
-            while (null != ((str = br.readLine()))) {
-                sb.append(str);
-                if (str.contains("formatted_address")) {
-                    str = str.replace("formatted_address", "");
-                    str = str.replace("Unnamed Road", "");
-                    str = str.replace(" ", "");
-                    str = str.replace(":", "");
-                    str = str.replace(",", "");
-                    str = str.replace("\"", "");
-
-                    addressData[0] = str;
-                    if(addressData[0] != null){
-                        location.setText(addressData[0]);
-                    }
-                    break;
-                }
-
-
-
-
-
-            }
-            br.close();
-            String xmlResponse = sb.toString();
-            huc.disconnect();
-            System.out.print(xmlResponse);
-//            location.setText(addressData[0]);git
-
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-
+//    public void getAddress(double lat, double lon) {
+//        location = (TextView) findViewById(R.id.location);
+//        String addressData[] = new String[3];
+//        try {
+//            String htp = "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," + lon + "&language=zh-TW&sensor=true";
+//            URL url = new URL(htp);
+//            HttpURLConnection huc = (HttpURLConnection) url.openConnection();
+//            BufferedReader br = new BufferedReader(new InputStreamReader(huc.getInputStream(), "UTF-8"));
+////            String str[] = new String[100];
+//            String str = "";
+//            StringBuffer sb = new StringBuffer();
+//
+//            while (null != ((str = br.readLine()))) {
+//                sb.append(str);
+//                if (str.contains("formatted_address")) {
+//                    str = str.replace("formatted_address", "");
+//                    str = str.replace("Unnamed Road", "");
+//                    str = str.replace(" ", "");
+//                    str = str.replace(":", "");
+//                    str = str.replace(",", "");
+//                    str = str.replace("\"", "");
+//
+//                    addressData[0] = str;
+//                    if(addressData[0] != null){
+//                        location.setText(addressData[0]);
+//                    }
+//                    break;
+//                }
+//
+//
+//
+//
+//
+//            }
+//            br.close();
+//            String xmlResponse = sb.toString();
+//            huc.disconnect();
+//            System.out.print(xmlResponse);
+////            location.setText(addressData[0]);git
+//
+//        } catch (MalformedURLException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
+//
+//
     @Override
     public void onLocationChanged(Location loc) {
 
