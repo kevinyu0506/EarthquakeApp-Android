@@ -13,12 +13,12 @@ public class EqData {
     private Double longitude;
     private Double latitude;
     private Double accelerator;
-    private DateTime time;
+    private String time;
 
     public EqData() {
     }
 
-    public EqData(int magnitude, Double longitude, Double latitude, Double accelerator) {
+    public EqData(int magnitude, Double longitude, Double latitude, Double accelerator, String time) {
         this.magnitude = magnitude;
         this.longitude = longitude;
         this.latitude = latitude;
@@ -68,11 +68,11 @@ public class EqData {
     }
 
 
-    public void setTime(DateTime time) {
+    public void setTime(String time) {
         this.time = time;
     }
 
-    public DateTime getTime() {
+    public String getTime() {
         return time;
     }
 
