@@ -102,6 +102,8 @@ public class alert extends AppCompatActivity implements
     private DatabaseReference mFirebaseDatabaseReference;
 
 
+    protected DatabaseReference mDataBase;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -146,8 +148,16 @@ public class alert extends AppCompatActivity implements
         openDialog();
 //        getAddress(23, 121);
 
+<<<<<<< HEAD
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mFirebaseDatabaseReference = mFirebaseDatabase.getReference().child("eqData");
+=======
+        mDataBase = FirebaseDatabase.getInstance().getReference();
+
+
+
+
+>>>>>>> 48a721624fe8e39cb0219ad4df6b6bf1bcd9b29e
 
         Button uploadButton = (Button) findViewById(R.id.upload);
         uploadButton.setOnClickListener(new View.OnClickListener() {
@@ -466,8 +476,12 @@ public class alert extends AppCompatActivity implements
 //            eqData.setLatitude(mLastLocation.getLatitude());
 //            eqData.setLongitude(mLastLocation.getLongitude());
             latitude = mLastLocation.getLatitude();
+<<<<<<< HEAD
             longitude = mLastLocation.getLongitude();
 
+=======
+            longitude = mLastLocation.getLatitude();
+>>>>>>> 48a721624fe8e39cb0219ad4df6b6bf1bcd9b29e
 
         } else {
             Toast.makeText(this, R.string.no_location_detected, Toast.LENGTH_LONG).show();
@@ -488,6 +502,7 @@ public class alert extends AppCompatActivity implements
 
 
     //getAddress
+<<<<<<< HEAD
 //    public void getAddress(double lat, double lon) {
 //        location = (TextView) findViewById(R.id.location);
 //        String addressData[] = new String[3];
@@ -531,6 +546,54 @@ public class alert extends AppCompatActivity implements
 //            e.printStackTrace();
 //        }
 //    }
+=======
+    public void getAddress(double lat, double lon) {
+        location = (TextView) findViewById(R.id.location);
+        String addressData[] = new String[3];
+        try {
+            String htp = "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," + lon + "&language=zh-TW&sensor=true";
+            URL url = new URL(htp);
+            HttpURLConnection huc = (HttpURLConnection) url.openConnection();
+            BufferedReader br = new BufferedReader(new InputStreamReader(huc.getInputStream(), "UTF-8"));
+//            String str[] = new String[100];
+            String str = "";
+            StringBuffer sb = new StringBuffer();
+
+            while (null != ((str = br.readLine()))) {
+                sb.append(str);
+                if (str.contains("formatted_address")) {
+                    str = str.replace("formatted_address", "");
+                    str = str.replace("Unnamed Road", "");
+                    str = str.replace(" ", "");
+                    str = str.replace(":", "");
+                    str = str.replace(",", "");
+                    str = str.replace("\"", "");
+
+                    addressData[0] = str;
+                    if(addressData[0] != null){
+                        location.setText(addressData[0]);
+                    }
+                    break;
+                }
+
+
+
+
+
+            }
+            br.close();
+            String xmlResponse = sb.toString();
+            huc.disconnect();
+            System.out.print(xmlResponse);
+//            location.setText(addressData[0]);git
+
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+>>>>>>> 48a721624fe8e39cb0219ad4df6b6bf1bcd9b29e
 
 
     @Override
