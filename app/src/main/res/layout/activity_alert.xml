@@ -253,6 +253,15 @@
         android:layout_centerHorizontal="true"
         android:src="@drawable/inuse" />
 
+    <Button
+        android:id="@+id/upload"
+        android:layout_width="60dp"
+        android:layout_height="35dp"
+        android:layout_below="@+id/Date"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="187dp"
+        android:text="Upload" />
+
 
 </RelativeLayout>
 

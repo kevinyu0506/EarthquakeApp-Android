@@ -86,7 +86,8 @@ public class alert extends AppCompatActivity implements
     public SensorManager aSensorManager;
     public Sensor aSensor;
     public double gravity[] = new double[3];
-//    private double eqGal;
+    private double eqGal;
+    private Integer magnitude;
 
     public TextView level;
     public TextView levelDescribe;
@@ -98,8 +99,11 @@ public class alert extends AppCompatActivity implements
     protected double longitude;
 
     protected TextView location;
+    private  FirebaseDatabase mFirebaseDatabase;
+    private DatabaseReference mFirebaseDatabaseReference;
 
-//    protected DatabaseReference mDataBase;
+
+    protected DatabaseReference mDataBase;
 
 
     @Override
@@ -145,13 +149,23 @@ public class alert extends AppCompatActivity implements
         openDialog();
 //        getAddress(23, 121);
 
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        mFirebaseDatabaseReference = mFirebaseDatabase.getReference().child("eqData");
 //        mDataBase = FirebaseDatabase.getInstance().getReference();
 
+        Button uploadButton = (Button) findViewById(R.id.upload);
+        uploadButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EqData eqData = new EqData(magnitude, longitude, latitude, eqGal);
+                mFirebaseDatabaseReference.push().setValue(eqData);
+            }
+        });
 
+        location = (TextView) findViewById(R.id.location);
 
 
     }
-
 
 
     //time
@@ -217,7 +231,7 @@ public class alert extends AppCompatActivity implements
         countDown = (TextView) findViewById(R.id.countDown);
 
         setCountDownTime = (int) (Math.random() * 10 + 1) * 10000;
-        editor.putInt("countdown",setCountDownTime).commit();
+        editor.putInt("countdown", setCountDownTime).commit();
 
         new CountDownTimer(setCountDownTime, 10) {
 
@@ -250,19 +264,19 @@ public class alert extends AppCompatActivity implements
     public void openDialog() {
 
 
-        final SharedPreferences countdownTime= getSharedPreferences("countdown", 0);
-        int countdown = countdownTime.getInt("countdown",0);
+        final SharedPreferences countdownTime = getSharedPreferences("countdown", 0);
+        int countdown = countdownTime.getInt("countdown", 0);
 
-        new AlertDialog.Builder (alert.this)
-                .setTitle ("地震警報")
-                .setMessage (countdown/1000 +"秒")
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener(){
+        new AlertDialog.Builder(alert.this)
+                .setTitle("地震警報")
+                .setMessage(countdown / 1000 + "秒")
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     public void onClick(
-                            DialogInterface dialogInterface, int i){}
+                            DialogInterface dialogInterface, int i) {
+                    }
                 })
                 .show();
     }
-
 
 
     //countDownBar
@@ -314,18 +328,101 @@ public class alert extends AppCompatActivity implements
         gravity[0] = event.values[0];
         gravity[1] = event.values[1];
         gravity[2] = event.values[2];
+        eqGal = Math.abs((Math.sqrt(Math.pow(gravity[0], 2) + Math.pow(gravity[1], 2) + Math.pow(gravity[2], 2)) - 9.81) * 100);
+
+        if (eqGal < 0.8) {
+//            eqData.setMagnitude(0);
+            magnitude = 0 ;
+        }
+        if (eqGal >= 0.8 && eqGal < 2.5) {
+//            eqData.setMagnitude(1);
+            magnitude = 1;
+        }
+        if (eqGal >= 2.5 && eqGal < 8) {
+//            eqData.setMagnitude(2);
+            magnitude = 2;
+        }
+        if (eqGal >= 8 && eqGal < 25) {
+//            eqData.setMagnitude(3);
+            magnitude = 3;
+        }
+        if (eqGal >= 25 && eqGal < 80) {
+//            eqData.setMagnitude(4);
+            magnitude = 4;
+        }
+        if (eqGal >= 80 && eqGal < 250) {
+//            eqData.setMagnitude(5);
+            magnitude = 5;
+        }
+        if (eqGal >= 250 && eqGal < 400) {
+//            eqData.setMagnitude(6);
+            magnitude = 6;
+        }
+        if (eqGal >= 400) {
+//            eqData.setMagnitude(7);
+            magnitude = 7;
+        }
+
 
 
     }
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
+//        eqData.setAccelerator(eqGal);
+//        location.setText(eqGal+"");
 
-    }
+
 
 
 //    static connectDataBase connectDataBase = new connectDataBase();
 
+//    public void getMagnitude() {
+//
+//        level = (TextView) findViewById(R.id.level);
+//        levelDescribe = (TextView) findViewById(R.id.levelDescribe);
+//
+//
+//        try {
+//            Connection conn = connectDataBase.CONN();
+//            String query = "select accelerationz from datatemp where productid = 5";
+//            Statement stmt = conn.createStatement();
+//            ResultSet rs = stmt.executeQuery(query);
+////            ResultSetMetaData rsmd = rs.getMetaData();
+//
+//            while (rs.next()) {
+//                level.setText(rs.getString("accelerationz"));
+//                System.out.print(rs.getFloat("accelerationz"));
+//                if (rs.getFloat("accelerationz") <= 2) {
+//                    levelDescribe.setText("LIGHT");
+//                    levelDescribe.setTextColor(Color.rgb(92, 201, 255));
+//                    level.setTextColor(Color.rgb(92, 201, 255));
+//
+//                } else if (rs.getFloat("accelerationz") >= 3 && rs.getFloat("accelerationz") <= 4) {
+//                    levelDescribe.setText("MEDIUM");
+//                    levelDescribe.setTextColor(Color.rgb(255, 209, 5));
+//                    level.setTextColor(Color.rgb(255, 209, 5));
+//
+//                } else if (rs.getFloat("accelerationz") >= 5) {
+//                    levelDescribe.setText("SEVERE");
+//                    levelDescribe.setTextColor(Color.rgb(235, 61, 125));
+//                    level.setTextColor(Color.rgb(235, 61, 125));
+//                }
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
+
+
+
+    }
+
+
+
+
+//    static connectDataBase connectDataBase = new connectDataBase();
+//
 //    public void getMagnitude() {
 //
 //        level = (TextView) findViewById(R.id.level);
@@ -414,8 +511,12 @@ public class alert extends AppCompatActivity implements
         }
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         if (mLastLocation != null) {
+//            eqData.setLatitude(mLastLocation.getLatitude());
+//            eqData.setLongitude(mLastLocation.getLongitude());
             latitude = mLastLocation.getLatitude();
             longitude = mLastLocation.getLongitude();
+
+
 
         } else {
             Toast.makeText(this, R.string.no_location_detected, Toast.LENGTH_LONG).show();
@@ -436,6 +537,7 @@ public class alert extends AppCompatActivity implements
 
 
     //getAddress
+
 //    public void getAddress(double lat, double lon) {
 //        location = (TextView) findViewById(R.id.location);
 //        String addressData[] = new String[3];
@@ -475,6 +577,7 @@ public class alert extends AppCompatActivity implements
 //            huc.disconnect();
 //            System.out.print(xmlResponse);
 ////            location.setText(addressData[0]);git
+////            location.setText(addressData[0]);
 //
 //        } catch (MalformedURLException e) {
 //            e.printStackTrace();
@@ -484,6 +587,9 @@ public class alert extends AppCompatActivity implements
 //    }
 //
 //
+
+
+
     @Override
     public void onLocationChanged(Location loc) {
 
