@@ -92,6 +92,9 @@ public class alert extends AppCompatActivity implements
     public SensorManager aSensorManager;
     public Sensor aSensor;
     public double gravity[] = new double[3];
+    public ArrayList<Double> eqGalData = new ArrayList<Double>();
+    public ArrayList<Double> eqGalDataChn = new ArrayList<Double>();
+
     private double eqGal;
     private Integer magnitude;
 
@@ -154,7 +157,7 @@ public class alert extends AppCompatActivity implements
         sensor();
 //        getMagnitude();
         buildGoogleApiClient();
-        openDialog();
+//        openDialog();
 //        getAddress(23, 121);
 
         mFirebaseDatabase = FirebaseDatabase.getInstance();
@@ -173,7 +176,6 @@ public class alert extends AppCompatActivity implements
         });
 
         location = (TextView) findViewById(R.id.location);
-
 
 
 
@@ -337,14 +339,76 @@ public class alert extends AppCompatActivity implements
 
     @Override
     public void onSensorChanged(SensorEvent event) {
+
+        int i;
+        int k;
+
         gravity[0] = event.values[0];
         gravity[1] = event.values[1];
         gravity[2] = event.values[2];
 
 
         eqGal = Math.abs((Math.sqrt(Math.pow(gravity[0], 2) + Math.pow(gravity[1], 2) + Math.pow(gravity[2], 2)) - 9.81) * 100);
-//        eqData.setAccelerator(eqGal);
-//        location.setText(eqGal+"");
+
+
+        i = eqGalData.size();
+        k = eqGalDataChn.size();
+
+//        while (i<=2){
+//            eqGalData.add(eqGal);
+//
+//            if (i==2){
+//                eqGalDataChn.add((eqGalData.get(1)/eqGalData.get(0)));
+//                if (eqGalDataChn.get(0) > 10){
+////                    openDialog();
+//                    EqData eqData = new EqData(magnitude, longitude, latitude, eqGal, time);
+//                    mFirebaseDatabaseReference.push().setValue(eqData);
+//
+//                }
+//                eqGalData.remove(0);
+//            }
+//            if (k==2){
+//                eqGalDataChn.remove(0);
+//            }
+//            break;
+//        }
+
+        while (i<=2){
+            eqGalData.add(eqGal);
+
+            if (i==2){
+                eqGalDataChn.add((eqGalData.get(1)/eqGalData.get(0)));
+                if (eqGalDataChn.get(0) > Math.pow(Math.sqrt(10),2)){
+//                    openDialog();
+                    EqData eqData = new EqData(magnitude, longitude, latitude, eqGal, time);
+                    mFirebaseDatabaseReference.push().setValue(eqData);
+
+                }
+                eqGalData.remove(0);
+            }
+            if (k==2){
+                eqGalDataChn.remove(0);
+            }
+            break;
+        }
+
+
+
+
+//        if (eqGalDataChn.get(0) > Math.pow(10,2)){
+//            upLoadEqData();
+//        }
+
+
+
+        for (int j = 0; j < eqGalDataChn.size(); j++) {
+
+            location.setText("Index: " + j + " Item: " + eqGalDataChn.get(j));
+
+        }
+
+
+
 
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = new Date();
