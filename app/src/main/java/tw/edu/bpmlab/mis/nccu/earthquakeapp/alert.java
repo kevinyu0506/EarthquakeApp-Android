@@ -350,12 +350,31 @@ public class alert extends AppCompatActivity implements
         i = eqGalData.size();
         k = eqGalDataChn.size();
 
+//        while (i<=2){
+//            eqGalData.add(eqGal);
+//
+//            if (i==2){
+//                eqGalDataChn.add((eqGalData.get(1)/eqGalData.get(0)));
+//                if (eqGalDataChn.get(0) > 10){
+////                    openDialog();
+//                    EqData eqData = new EqData(magnitude, longitude, latitude, eqGal, time);
+//                    mFirebaseDatabaseReference.push().setValue(eqData);
+//
+//                }
+//                eqGalData.remove(0);
+//            }
+//            if (k==2){
+//                eqGalDataChn.remove(0);
+//            }
+//            break;
+//        }
+
         while (i<=2){
             eqGalData.add(eqGal);
 
             if (i==2){
                 eqGalDataChn.add((eqGalData.get(1)/eqGalData.get(0)));
-                if (eqGalDataChn.get(0) > Math.sqrt(10)){
+                if (eqGalDataChn.get(0) > Math.pow(Math.sqrt(10),2)){
 //                    openDialog();
                     EqData eqData = new EqData(magnitude, longitude, latitude, eqGal, time);
                     mFirebaseDatabaseReference.push().setValue(eqData);
@@ -368,6 +387,8 @@ public class alert extends AppCompatActivity implements
             }
             break;
         }
+
+
 
 
 //        if (eqGalDataChn.get(0) > Math.pow(10,2)){
