@@ -40,6 +40,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.logging.Handler;
 import java.util.logging.LogRecord;
 
@@ -107,6 +108,7 @@ public class alert extends AppCompatActivity implements
     protected double latitude;
     protected double longitude;
     protected String time;
+    protected String topDate;
 
     protected TextView location;
     private  FirebaseDatabase mFirebaseDatabase;
@@ -409,10 +411,14 @@ public class alert extends AppCompatActivity implements
 
 
 
-
+        Locale locale = new Locale("en", "US");
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        DateFormat topicDate = DateFormat.getDateInstance(DateFormat.MEDIUM, locale);
         Date date = new Date();
         time = dateFormat.format(date);
+        topDate = topicDate.format(date);
+        Date.setText(""+topDate);
+
 
 
 
@@ -623,18 +629,5 @@ public class alert extends AppCompatActivity implements
     }
 
 
-    public void upLoadEqData(){
-
-//        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-//        Date date = new Date();
-//        time = dateFormat.format(date);
-
-        EqData eqData = new EqData(magnitude, longitude, latitude, eqGal, time);
-        mFirebaseDatabaseReference.push().setValue(eqData);
-
-
-
-
-    }
 
 }
