@@ -37,6 +37,7 @@ import java.sql.Statement;
 import java.sql.Connection;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.logging.Handler;
@@ -90,6 +91,7 @@ public class alert extends AppCompatActivity implements
     public SensorManager aSensorManager;
     public Sensor aSensor;
     public double gravity[] = new double[3];
+    public ArrayList<Double> eqGalData = new ArrayList<Double>();
     private double eqGal;
     private Integer magnitude;
 
@@ -332,13 +334,44 @@ public class alert extends AppCompatActivity implements
 
     @Override
     public void onSensorChanged(SensorEvent event) {
+
+        int i;
+
         gravity[0] = event.values[0];
         gravity[1] = event.values[1];
         gravity[2] = event.values[2];
 
+
         eqGal = Math.abs((Math.sqrt(Math.pow(gravity[0], 2) + Math.pow(gravity[1], 2) + Math.pow(gravity[2], 2)) - 9.81) * 100);
 //        eqData.setAccelerator(eqGal);
-//        location.setText(eqGal+"");
+//        location.setText(eqGalData);
+
+
+        i = eqGalData.size();
+        while (i<=5){
+            eqGalData.add(eqGal);
+            if(i==5) {
+                eqGalData.remove(0);
+            }
+            break;
+
+        }
+
+
+
+
+
+
+
+
+        for (int j = 0; j < eqGalData.size(); j++) {
+
+            location.setText("Index: " + j + " - Item: " + eqGalData.get(j));
+
+        }
+
+
+
 
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = new Date();
