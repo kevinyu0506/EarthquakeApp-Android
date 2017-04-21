@@ -155,7 +155,7 @@ public class alert extends AppCompatActivity implements
         sensor();
 //        getMagnitude();
         buildGoogleApiClient();
-        openDialog();
+//        openDialog();
 //        getAddress(23, 121);
 
         mFirebaseDatabase = FirebaseDatabase.getInstance();
@@ -172,7 +172,6 @@ public class alert extends AppCompatActivity implements
         });
 
         location = (TextView) findViewById(R.id.location);
-
 
 
 
@@ -356,6 +355,12 @@ public class alert extends AppCompatActivity implements
 
             if (i==2){
                 eqGalDataChn.add((eqGalData.get(1)/eqGalData.get(0)));
+                if (eqGalDataChn.get(0) > Math.sqrt(10)){
+//                    openDialog();
+                    EqData eqData = new EqData(magnitude, longitude, latitude, eqGal, time);
+                    mFirebaseDatabaseReference.push().setValue(eqData);
+
+                }
                 eqGalData.remove(0);
             }
             if (k==2){
@@ -365,14 +370,17 @@ public class alert extends AppCompatActivity implements
         }
 
 
-
-
-
-//        for (int j = 0; j < eqGalDataChn.size(); j++) {
-//
-//            location.setText("Index: " + j + " Item: " + eqGalDataChn.get(j));
-//
+//        if (eqGalDataChn.get(0) > Math.pow(10,2)){
+//            upLoadEqData();
 //        }
+
+
+
+        for (int j = 0; j < eqGalDataChn.size(); j++) {
+
+            location.setText("Index: " + j + " Item: " + eqGalDataChn.get(j));
+
+        }
 
 
 
