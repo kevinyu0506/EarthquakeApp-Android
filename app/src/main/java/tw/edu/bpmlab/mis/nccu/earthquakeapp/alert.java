@@ -92,6 +92,8 @@ public class alert extends AppCompatActivity implements
     public Sensor aSensor;
     public double gravity[] = new double[3];
     public ArrayList<Double> eqGalData = new ArrayList<Double>();
+    public ArrayList<Double> eqGalDataChn = new ArrayList<Double>();
+
     private double eqGal;
     private Integer magnitude;
 
@@ -336,6 +338,7 @@ public class alert extends AppCompatActivity implements
     public void onSensorChanged(SensorEvent event) {
 
         int i;
+        int k;
 
         gravity[0] = event.values[0];
         gravity[1] = event.values[1];
@@ -343,32 +346,33 @@ public class alert extends AppCompatActivity implements
 
 
         eqGal = Math.abs((Math.sqrt(Math.pow(gravity[0], 2) + Math.pow(gravity[1], 2) + Math.pow(gravity[2], 2)) - 9.81) * 100);
-//        eqData.setAccelerator(eqGal);
-//        location.setText(eqGalData);
 
 
         i = eqGalData.size();
-        while (i<=5){
+        k = eqGalDataChn.size();
+
+        while (i<=2){
             eqGalData.add(eqGal);
-            if(i==5) {
+
+            if (i==2){
+                eqGalDataChn.add((eqGalData.get(1)/eqGalData.get(0)));
                 eqGalData.remove(0);
             }
+            if (k==2){
+                eqGalDataChn.remove(0);
+            }
             break;
-
         }
 
 
 
 
 
-
-
-
-        for (int j = 0; j < eqGalData.size(); j++) {
-
-            location.setText("Index: " + j + " - Item: " + eqGalData.get(j));
-
-        }
+//        for (int j = 0; j < eqGalDataChn.size(); j++) {
+//
+//            location.setText("Index: " + j + " Item: " + eqGalDataChn.get(j));
+//
+//        }
 
 
 
