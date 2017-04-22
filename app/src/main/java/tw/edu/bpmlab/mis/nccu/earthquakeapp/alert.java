@@ -177,6 +177,14 @@ public class alert extends AppCompatActivity implements
             }
         });
 
+        Button deleteButton = (Button) findViewById(R.id.delete);
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mFirebaseDatabaseReference.removeValue();
+            }
+        });
+
         location = (TextView) findViewById(R.id.location);
 
 
@@ -412,7 +420,7 @@ public class alert extends AppCompatActivity implements
 
 
         Locale locale = new Locale("en", "US");
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss:ms");
         DateFormat topicDate = DateFormat.getDateInstance(DateFormat.MEDIUM, locale);
         Date date = new Date();
         time = dateFormat.format(date);

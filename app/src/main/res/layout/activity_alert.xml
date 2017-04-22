@@ -257,10 +257,19 @@
         android:id="@+id/upload"
         android:layout_width="60dp"
         android:layout_height="35dp"
-        android:layout_below="@+id/Date"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="187dp"
-        android:text="Upload" />
+        android:text="Upload"
+        android:layout_alignBaseline="@+id/delete"
+        android:layout_alignBottom="@+id/delete"
+        android:layout_alignStart="@+id/map" />
+
+    <Button
+        android:id="@+id/delete"
+        android:layout_width="60dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="177dp"
+        android:text="Delete"
+        android:layout_alignTop="@+id/relativeLayoutFirst"
+        android:layout_alignEnd="@+id/settingsButton" />
 
 
 </RelativeLayout>
