@@ -157,7 +157,6 @@ public class alert extends AppCompatActivity implements
         countDown();
         setCountDownBar();
         sensor();
-//        getMagnitude();
         buildGoogleApiClient();
 //        openDialog();
 //        getAddress(23, 121);
