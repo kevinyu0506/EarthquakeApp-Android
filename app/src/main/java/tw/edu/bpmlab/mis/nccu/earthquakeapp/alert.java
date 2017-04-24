@@ -59,8 +59,11 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 import com.google.android.gms.location.LocationServices;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 //address
 import java.net.HttpURLConnection;
@@ -109,12 +112,17 @@ public class alert extends AppCompatActivity implements
     protected double longitude;
     protected double x;
     protected double y;
+    protected int centerMagnitude;
+    protected double centerLongitude;
+    protected double centerLatitude;
     protected String time;
     protected String topDate;
 
     protected TextView location;
     private  FirebaseDatabase mFirebaseDatabase;
-    private DatabaseReference mFirebaseDatabaseReference;
+    private DatabaseReference mEqDataReference;
+    private DatabaseReference mEqCenterReference;
+    private ValueEventListener mEqCenterListener;
 
 
     protected DatabaseReference mDataBase;
@@ -165,7 +173,8 @@ public class alert extends AppCompatActivity implements
 //        getAddress(23, 121);
 
         mFirebaseDatabase = FirebaseDatabase.getInstance();
-        mFirebaseDatabaseReference = mFirebaseDatabase.getReference().child("eqData");
+        mEqDataReference = mFirebaseDatabase.getReference().child("eqData");
+        mEqCenterReference = mFirebaseDatabase.getReference().child("eqCenter");
 
 
 
@@ -174,8 +183,8 @@ public class alert extends AppCompatActivity implements
         uploadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EqData eqData = new EqData(magnitude, longitude, latitude, eqGal, time);
-                mFirebaseDatabaseReference.push().setValue(eqData);
+                EqCenter eqCenter = new EqCenter(magnitude, longitude, latitude, time);
+                mEqCenterReference.push().setValue(eqCenter);
             }
         });
 
@@ -183,7 +192,7 @@ public class alert extends AppCompatActivity implements
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mFirebaseDatabaseReference.removeValue();
+                mEqDataReference.removeValue();
             }
         });
 
@@ -290,12 +299,12 @@ public class alert extends AppCompatActivity implements
     public void openDialog() {
 
 
-        final SharedPreferences countdownTime = getSharedPreferences("countdown", 0);
-        int countdown = countdownTime.getInt("countdown", 0);
+//        final SharedPreferences countdownTime = getSharedPreferences("countdown", 0);
+//        int countdown = countdownTime.getInt("countdown", 0);
 
         new AlertDialog.Builder(alert.this)
                 .setTitle("地震警報")
-                .setMessage(countdown / 1000 + "秒")
+                .setMessage("地震在緯度" + centerLongitude +"與經度" + centerLatitude)
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     public void onClick(
                             DialogInterface dialogInterface, int i) {
@@ -374,7 +383,7 @@ public class alert extends AppCompatActivity implements
                 if (eqGalDataChn.get(0) > Math.pow(Math.sqrt(10),2)){
 //                    openDialog();
                     EqData eqData = new EqData(magnitude, x, y, eqGal, time);
-                    mFirebaseDatabaseReference.push().setValue(eqData);
+                    mEqDataReference.push().setValue(eqData);
 
                 }
                 eqGalData.remove(0);
@@ -481,6 +490,34 @@ public class alert extends AppCompatActivity implements
     protected void onStart() {
         super.onStart();
         mGoogleApiClient.connect();
+
+
+        ValueEventListener eqCenterListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Get Post object and use the values to update the UI
+                EqCenter EqCenter = dataSnapshot.getValue(EqCenter.class);
+//                centerMagnitude = EqCenter.getMagnitude();
+//                centerLongitude = EqCenter.getLongitude();
+//                centerLatitude = EqCenter.getLatitude();
+
+//                openDialog();
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+            }
+        };
+
+        mEqCenterReference.addValueEventListener(eqCenterListener);
+
+        mEqCenterListener = eqCenterListener;
+
+
+
     }
 
     @Override
@@ -621,6 +658,20 @@ public class alert extends AppCompatActivity implements
     public void onProviderDisabled(String provider) {
 
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
