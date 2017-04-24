@@ -18,10 +18,10 @@ public class EqData {
     public EqData() {
     }
 
-    public EqData(int magnitude, Double longitude, Double latitude, Double accelerator, String time) {
+    public EqData(int magnitude, Double x, Double y, Double accelerator, String time) {
         this.magnitude = magnitude;
-        this.longitude = longitude;
-        this.latitude = latitude;
+        this.longitude = x;
+        this.latitude = y;
         this.accelerator = accelerator;
         this.time = time;
     }
@@ -43,16 +43,16 @@ public class EqData {
     }
 
 
-    public void setLongitude(Double longitude) {
-        this.longitude = longitude;
+    public void setLongitude(Double x) {
+        this.longitude = x;
     }
 
     public Double getLongitude() {
         return longitude;
     }
 
-    public void setLatitude(Double latitude) {
-        this.latitude = latitude;
+    public void setLatitude(Double y) {
+        this.latitude = y;
     }
 
     public Double getLatitude() {

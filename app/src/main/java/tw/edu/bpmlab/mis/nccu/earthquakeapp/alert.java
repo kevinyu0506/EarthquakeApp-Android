@@ -107,6 +107,8 @@ public class alert extends AppCompatActivity implements
     protected Location mLastLocation;
     protected double latitude;
     protected double longitude;
+    protected double x;
+    protected double y;
     protected String time;
     protected String topDate;
 
@@ -364,25 +366,6 @@ public class alert extends AppCompatActivity implements
         i = eqGalData.size();
         k = eqGalDataChn.size();
 
-//        while (i<=2){
-//            eqGalData.add(eqGal);
-//
-//            if (i==2){
-//                eqGalDataChn.add((eqGalData.get(1)/eqGalData.get(0)));
-//                if (eqGalDataChn.get(0) > 10){
-////                    openDialog();
-//                    EqData eqData = new EqData(magnitude, longitude, latitude, eqGal, time);
-//                    mFirebaseDatabaseReference.push().setValue(eqData);
-//
-//                }
-//                eqGalData.remove(0);
-//            }
-//            if (k==2){
-//                eqGalDataChn.remove(0);
-//            }
-//            break;
-//        }
-
         while (i<=2){
             eqGalData.add(eqGal);
 
@@ -390,7 +373,7 @@ public class alert extends AppCompatActivity implements
                 eqGalDataChn.add((eqGalData.get(1)/eqGalData.get(0)));
                 if (eqGalDataChn.get(0) > Math.pow(Math.sqrt(10),2)){
 //                    openDialog();
-                    EqData eqData = new EqData(magnitude, longitude, latitude, eqGal, time);
+                    EqData eqData = new EqData(magnitude, x, y, eqGal, time);
                     mFirebaseDatabaseReference.push().setValue(eqData);
 
                 }
@@ -520,6 +503,7 @@ public class alert extends AppCompatActivity implements
 
     @Override
     public void onConnected(Bundle connectionHint) {
+
         // Provides a simple way of getting a device's location and is well suited for
         // applications that do not require a fine-grained location and that do not need location
         // updates. Gets the best and most recent location currently available, which may be null
@@ -536,10 +520,12 @@ public class alert extends AppCompatActivity implements
         }
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         if (mLastLocation != null) {
-//            eqData.setLatitude(mLastLocation.getLatitude());
-//            eqData.setLongitude(mLastLocation.getLongitude());
+
             latitude = mLastLocation.getLatitude();
             longitude = mLastLocation.getLongitude();
+
+            x = Math.floor((longitude - 120)/0.02);
+            y = Math.floor((latitude - 21.5)/0.04);
 
 
 
