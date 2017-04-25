@@ -115,6 +115,7 @@ public class alert extends AppCompatActivity implements
     protected int centerMagnitude;
     protected double centerLongitude;
     protected double centerLatitude;
+    protected String centerTime;
     protected String time;
     protected String topDate;
 
@@ -174,7 +175,7 @@ public class alert extends AppCompatActivity implements
 
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mEqDataReference = mFirebaseDatabase.getReference().child("eqData");
-        mEqCenterReference = mFirebaseDatabase.getReference().child("eqCenter");
+        mEqCenterReference = mFirebaseDatabase.getReference().child("EqCenter/1");
 
 
 
@@ -299,12 +300,12 @@ public class alert extends AppCompatActivity implements
     public void openDialog() {
 
 
-//        final SharedPreferences countdownTime = getSharedPreferences("countdown", 0);
-//        int countdown = countdownTime.getInt("countdown", 0);
+        final SharedPreferences countdownTime = getSharedPreferences("countdown", 0);
+        int countdown = countdownTime.getInt("countdown", 0);
 
         new AlertDialog.Builder(alert.this)
                 .setTitle("地震警報")
-                .setMessage("地震在緯度" + centerLongitude +"與經度" + centerLatitude)
+                .setMessage("震央經度 = " + centerLongitude + " , 震央緯度 = " + centerLatitude + " , 發生時間 =" + centerTime)
                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                     public void onClick(
                             DialogInterface dialogInterface, int i) {
@@ -491,17 +492,31 @@ public class alert extends AppCompatActivity implements
         super.onStart();
         mGoogleApiClient.connect();
 
+        final ArrayList<EqCenter> eqCenters = new ArrayList<EqCenter>();
+
 
         ValueEventListener eqCenterListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                // Get Post object and use the values to update the UI
-                EqCenter EqCenter = dataSnapshot.getValue(EqCenter.class);
-//                centerMagnitude = EqCenter.getMagnitude();
-//                centerLongitude = EqCenter.getLongitude();
-//                centerLatitude = EqCenter.getLatitude();
 
-//                openDialog();
+                EqCenter eqCenter = dataSnapshot.getValue(EqCenter.class);
+                eqCenters.add(eqCenter);
+
+                Integer centerMagnitude = eqCenter.getMagnitude();
+                Double centerLongitude = eqCenter.getLongitude();
+                Double centerLatitude = eqCenter.getLatitude();
+                String centerTime = eqCenter.getTime();
+
+                new AlertDialog.Builder(alert.this)
+                        .setTitle("地震警報")
+                        .setMessage("震央經度 = " + centerLongitude + " , 震央緯度 = " + centerLatitude + " , 發生時間 =" + centerTime)
+                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                            public void onClick(
+                                    DialogInterface dialogInterface, int i) {
+                            }
+                        })
+                        .show();
+
 
             }
 
@@ -526,6 +541,11 @@ public class alert extends AppCompatActivity implements
         if (mGoogleApiClient.isConnected()) {
             mGoogleApiClient.disconnect();
         }
+
+        if (mEqCenterListener != null) {
+            mEqCenterReference.removeEventListener(mEqCenterListener);
+        }
+
     }
 
     @Override

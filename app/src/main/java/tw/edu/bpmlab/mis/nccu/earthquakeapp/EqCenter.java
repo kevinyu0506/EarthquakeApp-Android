@@ -1,16 +1,22 @@
 package tw.edu.bpmlab.mis.nccu.earthquakeapp;
 
+import com.google.firebase.database.Exclude;
+
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by Kevin on 2017/4/24.
  */
 
 public class EqCenter {
 
-    private String id;
-    private Integer magnitude;
-    private Double longitude;
-    private Double latitude;
-    private String time;
+    public Integer magnitude;
+    public Double longitude;
+    public Double latitude;
+    public String time;
+
+
 
     public EqCenter() {
     }
@@ -20,14 +26,6 @@ public class EqCenter {
         this.longitude = x;
         this.latitude = y;
         this.time = time;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public void setMagnitude(Integer magnitude) {
@@ -62,5 +60,18 @@ public class EqCenter {
     public String getTime() {
         return time;
     }
+
+
+//    @Exclude
+//    public Map<String, Object> toMap() {
+//        HashMap<String, Object> result = new HashMap<>();
+//        result.put("latitude", latitude);
+//        result.put("longitude", longitude);
+//        result.put("latitude", latitude);
+//        result.put("time", time);
+//
+//        return result;
+//    }
+
 
 }
