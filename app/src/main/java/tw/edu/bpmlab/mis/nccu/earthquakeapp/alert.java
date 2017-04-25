@@ -84,7 +84,7 @@ public class alert extends AppCompatActivity implements
     protected int thisMonth;
     protected String thisMonthEng;
     protected int thisDate;
-//    protected int thisHour;
+    //    protected int thisHour;
 //    protected int thisMin;
 //    protected int thisSec;
     public String Time;
@@ -103,7 +103,8 @@ public class alert extends AppCompatActivity implements
     private double eqGal;
     private Integer magnitude;
 
-    public TextView level;
+    public TextView localLevel;
+    public TextView epicCenterLevel;
     public TextView levelDescribe;
 
     protected static final String TAG = "MainActivity";
@@ -121,7 +122,7 @@ public class alert extends AppCompatActivity implements
     protected String topDate;
 
     protected TextView location;
-    private  FirebaseDatabase mFirebaseDatabase;
+    private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mEqDataReference;
     private DatabaseReference mEqCenterReference;
     private ValueEventListener mEqCenterListener;
@@ -177,8 +178,6 @@ public class alert extends AppCompatActivity implements
         mEqCenterReference = mFirebaseDatabase.getReference().child("eqCenter");
 
 
-
-
         Button uploadButton = (Button) findViewById(R.id.upload);
         uploadButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -197,6 +196,7 @@ public class alert extends AppCompatActivity implements
         });
 
         location = (TextView) findViewById(R.id.localLocation);
+        epicCenterLevel = (TextView)findViewById(R.id.epicCenterLevel);
 
 
 
@@ -380,12 +380,12 @@ public class alert extends AppCompatActivity implements
             i = eqGalData.size();
             k = eqGalDataChn.size();
 
-            while (i<=2){
+            while (i <= 2) {
                 eqGalData.add(eqGal);
 
-                if (i==2){
-                    eqGalDataChn.add((eqGalData.get(1)/eqGalData.get(0)));
-                    if (eqGalDataChn.get(0) > Math.pow(Math.sqrt(10),2)){
+                if (i == 2) {
+                    eqGalDataChn.add((eqGalData.get(1) / eqGalData.get(0)));
+                    if (eqGalDataChn.get(0) > Math.pow(Math.sqrt(10), 2)) {
                         EqData eqData = new EqData(magnitude, x, y, eqGal, time);
                         mEqDataReference.push().setValue(eqData);
 
@@ -393,25 +393,21 @@ public class alert extends AppCompatActivity implements
                     }
                     eqGalData.remove(0);
                 }
-                if (k==2){
+                if (k == 2) {
                     eqGalDataChn.remove(0);
                 }
                 break;
 
-        }
-
-
-            for (int j = 0; j < eqGalDataChn.size(); j++) {
-                DecimalFormat df = new DecimalFormat("##.00");
-                location.setText("Index: " + j + " Item: " + Double.parseDouble(df.format(eqGalDataChn.get(j))));
-
             }
 
+
+//            for (int j = 0; j < eqGalDataChn.size(); j++) {
+//                DecimalFormat df = new DecimalFormat("##.00");
+//                location.setText("Index: " + j + " Item: " + Double.parseDouble(df.format(eqGalDataChn.get(j))));
+//
+//            }
+
         }
-
-
-
-
 
 
         Locale locale = new Locale("en", "US");
@@ -420,13 +416,11 @@ public class alert extends AppCompatActivity implements
         Date date = new Date();
         time = dateFormat.format(date);
         topDate = topicDate.format(date);
-        Date.setText(""+topDate);
-
-
+        Date.setText("" + topDate);
 
 
         if (eqGal < 0.8) {
-            magnitude = 0 ;
+            magnitude = 0;
         }
         if (eqGal >= 0.8 && eqGal < 2.5) {
             magnitude = 1;
@@ -451,9 +445,6 @@ public class alert extends AppCompatActivity implements
         }
 
 
-
-
-
     }
 
     @Override
@@ -461,7 +452,6 @@ public class alert extends AppCompatActivity implements
 
 
     }
-
 
 
     //gps
@@ -485,6 +475,8 @@ public class alert extends AppCompatActivity implements
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
+
+
                 EqCenter eqCenter = dataSnapshot.getValue(EqCenter.class);
                 eqCenters.add(eqCenter);
 
@@ -492,6 +484,8 @@ public class alert extends AppCompatActivity implements
                 Double centerLongitude = eqCenter.getLongitude();
                 Double centerLatitude = eqCenter.getLatitude();
                 String centerTime = eqCenter.getTime();
+
+                epicCenterLevel.setText(""+centerMagnitude);
 
                 new AlertDialog.Builder(alert.this)
                         .setTitle(centerMagnitude + "級地震警報")
@@ -516,7 +510,6 @@ public class alert extends AppCompatActivity implements
         mEqCenterReference.addValueEventListener(eqCenterListener);
 
         mEqCenterListener = eqCenterListener;
-
 
 
     }
@@ -567,9 +560,8 @@ public class alert extends AppCompatActivity implements
             latitude = mLastLocation.getLatitude();
             longitude = mLastLocation.getLongitude();
 
-            x = Math.floor((longitude - 120)/0.02);
-            y = Math.floor((latitude - 21.5)/0.04);
-
+            x = Math.floor((longitude - 120) / 0.02);
+            y = Math.floor((latitude - 21.5) / 0.04);
 
 
         } else {
@@ -615,14 +607,11 @@ public class alert extends AppCompatActivity implements
                     str = str.replace("\"", "");
 
                     addressData[0] = str;
-                    if(addressData[0] != null){
+                    if (addressData[0] != null) {
                         location.setText(addressData[0]);
                     }
                     break;
                 }
-
-
-
 
 
             }
@@ -639,10 +628,6 @@ public class alert extends AppCompatActivity implements
             e.printStackTrace();
         }
     }
-
-
-
-
 
 
     @Override
@@ -664,19 +649,6 @@ public class alert extends AppCompatActivity implements
     public void onProviderDisabled(String provider) {
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
