@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "earthquakeapp-15c03",
+  "private_key_id": "2e5d728708709244a5e94f142e4d965f19152f0c",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDKmbnL9hcHFbw6\nN8DT4iIWc+VzyW2swuCUGYt3g4ah8L8guGu3DqHs394r9V1nuXS3ovjV3XVObwxl\n1AO2KkX2Ad6jsSYtxpR0HY47apivQtVsiHLivePNUXqBfXmCbTa2DtYaBPLJV38C\nWbpjKqrzwzc6s9f55OPyt8XfjzP4Bcpr6qSSm3fleZBUsoiXcl19QuZseI7raXn4\nB/aAqzFQx7PCJJ9J/ZvWHv0HCwhjMlG4B8b5H5LAhkKNgDaVgIqE7ypud5s8BQkw\n1t41ghsXTFrAU1m0WvxZ8jnKEWsBrEuLwzAiDsy9d/uqCsqwfw5S+VecJfnw8f51\no1ZW3FUHAgMBAAECggEARvzUF/4TFX1tJWzxmIwsa3eSVx6l2hmyPNIyht7D5qwH\nG/ziaRKsc+YA36AqaTSXC90DmVPuTVwlmOxPnJ11Q/xluS9R9EoXLBRLCNCRzR76\nzvuEXaQxVHiPFx4S3DtOJz5NkHJZa2jH7NfpseN6YMzu5hervjiQEjSIFYwEposo\ngn2GsNpjHbfDGxiDLbtcYtEt6ptBEXHMR8jDjcUjUT6hM+DfcssWDA1drzQ1gaA2\nzdrmcQ0RssEnQn+Tueg/xBF891LDgj+5o3UIOaihx8IUVh4VCM+CVs+f0pSnTGkp\n7Ct/7f3k1bCR0WmoK8RT47n6mFRwTITQK4IYWzEJ4QKBgQD7TMv8++D7m/fM4s0M\nAsEcRm7rfL5pgmX+Kh1k/BsMvp+8mCJBvrtbn9xqqjz7gG7drFZH6FVicN4ISylT\nXQrIvvalat2K5hiP8ZysQjiG6UTBqs9zDFy82jrphHXANa1GPA8puZkmySv1Vnjh\nVh9lIbCQvduHXAV9pT4E/gK1dwKBgQDOY8KFwqnO0T1ZDr9BfeNSHPUgljy948rG\nYWXGxIN3V+JZnu635OK+mXb7r5rh7tcdPmNmEkzfaM88TZy6x67wyE8hgX4BV0f9\n6RlEMUj7qm+Ww1MlwdcVB/ulYFNN8P4RxYDaWB42qi2YW+/lnRR4D6D6qQMrRvkj\nQ7Yn9gyA8QKBgCuymvYOxnx6DojuF0GzaOkFxlvkgSfPqPSdVictP3bj3troiWxt\nQh8YmTdjCt+g4aZiRU6Ts+U+Qx2mFDWOxEVMD4+MGaIBiNve46OAkFvFTFNw5EnZ\nKHcea4gXpHIb41mHMAvNXjhEWwR6WOK2Gxd22EETAo1zDvFePn6XvNjZAoGAOQ99\nrUuHdQWGZ4PbPrkWSxJ0dwDyZDGBU12ELPMRwcILc2msaC0gvz9glO8U7BgDYzNn\necXfePjaKrrudPlWFX3b2tCZTLeb0MhMUv0pR2L0nQL9jvfLhiYB3dQG1Aqnw7QO\nDs/D8qsUFgZ9Ccdm7Fat0/88QA/MO4Kx7tRo2pECgYAUc21qOYmBqVynRfvOIYjw\n/qE1g1OBq1CPSNtFrWIy9YCO+utSn86M4IFIbfbIAGlmF3i/l+ejSMnukW/6UTmb\n/fvY/aT4e2EgnDvZzHHwb+puzQl1zWfou2nGAmqb0xqBQ2kCR+k41n+hjqgdalCz\nQduq5SFlGzR/ndMoe2YfnQ==\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-xmbtq@earthquakeapp-15c03.iam.gserviceaccount.com",
+  "client_id": "105411720710318931516",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-xmbtq%40earthquakeapp-15c03.iam.gserviceaccount.com"
+}

@@ -36,6 +36,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Connection;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -59,8 +60,11 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.GoogleApiClient.ConnectionCallbacks;
 import com.google.android.gms.common.api.GoogleApiClient.OnConnectionFailedListener;
 import com.google.android.gms.location.LocationServices;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 //address
 import java.net.HttpURLConnection;
@@ -107,17 +111,24 @@ public class alert extends AppCompatActivity implements
     protected Location mLastLocation;
     protected double latitude;
     protected double longitude;
+    protected double x;
+    protected double y;
+    protected int centerMagnitude;
+    protected double centerLongitude;
+    protected double centerLatitude;
+    protected String centerTime;
     protected String time;
     protected String topDate;
 
     protected TextView location;
     private  FirebaseDatabase mFirebaseDatabase;
-    private DatabaseReference mFirebaseDatabaseReference;
+    private DatabaseReference mEqDataReference;
+    private DatabaseReference mEqCenterReference;
+    private ValueEventListener mEqCenterListener;
 
 
-    protected DatabaseReference mDataBase;
-
-
+    private long lastUpdate = 0;
+    private static final int SHAKE_THRESHOLD = 600;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -162,7 +173,8 @@ public class alert extends AppCompatActivity implements
 //        getAddress(23, 121);
 
         mFirebaseDatabase = FirebaseDatabase.getInstance();
-        mFirebaseDatabaseReference = mFirebaseDatabase.getReference().child("eqData");
+        mEqDataReference = mFirebaseDatabase.getReference().child("eqData");
+        mEqCenterReference = mFirebaseDatabase.getReference().child("eqCenter");
 
 
 
@@ -171,8 +183,8 @@ public class alert extends AppCompatActivity implements
         uploadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EqData eqData = new EqData(magnitude, longitude, latitude, eqGal, time);
-                mFirebaseDatabaseReference.push().setValue(eqData);
+                EqCenter eqCenter = new EqCenter(magnitude, longitude, latitude, time);
+                mEqCenterReference.setValue(eqCenter);
             }
         });
 
@@ -180,7 +192,7 @@ public class alert extends AppCompatActivity implements
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mFirebaseDatabaseReference.removeValue();
+                mEqDataReference.removeValue();
             }
         });
 
@@ -287,18 +299,18 @@ public class alert extends AppCompatActivity implements
     public void openDialog() {
 
 
-        final SharedPreferences countdownTime = getSharedPreferences("countdown", 0);
-        int countdown = countdownTime.getInt("countdown", 0);
-
-        new AlertDialog.Builder(alert.this)
-                .setTitle("地震警報")
-                .setMessage(countdown / 1000 + "秒")
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                    public void onClick(
-                            DialogInterface dialogInterface, int i) {
-                    }
-                })
-                .show();
+//        final SharedPreferences countdownTime = getSharedPreferences("countdown", 0);
+//        int countdown = countdownTime.getInt("countdown", 0);
+//
+//        new AlertDialog.Builder(alert.this)
+//                .setTitle("地震警報")
+//                .setMessage("震央經度 = " + centerLongitude + " , 震央緯度 = " + centerLatitude + " , 發生時間 =" + centerTime)
+//                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+//                    public void onClick(
+//                            DialogInterface dialogInterface, int i) {
+//                    }
+//                })
+//                .show();
     }
 
 
@@ -357,64 +369,48 @@ public class alert extends AppCompatActivity implements
         gravity[2] = event.values[2];
 
 
-        eqGal = Math.abs((Math.sqrt(Math.pow(gravity[0], 2) + Math.pow(gravity[1], 2) + Math.pow(gravity[2], 2)) - 9.81) * 100);
+        long curTime = System.currentTimeMillis();
+
+        if ((curTime - lastUpdate) > 1000) {
+            lastUpdate = curTime;
+
+            eqGal = Math.abs((Math.sqrt(Math.pow(gravity[0], 2) + Math.pow(gravity[1], 2) + Math.pow(gravity[2], 2)) - 9.81) * 100);
 
 
-        i = eqGalData.size();
-        k = eqGalDataChn.size();
+            i = eqGalData.size();
+            k = eqGalDataChn.size();
 
-//        while (i<=2){
-//            eqGalData.add(eqGal);
-//
-//            if (i==2){
-//                eqGalDataChn.add((eqGalData.get(1)/eqGalData.get(0)));
-//                if (eqGalDataChn.get(0) > 10){
-////                    openDialog();
-//                    EqData eqData = new EqData(magnitude, longitude, latitude, eqGal, time);
-//                    mFirebaseDatabaseReference.push().setValue(eqData);
-//
-//                }
-//                eqGalData.remove(0);
-//            }
-//            if (k==2){
-//                eqGalDataChn.remove(0);
-//            }
-//            break;
-//        }
+            while (i<=2){
+                eqGalData.add(eqGal);
 
-        while (i<=2){
-            eqGalData.add(eqGal);
+                if (i==2){
+                    eqGalDataChn.add((eqGalData.get(1)/eqGalData.get(0)));
+                    if (eqGalDataChn.get(0) > Math.pow(Math.sqrt(10),2)){
+                        EqData eqData = new EqData(magnitude, x, y, eqGal, time);
+                        mEqDataReference.push().setValue(eqData);
 
-            if (i==2){
-                eqGalDataChn.add((eqGalData.get(1)/eqGalData.get(0)));
-                if (eqGalDataChn.get(0) > Math.pow(Math.sqrt(10),2)){
-//                    openDialog();
-                    EqData eqData = new EqData(magnitude, longitude, latitude, eqGal, time);
-                    mFirebaseDatabaseReference.push().setValue(eqData);
 
+                    }
+                    eqGalData.remove(0);
                 }
-                eqGalData.remove(0);
+                if (k==2){
+                    eqGalDataChn.remove(0);
+                }
+                break;
+
+        }
+
+
+            for (int j = 0; j < eqGalDataChn.size(); j++) {
+                DecimalFormat df = new DecimalFormat("##.00");
+                location.setText("Index: " + j + " Item: " + Double.parseDouble(df.format(eqGalDataChn.get(j))));
+
             }
-            if (k==2){
-                eqGalDataChn.remove(0);
-            }
-            break;
+
         }
 
 
 
-
-//        if (eqGalDataChn.get(0) > Math.pow(10,2)){
-//            upLoadEqData();
-//        }
-
-
-
-//        for (int j = 0; j < eqGalDataChn.size(); j++) {
-//
-//            location.setText("Index: " + j + " Item: " + eqGalDataChn.get(j));
-//
-//        }
 
 
 
@@ -430,35 +426,27 @@ public class alert extends AppCompatActivity implements
 
 
         if (eqGal < 0.8) {
-//            eqData.setMagnitude(0);
             magnitude = 0 ;
         }
         if (eqGal >= 0.8 && eqGal < 2.5) {
-//            eqData.setMagnitude(1);
             magnitude = 1;
         }
         if (eqGal >= 2.5 && eqGal < 8) {
-//            eqData.setMagnitude(2);
             magnitude = 2;
         }
         if (eqGal >= 8 && eqGal < 25) {
-//            eqData.setMagnitude(3);
             magnitude = 3;
         }
         if (eqGal >= 25 && eqGal < 80) {
-//            eqData.setMagnitude(4);
             magnitude = 4;
         }
         if (eqGal >= 80 && eqGal < 250) {
-//            eqData.setMagnitude(5);
             magnitude = 5;
         }
         if (eqGal >= 250 && eqGal < 400) {
-//            eqData.setMagnitude(6);
             magnitude = 6;
         }
         if (eqGal >= 400) {
-//            eqData.setMagnitude(7);
             magnitude = 7;
         }
 
@@ -470,14 +458,6 @@ public class alert extends AppCompatActivity implements
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
-//        eqData.setAccelerator(eqGal);
-//        location.setText(eqGal+"");
-
-
-
-
-
-
 
 
     }
@@ -497,6 +477,48 @@ public class alert extends AppCompatActivity implements
     protected void onStart() {
         super.onStart();
         mGoogleApiClient.connect();
+
+        final ArrayList<EqCenter> eqCenters = new ArrayList<EqCenter>();
+
+
+        ValueEventListener eqCenterListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                EqCenter eqCenter = dataSnapshot.getValue(EqCenter.class);
+                eqCenters.add(eqCenter);
+
+                Integer centerMagnitude = eqCenter.getMagnitude();
+                Double centerLongitude = eqCenter.getLongitude();
+                Double centerLatitude = eqCenter.getLatitude();
+                String centerTime = eqCenter.getTime();
+
+                new AlertDialog.Builder(alert.this)
+                        .setTitle(centerMagnitude + "級地震警報")
+                        .setMessage("震央經度 = " + centerLongitude + " , 震央緯度 = " + centerLatitude + " , 發生時間 = " + centerTime)
+                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                            public void onClick(
+                                    DialogInterface dialogInterface, int i) {
+                            }
+                        })
+                        .show();
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+            }
+        };
+
+        mEqCenterReference.addValueEventListener(eqCenterListener);
+
+        mEqCenterListener = eqCenterListener;
+
+
+
     }
 
     @Override
@@ -505,6 +527,11 @@ public class alert extends AppCompatActivity implements
         if (mGoogleApiClient.isConnected()) {
             mGoogleApiClient.disconnect();
         }
+
+        if (mEqCenterListener != null) {
+            mEqCenterReference.removeEventListener(mEqCenterListener);
+        }
+
     }
 
     @Override
@@ -519,6 +546,7 @@ public class alert extends AppCompatActivity implements
 
     @Override
     public void onConnected(Bundle connectionHint) {
+
         // Provides a simple way of getting a device's location and is well suited for
         // applications that do not require a fine-grained location and that do not need location
         // updates. Gets the best and most recent location currently available, which may be null
@@ -535,10 +563,12 @@ public class alert extends AppCompatActivity implements
         }
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         if (mLastLocation != null) {
-//            eqData.setLatitude(mLastLocation.getLatitude());
-//            eqData.setLongitude(mLastLocation.getLongitude());
+
             latitude = mLastLocation.getLatitude();
             longitude = mLastLocation.getLongitude();
+
+            x = Math.floor((longitude - 120)/0.02);
+            y = Math.floor((latitude - 21.5)/0.04);
 
 
 
@@ -634,6 +664,20 @@ public class alert extends AppCompatActivity implements
     public void onProviderDisabled(String provider) {
 
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
