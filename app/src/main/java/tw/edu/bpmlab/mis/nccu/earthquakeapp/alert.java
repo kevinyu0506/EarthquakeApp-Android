@@ -36,6 +36,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Connection;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -126,9 +127,8 @@ public class alert extends AppCompatActivity implements
     private ValueEventListener mEqCenterListener;
 
 
-    protected DatabaseReference mDataBase;
-
-
+    private long lastUpdate = 0;
+    private static final int SHAKE_THRESHOLD = 600;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -370,37 +370,47 @@ public class alert extends AppCompatActivity implements
         gravity[2] = event.values[2];
 
 
-        eqGal = Math.abs((Math.sqrt(Math.pow(gravity[0], 2) + Math.pow(gravity[1], 2) + Math.pow(gravity[2], 2)) - 9.81) * 100);
+        long curTime = System.currentTimeMillis();
+
+        if ((curTime - lastUpdate) > 1000) {
+            lastUpdate = curTime;
+
+            eqGal = Math.abs((Math.sqrt(Math.pow(gravity[0], 2) + Math.pow(gravity[1], 2) + Math.pow(gravity[2], 2)) - 9.81) * 100);
 
 
-        i = eqGalData.size();
-        k = eqGalDataChn.size();
+            i = eqGalData.size();
+            k = eqGalDataChn.size();
 
-        while (i<=2){
-            eqGalData.add(eqGal);
+            while (i<=2){
+                eqGalData.add(eqGal);
 
-            if (i==2){
-                eqGalDataChn.add((eqGalData.get(1)/eqGalData.get(0)));
-                if (eqGalDataChn.get(0) > Math.pow(Math.sqrt(10),2)){
-//                    openDialog();
-                    EqData eqData = new EqData(magnitude, x, y, eqGal, time);
-                    mEqDataReference.push().setValue(eqData);
+                if (i==2){
+                    eqGalDataChn.add((eqGalData.get(1)/eqGalData.get(0)));
+                    if (eqGalDataChn.get(0) > Math.pow(Math.sqrt(10),2)){
+                        EqData eqData = new EqData(magnitude, x, y, eqGal, time);
+                        mEqDataReference.push().setValue(eqData);
 
+
+                    }
+                    eqGalData.remove(0);
                 }
-                eqGalData.remove(0);
+                if (k==2){
+                    eqGalDataChn.remove(0);
+                }
+                break;
+
+        }
+
+            for (int j = 0; j < eqGalDataChn.size(); j++) {
+                DecimalFormat df = new DecimalFormat("##.00");
+                location.setText("Index: " + j + " Item: " + Double.parseDouble(df.format(eqGalDataChn.get(j))));
+
             }
-            if (k==2){
-                eqGalDataChn.remove(0);
-            }
-            break;
+
         }
 
 
-//        for (int j = 0; j < eqGalDataChn.size(); j++) {
-//
-//            location.setText("Index: " + j + " Item: " + eqGalDataChn.get(j));
-//
-//        }
+
 
 
 
