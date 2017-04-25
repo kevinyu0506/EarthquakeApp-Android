@@ -175,7 +175,7 @@ public class alert extends AppCompatActivity implements
 
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mEqDataReference = mFirebaseDatabase.getReference().child("eqData");
-        mEqCenterReference = mFirebaseDatabase.getReference().child("EqCenter/1");
+        mEqCenterReference = mFirebaseDatabase.getReference().child("eqCenter");
 
 
 
@@ -185,7 +185,7 @@ public class alert extends AppCompatActivity implements
             @Override
             public void onClick(View v) {
                 EqCenter eqCenter = new EqCenter(magnitude, longitude, latitude, time);
-                mEqCenterReference.push().setValue(eqCenter);
+                mEqCenterReference.setValue(eqCenter);
             }
         });
 
@@ -300,18 +300,18 @@ public class alert extends AppCompatActivity implements
     public void openDialog() {
 
 
-        final SharedPreferences countdownTime = getSharedPreferences("countdown", 0);
-        int countdown = countdownTime.getInt("countdown", 0);
-
-        new AlertDialog.Builder(alert.this)
-                .setTitle("地震警報")
-                .setMessage("震央經度 = " + centerLongitude + " , 震央緯度 = " + centerLatitude + " , 發生時間 =" + centerTime)
-                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                    public void onClick(
-                            DialogInterface dialogInterface, int i) {
-                    }
-                })
-                .show();
+//        final SharedPreferences countdownTime = getSharedPreferences("countdown", 0);
+//        int countdown = countdownTime.getInt("countdown", 0);
+//
+//        new AlertDialog.Builder(alert.this)
+//                .setTitle("地震警報")
+//                .setMessage("震央經度 = " + centerLongitude + " , 震央緯度 = " + centerLatitude + " , 發生時間 =" + centerTime)
+//                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+//                    public void onClick(
+//                            DialogInterface dialogInterface, int i) {
+//                    }
+//                })
+//                .show();
     }
 
 
@@ -404,11 +404,11 @@ public class alert extends AppCompatActivity implements
 
 
 
-        for (int j = 0; j < eqGalDataChn.size(); j++) {
-
-            location.setText("Index: " + j + " Item: " + eqGalDataChn.get(j));
-
-        }
+//        for (int j = 0; j < eqGalDataChn.size(); j++) {
+//
+//            location.setText("Index: " + j + " Item: " + eqGalDataChn.get(j));
+//
+//        }
 
 
 
@@ -424,35 +424,27 @@ public class alert extends AppCompatActivity implements
 
 
         if (eqGal < 0.8) {
-//            eqData.setMagnitude(0);
             magnitude = 0 ;
         }
         if (eqGal >= 0.8 && eqGal < 2.5) {
-//            eqData.setMagnitude(1);
             magnitude = 1;
         }
         if (eqGal >= 2.5 && eqGal < 8) {
-//            eqData.setMagnitude(2);
             magnitude = 2;
         }
         if (eqGal >= 8 && eqGal < 25) {
-//            eqData.setMagnitude(3);
             magnitude = 3;
         }
         if (eqGal >= 25 && eqGal < 80) {
-//            eqData.setMagnitude(4);
             magnitude = 4;
         }
         if (eqGal >= 80 && eqGal < 250) {
-//            eqData.setMagnitude(5);
             magnitude = 5;
         }
         if (eqGal >= 250 && eqGal < 400) {
-//            eqData.setMagnitude(6);
             magnitude = 6;
         }
         if (eqGal >= 400) {
-//            eqData.setMagnitude(7);
             magnitude = 7;
         }
 
@@ -464,14 +456,6 @@ public class alert extends AppCompatActivity implements
 
     @Override
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
-//        eqData.setAccelerator(eqGal);
-//        location.setText(eqGal+"");
-
-
-
-
-
-
 
 
     }
@@ -508,8 +492,8 @@ public class alert extends AppCompatActivity implements
                 String centerTime = eqCenter.getTime();
 
                 new AlertDialog.Builder(alert.this)
-                        .setTitle("地震警報")
-                        .setMessage("震央經度 = " + centerLongitude + " , 震央緯度 = " + centerLatitude + " , 發生時間 =" + centerTime)
+                        .setTitle(centerMagnitude + "級地震警報")
+                        .setMessage("震央經度 = " + centerLongitude + " , 震央緯度 = " + centerLatitude + " , 發生時間 = " + centerTime)
                         .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                             public void onClick(
                                     DialogInterface dialogInterface, int i) {
