@@ -132,10 +132,10 @@
                     android:id="@+id/magnitudeTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="24dp"
-                    android:layout_marginTop="32dp"
+                    android:layout_marginLeft="17dp"
+                    android:layout_marginTop="17dp"
                     android:text="Magnitude"
-                    android:textColor="#E6ffffff"
+                    android:textColor="#ffffff"
                     android:textSize="14dp" />
 
                 <ImageView
@@ -143,32 +143,56 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="21dp"
-                    android:layout_marginTop="68dp"
-                    android:background="@drawable/sense" />
+                    android:layout_marginTop="17dp"
+                    android:background="@drawable/sensenew"
+                    android:layout_below="@+id/magnitudeTitle"/>
 
                 <TextView
-                    android:id="@+id/levelDescribe"
+                    android:id="@+id/localLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="24dp"
-                    android:layout_marginTop="123dp"
-                    android:textColor="#5cc8ff"
-                    android:textSize="12dp" />
+                    android:layout_marginTop="94dp"
+                    android:textColor="#E6FFFFFF"
+                    android:textSize="13dp"
+                    android:text="- local"
+                    />
 
                 <TextView
-                    android:id="@+id/level"
+                    android:id="@+id/localLevel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="80dp"
-                    android:layout_marginTop="113.5dp"
-                    android:text="2"
+                    android:layout_marginLeft="121dp"
+                    android:layout_marginTop="111dp"
+                    android:text="4"
                     android:textColor="#5cc8ff"
-                    android:textSize="26dp" />
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:id="@+id/epicCenterLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginTop="136dp"
+                    android:textColor="#E6FFFFFF"
+                    android:textSize="13dp"
+                    android:text="- epic-center"
+                     />
+
+                <TextView
+                    android:id="@+id/epicCenterLevel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="121dp"
+                    android:layout_marginTop="156dp"
+                    android:text="5"
+                    android:textColor="#FF84DB"
+                    android:textSize="18dp" />
 
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/relativeLayoutLog"
+                android:id="@+id/relativeLayoutLoc"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true">
@@ -183,10 +207,10 @@
                     android:id="@+id/locationTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="24dp"
-                    android:layout_marginTop="32dp"
+                    android:layout_marginLeft="17dp"
+                    android:layout_marginTop="17dp"
                     android:text="Location"
-                    android:textColor="#E6ffffff"
+                    android:textColor="#ffffff"
                     android:textSize="14dp" />
 
                 <ImageView
@@ -194,17 +218,51 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="21dp"
-                    android:layout_marginTop="68dp"
-                    android:background="@drawable/worldlocation" />
+                    android:layout_marginTop="17dp"
+                    android:background="@drawable/worldlocationnew"
+                    android:layout_below="@+id/locationTitle"/>
 
                 <TextView
-                    android:id="@+id/location"
+                    android:id="@+id/localLocationLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:layout_marginTop="121dp"
+                    android:layout_marginTop="94dp"
+                    android:textColor="#E6FFFFFF"
+                    android:textSize="13dp"
+                    android:text="- local"
+                    />
 
-                    android:textColor="#eb3b7d" />
+                <TextView
+                    android:id="@+id/localLocation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="60dp"
+                    android:layout_marginTop="111dp"
+                    android:text="Yilan, Taiwan"
+                    android:textColor="#5cc8ff"
+                    android:textSize="13dp" />
+
+                <TextView
+                    android:id="@+id/epicCenterLocationLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="136dp"
+                    android:textColor="#E6FFFFFF"
+                    android:textSize="13dp"
+                    android:text="- epic-center"
+                     />
+
+                <TextView
+                    android:id="@+id/epicCenterLocation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="46dp"
+                    android:layout_marginTop="156dp"
+                    android:text="Hualien, Taiwan"
+                    android:textColor="#FF84DB"
+                    android:textSize="13dp" />
             </RelativeLayout>
 
 

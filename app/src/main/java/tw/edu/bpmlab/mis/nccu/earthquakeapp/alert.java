@@ -184,7 +184,7 @@ public class alert extends AppCompatActivity implements
             }
         });
 
-        location = (TextView) findViewById(R.id.location);
+        location = (TextView) findViewById(R.id.localLocation);
 
 
 
@@ -410,11 +410,11 @@ public class alert extends AppCompatActivity implements
 
 
 
-        for (int j = 0; j < eqGalDataChn.size(); j++) {
-
-            location.setText("Index: " + j + " Item: " + eqGalDataChn.get(j));
-
-        }
+//        for (int j = 0; j < eqGalDataChn.size(); j++) {
+//
+//            location.setText("Index: " + j + " Item: " + eqGalDataChn.get(j));
+//
+//        }
 
 
 
@@ -563,7 +563,7 @@ public class alert extends AppCompatActivity implements
     //getAddress
 
     public void getAddress(double lat, double lon) {
-        location = (TextView) findViewById(R.id.location);
+        location = (TextView) findViewById(R.id.localLocation);
         String addressData[] = new String[3];
         try {
             String htp = "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," + lon + "&language=zh-TW&sensor=true";
