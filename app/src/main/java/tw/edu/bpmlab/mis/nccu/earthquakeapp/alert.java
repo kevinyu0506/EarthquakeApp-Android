@@ -396,14 +396,6 @@ public class alert extends AppCompatActivity implements
         }
 
 
-
-
-//        if (eqGalDataChn.get(0) > Math.pow(10,2)){
-//            upLoadEqData();
-//        }
-
-
-
 //        for (int j = 0; j < eqGalDataChn.size(); j++) {
 //
 //            location.setText("Index: " + j + " Item: " + eqGalDataChn.get(j));
