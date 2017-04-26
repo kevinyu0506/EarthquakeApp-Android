@@ -84,7 +84,7 @@ public class alert extends AppCompatActivity implements
     protected int thisMonth;
     protected String thisMonthEng;
     protected int thisDate;
-    //    protected int thisHour;
+//    protected int thisHour;
 //    protected int thisMin;
 //    protected int thisSec;
     public String Time;
@@ -105,6 +105,7 @@ public class alert extends AppCompatActivity implements
 
     public TextView localLevel;
     public TextView epicCenterLevel;
+    public TextView epicCenterLocation;
     public TextView levelDescribe;
 
     protected static final String TAG = "MainActivity";
@@ -130,7 +131,6 @@ public class alert extends AppCompatActivity implements
 
     private boolean initialDataLoaded;
     private long lastUpdate = 0;
-    private static final int SHAKE_THRESHOLD = 600;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -199,6 +199,7 @@ public class alert extends AppCompatActivity implements
 
         location = (TextView) findViewById(R.id.localLocation);
         epicCenterLevel = (TextView)findViewById(R.id.epicCenterLevel);
+        epicCenterLocation = (TextView)findViewById(R.id.epicCenterLocation);
 
 
 
@@ -493,6 +494,7 @@ public class alert extends AppCompatActivity implements
                     String centerAddress = eqCenter.getAddress();
 
                     epicCenterLevel.setText("" + centerMagnitude);
+                    epicCenterLocation.setText("" + centerAddress);
 
                     //比較用戶設定開啟通知的級數
                     if(magnitudevalue <= centerMagnitude) {
