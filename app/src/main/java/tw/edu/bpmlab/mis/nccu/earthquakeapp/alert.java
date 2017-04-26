@@ -118,6 +118,7 @@ public class alert extends AppCompatActivity implements
     protected double centerLongitude;
     protected double centerLatitude;
     protected String centerTime;
+    protected String centerAddress;
     protected String time;
     protected String topDate;
 
@@ -177,12 +178,13 @@ public class alert extends AppCompatActivity implements
         mEqDataReference = mFirebaseDatabase.getReference().child("eqData");
         mEqCenterReference = mFirebaseDatabase.getReference().child("eqCenter");
 
+        final String address = "";
 
         Button uploadButton = (Button) findViewById(R.id.upload);
         uploadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EqCenter eqCenter = new EqCenter(magnitude, longitude, latitude, time);
+                EqCenter eqCenter = new EqCenter(magnitude, longitude, latitude, time, address);
                 mEqCenterReference.setValue(eqCenter);
             }
         });
@@ -486,12 +488,13 @@ public class alert extends AppCompatActivity implements
                     Double centerLongitude = eqCenter.getLongitude();
                     Double centerLatitude = eqCenter.getLatitude();
                     String centerTime = eqCenter.getTime();
+                    String centerAddress = eqCenter.getAddress();
 
                     epicCenterLevel.setText("" + centerMagnitude);
 
                     new AlertDialog.Builder(alert.this)
                             .setTitle(centerMagnitude + "級地震警報")
-                            .setMessage("震央經度 = " + centerLongitude + " , 震央緯度 = " + centerLatitude + " , 發生時間 = " + centerTime)
+                            .setMessage("發生地點 = " + centerAddress + " , 發生時間 = " + centerTime)
                             .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                                 public void onClick(
                                         DialogInterface dialogInterface, int i) {
