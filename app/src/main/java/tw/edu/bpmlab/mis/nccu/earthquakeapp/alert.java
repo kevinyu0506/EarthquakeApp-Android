@@ -472,6 +472,8 @@ public class alert extends AppCompatActivity implements
 
         initialDataLoaded = false;
         final ArrayList<EqCenter> eqCenters = new ArrayList<EqCenter>();
+        final SharedPreferences magnitude = getSharedPreferences("magnitude", 0);
+        final int magnitudevalue = magnitude.getInt("btnChecked",0);
 
 
         ValueEventListener eqCenterListener = new ValueEventListener() {
@@ -492,15 +494,23 @@ public class alert extends AppCompatActivity implements
 
                     epicCenterLevel.setText("" + centerMagnitude);
 
-                    new AlertDialog.Builder(alert.this)
-                            .setTitle(centerMagnitude + "級地震警報")
-                            .setMessage("發生地點 = " + centerAddress + " , 發生時間 = " + centerTime)
-                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                                public void onClick(
-                                        DialogInterface dialogInterface, int i) {
-                                }
-                            })
-                            .show();
+                    //比較用戶設定開啟通知的級數
+                    if(magnitudevalue <= centerMagnitude) {
+
+                        new AlertDialog.Builder(alert.this)
+                                .setTitle(centerMagnitude + "級地震警報")
+                                .setMessage("發生地點 = " + centerAddress + " , 發生時間 = " + centerTime)
+                                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                    public void onClick(
+                                            DialogInterface dialogInterface, int i) {
+                                    }
+                                })
+                                .show();
+                    }else{
+
+                    }
+
+
                 }else {
 
                 }

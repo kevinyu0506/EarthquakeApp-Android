@@ -50,7 +50,7 @@ public class Startup_3 extends Activity {
                 six.setBackgroundResource(R.drawable.six_unclicked);
 
                 editor.clear();
-                magnitude.edit().putInt("btnChecked", 3).apply();
+                magnitude.edit().putInt("btnChecked", 3).commit();
             }
         });
         four.setOnClickListener(new View.OnClickListener() {
@@ -62,7 +62,7 @@ public class Startup_3 extends Activity {
                 six.setBackgroundResource(R.drawable.six_unclicked);
 
                 editor.clear();
-                magnitude.edit().putInt("btnChecked", 4).apply();
+                magnitude.edit().putInt("btnChecked", 4).commit();
 
             }
         });
@@ -75,7 +75,7 @@ public class Startup_3 extends Activity {
                 six.setBackgroundResource(R.drawable.six_unclicked);
 
                 editor.clear();
-                magnitude.edit().putInt("btnChecked", 5).apply();
+                magnitude.edit().putInt("btnChecked", 5).commit();
 
             }
         });
@@ -88,7 +88,7 @@ public class Startup_3 extends Activity {
                 six.setBackgroundResource(R.drawable.six_pressed);
 
                 editor.clear();
-                magnitude.edit().putInt("btnChecked", 6).apply();
+                magnitude.edit().putInt("btnChecked", 6).commit();
 
             }
         });
