@@ -127,7 +127,7 @@ public class alert extends AppCompatActivity implements
     private DatabaseReference mEqCenterReference;
     private ValueEventListener mEqCenterListener;
 
-
+    private boolean initialDataLoaded;
     private long lastUpdate = 0;
     private static final int SHAKE_THRESHOLD = 600;
 
@@ -468,6 +468,7 @@ public class alert extends AppCompatActivity implements
         super.onStart();
         mGoogleApiClient.connect();
 
+        initialDataLoaded = false;
         final ArrayList<EqCenter> eqCenters = new ArrayList<EqCenter>();
 
 
@@ -476,28 +477,32 @@ public class alert extends AppCompatActivity implements
             public void onDataChange(DataSnapshot dataSnapshot) {
 
 
+                if (initialDataLoaded) {
 
-                EqCenter eqCenter = dataSnapshot.getValue(EqCenter.class);
-                eqCenters.add(eqCenter);
+                    EqCenter eqCenter = dataSnapshot.getValue(EqCenter.class);
+                    eqCenters.add(eqCenter);
 
-                Integer centerMagnitude = eqCenter.getMagnitude();
-                Double centerLongitude = eqCenter.getLongitude();
-                Double centerLatitude = eqCenter.getLatitude();
-                String centerTime = eqCenter.getTime();
+                    Integer centerMagnitude = eqCenter.getMagnitude();
+                    Double centerLongitude = eqCenter.getLongitude();
+                    Double centerLatitude = eqCenter.getLatitude();
+                    String centerTime = eqCenter.getTime();
 
-                epicCenterLevel.setText(""+centerMagnitude);
+                    epicCenterLevel.setText("" + centerMagnitude);
 
-                new AlertDialog.Builder(alert.this)
-                        .setTitle(centerMagnitude + "級地震警報")
-                        .setMessage("震央經度 = " + centerLongitude + " , 震央緯度 = " + centerLatitude + " , 發生時間 = " + centerTime)
-                        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                            public void onClick(
-                                    DialogInterface dialogInterface, int i) {
-                            }
-                        })
-                        .show();
+                    new AlertDialog.Builder(alert.this)
+                            .setTitle(centerMagnitude + "級地震警報")
+                            .setMessage("震央經度 = " + centerLongitude + " , 震央緯度 = " + centerLatitude + " , 發生時間 = " + centerTime)
+                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                public void onClick(
+                                        DialogInterface dialogInterface, int i) {
+                                }
+                            })
+                            .show();
+                }else {
 
+                }
 
+                initialDataLoaded = true;
             }
 
             @Override
