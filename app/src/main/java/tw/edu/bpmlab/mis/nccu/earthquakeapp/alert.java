@@ -642,6 +642,9 @@ public class alert extends AppCompatActivity implements
 //    }
 
 
+
+
+
     @Override
     public void onLocationChanged(Location loc) {
 
