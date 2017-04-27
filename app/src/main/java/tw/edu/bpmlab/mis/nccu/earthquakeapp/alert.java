@@ -172,12 +172,9 @@ public class alert extends AppCompatActivity implements
 
 
         getTime();
-//        countDown();
         setCountDownBar();
         sensor();
         buildGoogleApiClient();
-//        openDialog();
-//        getAddress(23, 121);
 
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mEqDataReference = mFirebaseDatabase.getReference().child("eqData");
@@ -220,9 +217,7 @@ public class alert extends AppCompatActivity implements
         thisYear = dt.get(Calendar.YEAR);
         thisMonth = dt.get(Calendar.MONTH) + 1;
         thisDate = dt.get(Calendar.DAY_OF_MONTH);
-//        thisHour = dt.get(Calendar.HOUR_OF_DAY);
-//        thisMin = dt.get(Calendar.MINUTE);
-//        thisSec = dt.get(Calendar.SECOND);
+
 
         Date = (TextView) findViewById(R.id.Date);
         if (thisMonth == 1) {
@@ -267,13 +262,7 @@ public class alert extends AppCompatActivity implements
     //countDown
     public void countDown() {
 
-
-//        final SharedPreferences countdown = getSharedPreferences("countdown", 0);
-//        final SharedPreferences.Editor editor = countdown.edit();
-
-
         setCountDownTime = (int) (Math.random() * 10 + 1) * 10000;
-//        editor.putInt("countdown", setCountDownTime).commit();
 
         new CountDownTimer(setCountDownTime, 10) {
 
@@ -285,18 +274,11 @@ public class alert extends AppCompatActivity implements
             @Override
             public void onTick(long millisUntilFinished) {
 
-//                timeUntilFinish = millisUntilFinished;
-
                 if (millisUntilFinished / 1000 % 60 >= 10) {
                     countDown.setText("0" + String.valueOf(millisUntilFinished / 60000) + ":" + String.valueOf(millisUntilFinished / 1000 % 60));
                 } else {
                     countDown.setText("0" + String.valueOf(millisUntilFinished / 60000) + ":0" + String.valueOf(millisUntilFinished / 1000 % 60));
                 }
-//                if(millisUntilFinished == 0){
-//                    countDown.setText("00:00");
-//
-//                }
-
             }
         }.start();
 
@@ -689,7 +671,6 @@ public class alert extends AppCompatActivity implements
 
 
         setCountDownTime = (int)eqCountDownTime * 1000;
-//        setCountDownTime = (int) (Math.random() * 10 + 1) * 10000;
 
 
         new CountDownTimer(setCountDownTime, 10) {
