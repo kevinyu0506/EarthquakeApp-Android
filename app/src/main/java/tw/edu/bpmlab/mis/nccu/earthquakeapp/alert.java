@@ -500,16 +500,17 @@ public class alert extends AppCompatActivity implements
                     epicCenterLevel.setText("" + centerMagnitude);
                     epicCenterLocation.setText("" + centerAddress);
 
-                    eqCountDown(centerX , centerY);
+
 
                     //比較用戶設定開啟通知的級數
                     if(magnitudevalue <= centerMagnitude) {
 
-
+                        eqCountDown(centerX , centerY);
 
                         new AlertDialog.Builder(alert.this)
                                 .setTitle(centerMagnitude + "級地震警報")
-                                .setMessage("震央位置 = " + centerAddress + " , 發生時間 = " + centerTime + " , eqCountdownTime = " + centerX + ", centerY = " +centerY)
+//                                .setMessage("震央位置 = " + centerAddress + " , 發生時間 = " + centerTime + " , eqCountdownTime = " + centerX + ", centerY = " +centerY)
+                                .setMessage("localX = " + x + " , localY = " + y + " , centerX = " + centerX + " , centerY = " + centerY)
                                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                                     public void onClick(
                                             DialogInterface dialogInterface, int i) {
@@ -612,49 +613,49 @@ public class alert extends AppCompatActivity implements
 
     //getAddress
 
-    public void getAddress(double lat, double lon) {
-        String addressData[] = new String[3];
-        try {
-            String htp = "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," + lon + "&language=zh-TW&sensor=true";
-            URL url = new URL(htp);
-            HttpURLConnection huc = (HttpURLConnection) url.openConnection();
-            BufferedReader br = new BufferedReader(new InputStreamReader(huc.getInputStream(), "UTF-8"));
-//            String str[] = new String[100];
-            String str = "";
-            StringBuffer sb = new StringBuffer();
-
-            while (null != ((str = br.readLine()))) {
-                sb.append(str);
-                if (str.contains("formatted_address")) {
-                    str = str.replace("formatted_address", "");
-                    str = str.replace("Unnamed Road", "");
-                    str = str.replace(" ", "");
-                    str = str.replace(":", "");
-                    str = str.replace(",", "");
-                    str = str.replace("\"", "");
-
-                    addressData[0] = str;
-                    if (addressData[0] != null) {
-                        localLocation.setText(addressData[0]);
-                    }
-                    break;
-                }
-
-
-            }
-            br.close();
-            String xmlResponse = sb.toString();
-            huc.disconnect();
-            System.out.print(xmlResponse);
-//            localLocation.setText(addressData[0]);git
-//            localLocation.setText(addressData[0]);
-
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+//    public void getAddress(double lat, double lon) {
+//        String addressData[] = new String[3];
+//        try {
+//            String htp = "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," + lon + "&language=zh-TW&sensor=true";
+//            URL url = new URL(htp);
+//            HttpURLConnection huc = (HttpURLConnection) url.openConnection();
+//            BufferedReader br = new BufferedReader(new InputStreamReader(huc.getInputStream(), "UTF-8"));
+////            String str[] = new String[100];
+//            String str = "";
+//            StringBuffer sb = new StringBuffer();
+//
+//            while (null != ((str = br.readLine()))) {
+//                sb.append(str);
+//                if (str.contains("formatted_address")) {
+//                    str = str.replace("formatted_address", "");
+//                    str = str.replace("Unnamed Road", "");
+//                    str = str.replace(" ", "");
+//                    str = str.replace(":", "");
+//                    str = str.replace(",", "");
+//                    str = str.replace("\"", "");
+//
+//                    addressData[0] = str;
+//                    if (addressData[0] != null) {
+//                        localLocation.setText(addressData[0]);
+//                    }
+//                    break;
+//                }
+//
+//
+//            }
+//            br.close();
+//            String xmlResponse = sb.toString();
+//            huc.disconnect();
+//            System.out.print(xmlResponse);
+////            localLocation.setText(addressData[0]);git
+////            localLocation.setText(addressData[0]);
+//
+//        } catch (MalformedURLException e) {
+//            e.printStackTrace();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
 
     @Override
@@ -680,16 +681,16 @@ public class alert extends AppCompatActivity implements
 
     public void eqCountDown(double centerX, double centerY){
 
-        int eqCountDownTime;
         double eqSpeed = 5;
         centerLongitude = (centerX * 0.02) + 120;
         centerLatitude = (centerY * 0.04) + 12.5;
-        double d  = Math.floor(GetDistance(centerLatitude,centerLongitude)/eqSpeed);
-        eqCountDownTime = (int)d;
+        double d  = getDistance(centerLatitude,centerLongitude,localLatitude,localLongitude);
+        double eqCountDownTime = d/eqSpeed;
 
 
-        setCountDownTime = eqCountDownTime;
+        setCountDownTime = (int)eqCountDownTime * 1000;
 //        setCountDownTime = (int) (Math.random() * 10 + 1) * 10000;
+
 
         new CountDownTimer(setCountDownTime, 10) {
 
@@ -714,26 +715,23 @@ public class alert extends AppCompatActivity implements
 
     }
 
-    private static double rad(double d) {
-
-        return d * Math.PI / 180.0;
+    private static double deg2rad(double deg) {
+        return (deg * Math.PI / 180.0);
     }
 
-    public double GetDistance(double centerLatitude, double centerLongitude) {
-
-        double EARTH_RADIUS = 6378137;
-        double radCenterLat = rad(centerLatitude);
-        double radLocalLat = rad(localLatitude);
-        double a = radCenterLat - radLocalLat;
-        double b = rad(centerLongitude) - rad(localLongitude);
-        double s = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(a / 2), 2)
-                + Math.cos(radCenterLat) * Math.cos(radLocalLat) * Math.pow(Math.sin(b / 2), 2)));
-        s = s * EARTH_RADIUS;
-        s = Math.round(s * 10000) / 10000000;
-
-        return s;
+    private static double rad2deg(double rad) {
+        return (rad * 180 / Math.PI);
     }
 
+    private double getDistance(double centerLatitude, double centerLongitude, double localLatitude, double localLongitude) {
+        double theta = centerLongitude - localLongitude;
+        double dist = Math.sin(deg2rad(centerLatitude)) * Math.sin(deg2rad(localLatitude)) + Math.cos(deg2rad(centerLatitude)) * Math.cos(deg2rad(localLatitude)) * Math.cos(deg2rad(theta));
+        dist = Math.acos(dist);
+        dist = rad2deg(dist);
+        dist = dist * 60 * 1.1515 * 1.609344;
+
+        return (dist);
+    }
 
 
 
