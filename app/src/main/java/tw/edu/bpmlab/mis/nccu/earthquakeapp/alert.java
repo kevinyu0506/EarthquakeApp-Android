@@ -114,13 +114,15 @@ public class alert extends AppCompatActivity implements
     protected static final String TAG = "MainActivity";
     protected GoogleApiClient mGoogleApiClient;
     protected Location mLastLocation;
-    protected double latitude;
-    protected double longitude;
+    protected double localLatitude;
+    protected double localLongitude;
     protected double x;
     protected double y;
     protected int centerMagnitude;
     protected double centerLongitude;
+    protected double centerX;
     protected double centerLatitude;
+    protected double centerY;
     protected String centerTime;
     protected String centerAddress;
     protected String time;
@@ -187,7 +189,7 @@ public class alert extends AppCompatActivity implements
         uploadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EqCenter eqCenter = new EqCenter(magnitude, longitude, latitude, time, address);
+                EqCenter eqCenter = new EqCenter(magnitude, localLongitude, localLatitude, time, address);
                 mEqCenterReference.setValue(eqCenter);
             }
         });
@@ -264,13 +266,13 @@ public class alert extends AppCompatActivity implements
     public void countDown() {
 
 
-        final SharedPreferences countdown = getSharedPreferences("countdown", 0);
-        final SharedPreferences.Editor editor = countdown.edit();
+//        final SharedPreferences countdown = getSharedPreferences("countdown", 0);
+//        final SharedPreferences.Editor editor = countdown.edit();
 
         countDown = (TextView) findViewById(R.id.countDown);
 
         setCountDownTime = (int) (Math.random() * 10 + 1) * 10000;
-        editor.putInt("countdown", setCountDownTime).commit();
+//        editor.putInt("countdown", setCountDownTime).commit();
 
         new CountDownTimer(setCountDownTime, 10) {
 
@@ -489,8 +491,8 @@ public class alert extends AppCompatActivity implements
                     eqCenters.add(eqCenter);
 
                     Integer centerMagnitude = eqCenter.getMagnitude();
-                    Double centerLongitude = eqCenter.getLongitude();
-                    Double centerLatitude = eqCenter.getLatitude();
+                    Double centerX = eqCenter.getLongitude();
+                    Double centerY = eqCenter.getLatitude();
                     String centerTime = eqCenter.getTime();
                     String centerAddress = eqCenter.getAddress();
 
@@ -578,11 +580,11 @@ public class alert extends AppCompatActivity implements
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         if (mLastLocation != null) {
 
-            latitude = mLastLocation.getLatitude();
-            longitude = mLastLocation.getLongitude();
+            localLatitude = mLastLocation.getLatitude();
+            localLongitude = mLastLocation.getLongitude();
 
-            x = Math.floor((longitude - 120) / 0.02);
-            y = Math.floor((latitude - 21.5) / 0.04);
+            x = Math.floor((localLongitude - 120) / 0.02);
+            y = Math.floor((localLatitude - 21.5) / 0.04);
 
 
         } else {
@@ -669,6 +671,40 @@ public class alert extends AppCompatActivity implements
     public void onProviderDisabled(String provider) {
 
     }
+
+
+    public int eqCountDown(int centerX, int centerY){
+
+        int eqCountDownTime;
+        centerLongitude = (centerX * 0.02) + 120;
+        centerLatitude = (centerY * 0.04) + 12.5;
+        double d  = Math.floor(GetDistance(centerLatitude,centerLongitude)/5);
+        eqCountDownTime = (int)d;
+
+        return eqCountDownTime;
+
+    }
+
+    private static double rad(double d) {
+
+        return d * Math.PI / 180.0;
+    }
+
+    public double GetDistance(double centerLatitude, double centerLongitude) {
+
+        double EARTH_RADIUS = 6378137;
+        double radCenterLat = rad(centerLatitude);
+        double radLocalLat = rad(localLatitude);
+        double a = radCenterLat - radLocalLat;
+        double b = rad(centerLongitude) - rad(localLongitude);
+        double s = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(a / 2), 2)
+                + Math.cos(radCenterLat) * Math.cos(radLocalLat) * Math.pow(Math.sin(b / 2), 2)));
+        s = s * EARTH_RADIUS;
+        s = Math.round(s * 10000) / 10000;
+
+        return s;
+    }
+
 
 
 
