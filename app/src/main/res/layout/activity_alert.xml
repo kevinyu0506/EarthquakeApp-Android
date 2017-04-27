@@ -239,7 +239,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="60dp"
                     android:layout_marginTop="111dp"
-                    android:text="台灣 台北市"
+                    android:text="台灣台北市"
                     android:textColor="#5cc8ff"
                     android:textSize="13dp" />
 
