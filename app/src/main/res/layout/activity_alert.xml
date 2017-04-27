@@ -258,7 +258,7 @@
                     android:id="@+id/epicCenterLocation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="46dp"
+                    android:layout_marginLeft="60dp"
                     android:layout_marginTop="156dp"
                     android:text=""
                     android:textColor="#FF84DB"

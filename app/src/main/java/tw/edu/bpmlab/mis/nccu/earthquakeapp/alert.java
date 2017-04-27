@@ -493,8 +493,8 @@ public class alert extends AppCompatActivity implements
 
                         new AlertDialog.Builder(alert.this)
                                 .setTitle(centerMagnitude + "級地震警報")
-//                                .setMessage("震央位置 = " + centerAddress + " , 發生時間 = " + centerTime + " , eqCountdownTime = " + centerX + ", centerY = " +centerY)
-                                .setMessage("localX = " + x + " , localY = " + y + " , centerX = " + centerX + " , centerY = " + centerY)
+                                .setMessage("震央位置 = " + centerAddress + " , 發生時間 = " + centerTime)
+//                                .setMessage("localX = " + x + " , localY = " + y + " , centerX = " + centerX + " , centerY = " + centerY)
                                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                                     public void onClick(
                                             DialogInterface dialogInterface, int i) {
