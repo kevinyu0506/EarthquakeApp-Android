@@ -494,6 +494,8 @@ public class alert extends AppCompatActivity implements
                     Integer centerMagnitude = eqCenter.getMagnitude();
                     Double centerX = eqCenter.getLongitude();
                     Double centerY = eqCenter.getLatitude();
+                    centerLongitude = (centerX * 0.02) + 120;
+                    centerLatitude = (centerY * 0.04) + 21.5;
                     String centerTime = eqCenter.getTime();
                     String centerAddress = eqCenter.getAddress();
 
@@ -505,7 +507,7 @@ public class alert extends AppCompatActivity implements
                     //比較用戶設定開啟通知的級數
                     if(magnitudevalue <= centerMagnitude) {
 
-                        eqCountDown(centerX , centerY);
+                        eqCountDown(centerLongitude , centerLatitude);
 
                         new AlertDialog.Builder(alert.this)
                                 .setTitle(centerMagnitude + "級地震警報")
@@ -679,11 +681,9 @@ public class alert extends AppCompatActivity implements
     }
 
 
-    public void eqCountDown(double centerX, double centerY){
+    public void eqCountDown(double centerLongitude, double centerLatitude){
 
         double eqSpeed = 5;
-        centerLongitude = (centerX * 0.02) + 120;
-        centerLatitude = (centerY * 0.04) + 12.5;
         double d  = getDistance(centerLatitude,centerLongitude,localLatitude,localLongitude);
         double eqCountDownTime = d/eqSpeed;
 
