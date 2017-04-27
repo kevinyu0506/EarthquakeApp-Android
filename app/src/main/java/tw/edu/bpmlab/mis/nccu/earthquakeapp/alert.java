@@ -107,6 +107,7 @@ public class alert extends AppCompatActivity implements
     public TextView epicCenterLevel;
     public TextView epicCenterLocation;
     public TextView levelDescribe;
+    public TextView accelerator;
 
     protected static final String TAG = "MainActivity";
     protected GoogleApiClient mGoogleApiClient;
@@ -200,6 +201,7 @@ public class alert extends AppCompatActivity implements
         location = (TextView) findViewById(R.id.localLocation);
         epicCenterLevel = (TextView)findViewById(R.id.epicCenterLevel);
         epicCenterLocation = (TextView)findViewById(R.id.epicCenterLocation);
+        accelerator = (TextView) findViewById(R.id.accelerator);
 
 
 
@@ -404,11 +406,11 @@ public class alert extends AppCompatActivity implements
             }
 
 
-//            for (int j = 0; j < eqGalDataChn.size(); j++) {
-//                DecimalFormat df = new DecimalFormat("##.00");
-//                location.setText("Index: " + j + " Item: " + Double.parseDouble(df.format(eqGalDataChn.get(j))));
-//
-//            }
+            for (int j = 0; j < eqGalDataChn.size(); j++) {
+                DecimalFormat df = new DecimalFormat("##.00");
+                accelerator.setText("加速度: " + Double.parseDouble(df.format(eqGalDataChn.get(j))));
+
+            }
 
         }
 

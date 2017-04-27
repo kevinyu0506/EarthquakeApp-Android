@@ -329,6 +329,17 @@
         android:layout_alignTop="@+id/relativeLayoutFirst"
         android:layout_alignEnd="@+id/settingsButton" />
 
+    <TextView
+        android:id="@+id/accelerator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textColor="#5cc8ff"
+        android:textSize="13dp"
+        android:layout_alignBaseline="@+id/delete"
+        android:layout_alignBottom="@+id/delete"
+        android:layout_centerHorizontal="true" />
+
 
 </RelativeLayout>
 
