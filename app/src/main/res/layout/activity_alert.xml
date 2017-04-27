@@ -169,18 +169,18 @@
                     android:textSize="18dp" />
 
                 <TextView
-                    android:id="@+id/epicCenterLabel"
+                    android:id="@+id/epiCenterLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="24dp"
                     android:layout_marginTop="136dp"
                     android:textColor="#E6FFFFFF"
                     android:textSize="13dp"
-                    android:text="- epic-center"
+                    android:text="- epicenter"
                      />
 
                 <TextView
-                    android:id="@+id/epicCenterLevel"
+                    android:id="@+id/epiCenterLevel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="121dp"
@@ -244,18 +244,18 @@
                     android:textSize="13dp" />
 
                 <TextView
-                    android:id="@+id/epicCenterLocationLabel"
+                    android:id="@+id/epiCenterLocationLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="136dp"
                     android:textColor="#E6FFFFFF"
                     android:textSize="13dp"
-                    android:text="- epic-center"
+                    android:text="- epicenter"
                      />
 
                 <TextView
-                    android:id="@+id/epicCenterLocation"
+                    android:id="@+id/epiCenterLocation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="46dp"
