@@ -163,8 +163,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="121dp"
-                    android:layout_marginTop="108dp"
-                    android:text="4"
+                    android:layout_marginTop="105dp"
+                    android:text="0"
                     android:textColor="#5cc8ff"
                     android:textSize="18dp" />
 
@@ -184,8 +184,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="121dp"
-                    android:layout_marginTop="153dp"
-                    android:text="5"
+                    android:layout_marginTop="150dp"
+                    android:text="0"
                     android:textColor="#FF84DB"
                     android:textSize="18dp" />
 
@@ -239,7 +239,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="60dp"
                     android:layout_marginTop="111dp"
-                    android:text="Yilan, Taiwan"
+                    android:text=""
                     android:textColor="#5cc8ff"
                     android:textSize="13dp" />
 
@@ -260,7 +260,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="46dp"
                     android:layout_marginTop="156dp"
-                    android:text="Hualien, Taiwan"
+                    android:text=""
                     android:textColor="#FF84DB"
                     android:textSize="13dp" />
             </RelativeLayout>
@@ -328,6 +328,17 @@
         android:text="Delete"
         android:layout_alignTop="@+id/relativeLayoutFirst"
         android:layout_alignEnd="@+id/settingsButton" />
+
+    <TextView
+        android:id="@+id/accelerator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textColor="#5cc8ff"
+        android:textSize="13dp"
+        android:layout_alignBaseline="@+id/delete"
+        android:layout_alignBottom="@+id/delete"
+        android:layout_centerHorizontal="true" />
 
 
 </RelativeLayout>

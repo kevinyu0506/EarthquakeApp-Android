@@ -84,7 +84,7 @@ public class alert extends AppCompatActivity implements
     protected int thisMonth;
     protected String thisMonthEng;
     protected int thisDate;
-    //    protected int thisHour;
+//    protected int thisHour;
 //    protected int thisMin;
 //    protected int thisSec;
     public String Time;
@@ -105,7 +105,11 @@ public class alert extends AppCompatActivity implements
 
     public TextView localLevel;
     public TextView epicCenterLevel;
+    public TextView localLocation;
+    public TextView epicCenterLocation;
     public TextView levelDescribe;
+    public TextView accelerator;
+
 
     protected static final String TAG = "MainActivity";
     protected GoogleApiClient mGoogleApiClient;
@@ -118,10 +122,11 @@ public class alert extends AppCompatActivity implements
     protected double centerLongitude;
     protected double centerLatitude;
     protected String centerTime;
+    protected String centerAddress;
     protected String time;
     protected String topDate;
 
-    protected TextView location;
+
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mEqDataReference;
     private DatabaseReference mEqCenterReference;
@@ -129,7 +134,6 @@ public class alert extends AppCompatActivity implements
 
     private boolean initialDataLoaded;
     private long lastUpdate = 0;
-    private static final int SHAKE_THRESHOLD = 600;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -177,12 +181,13 @@ public class alert extends AppCompatActivity implements
         mEqDataReference = mFirebaseDatabase.getReference().child("eqData");
         mEqCenterReference = mFirebaseDatabase.getReference().child("eqCenter");
 
+        final String address = "";
 
         Button uploadButton = (Button) findViewById(R.id.upload);
         uploadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EqCenter eqCenter = new EqCenter(magnitude, longitude, latitude, time);
+                EqCenter eqCenter = new EqCenter(magnitude, longitude, latitude, time, address);
                 mEqCenterReference.setValue(eqCenter);
             }
         });
@@ -195,8 +200,10 @@ public class alert extends AppCompatActivity implements
             }
         });
 
-        location = (TextView) findViewById(R.id.localLocation);
+        localLocation = (TextView) findViewById(R.id.localLocation);
         epicCenterLevel = (TextView)findViewById(R.id.epicCenterLevel);
+        epicCenterLocation = (TextView)findViewById(R.id.epicCenterLocation);
+        accelerator = (TextView) findViewById(R.id.accelerator);
 
 
 
@@ -251,9 +258,6 @@ public class alert extends AppCompatActivity implements
             thisMonthEng = "Dec";
         }
         Date.setText(thisMonthEng + ", " + Integer.toString(thisDate) + ", " + Integer.toString(thisYear));
-//        Date.setText(Integer.toString(thisYear)+"/" + Integer.toString(thisMonth)+"/" + Integer.toString(thisDate)+" "
-//                + Integer.toString(thisHour)+":" + Integer.toString(thisMin)+":" + Integer.toString(thisSec)
-//        Date.setTypeface(Typeface.createFromAsset(getAssets(),"fonts/Roboto-Light.ttf"));
     }
 
     //countDown
@@ -296,9 +300,9 @@ public class alert extends AppCompatActivity implements
     }
 
 
-    public void openDialog() {
-
-
+//    public void openDialog() {
+//
+//
 //        final SharedPreferences countdownTime = getSharedPreferences("countdown", 0);
 //        int countdown = countdownTime.getInt("countdown", 0);
 //
@@ -311,7 +315,7 @@ public class alert extends AppCompatActivity implements
 //                    }
 //                })
 //                .show();
-    }
+//    }
 
 
     //countDownBar
@@ -401,11 +405,11 @@ public class alert extends AppCompatActivity implements
             }
 
 
-//            for (int j = 0; j < eqGalDataChn.size(); j++) {
-//                DecimalFormat df = new DecimalFormat("##.00");
-//                location.setText("Index: " + j + " Item: " + Double.parseDouble(df.format(eqGalDataChn.get(j))));
-//
-//            }
+            for (int j = 0; j < eqGalDataChn.size(); j++) {
+                DecimalFormat df = new DecimalFormat("##.00");
+                accelerator.setText("加速度: " + Double.parseDouble(df.format(eqGalDataChn.get(j))));
+
+            }
 
         }
 
@@ -470,6 +474,8 @@ public class alert extends AppCompatActivity implements
 
         initialDataLoaded = false;
         final ArrayList<EqCenter> eqCenters = new ArrayList<EqCenter>();
+        final SharedPreferences magnitude = getSharedPreferences("magnitude", 0);
+        final int magnitudevalue = magnitude.getInt("btnChecked",0);
 
 
         ValueEventListener eqCenterListener = new ValueEventListener() {
@@ -486,18 +492,28 @@ public class alert extends AppCompatActivity implements
                     Double centerLongitude = eqCenter.getLongitude();
                     Double centerLatitude = eqCenter.getLatitude();
                     String centerTime = eqCenter.getTime();
+                    String centerAddress = eqCenter.getAddress();
 
                     epicCenterLevel.setText("" + centerMagnitude);
+                    epicCenterLocation.setText("" + centerAddress);
 
-                    new AlertDialog.Builder(alert.this)
-                            .setTitle(centerMagnitude + "級地震警報")
-                            .setMessage("震央經度 = " + centerLongitude + " , 震央緯度 = " + centerLatitude + " , 發生時間 = " + centerTime)
-                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                                public void onClick(
-                                        DialogInterface dialogInterface, int i) {
-                                }
-                            })
-                            .show();
+                    //比較用戶設定開啟通知的級數
+                    if(magnitudevalue <= centerMagnitude) {
+
+                        new AlertDialog.Builder(alert.this)
+                                .setTitle(centerMagnitude + "級地震警報")
+                                .setMessage("震央位置 = " + centerAddress + " , 發生時間 = " + centerTime)
+                                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                    public void onClick(
+                                            DialogInterface dialogInterface, int i) {
+                                    }
+                                })
+                                .show();
+                    }else{
+
+                    }
+
+
                 }else {
 
                 }
@@ -590,7 +606,6 @@ public class alert extends AppCompatActivity implements
     //getAddress
 
     public void getAddress(double lat, double lon) {
-        location = (TextView) findViewById(R.id.localLocation);
         String addressData[] = new String[3];
         try {
             String htp = "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," + lon + "&language=zh-TW&sensor=true";
@@ -613,7 +628,7 @@ public class alert extends AppCompatActivity implements
 
                     addressData[0] = str;
                     if (addressData[0] != null) {
-                        location.setText(addressData[0]);
+                        localLocation.setText(addressData[0]);
                     }
                     break;
                 }
@@ -624,8 +639,8 @@ public class alert extends AppCompatActivity implements
             String xmlResponse = sb.toString();
             huc.disconnect();
             System.out.print(xmlResponse);
-//            location.setText(addressData[0]);git
-//            location.setText(addressData[0]);
+//            localLocation.setText(addressData[0]);git
+//            localLocation.setText(addressData[0]);
 
         } catch (MalformedURLException e) {
             e.printStackTrace();
