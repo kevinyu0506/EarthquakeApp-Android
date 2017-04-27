@@ -172,7 +172,7 @@ public class alert extends AppCompatActivity implements
 
 
         getTime();
-        countDown();
+//        countDown();
         setCountDownBar();
         sensor();
         buildGoogleApiClient();
@@ -206,6 +206,8 @@ public class alert extends AppCompatActivity implements
         epicCenterLevel = (TextView)findViewById(R.id.epicCenterLevel);
         epicCenterLocation = (TextView)findViewById(R.id.epicCenterLocation);
         accelerator = (TextView) findViewById(R.id.accelerator);
+        countDown = (TextView) findViewById(R.id.countDown);
+
 
 
 
@@ -269,7 +271,6 @@ public class alert extends AppCompatActivity implements
 //        final SharedPreferences countdown = getSharedPreferences("countdown", 0);
 //        final SharedPreferences.Editor editor = countdown.edit();
 
-        countDown = (TextView) findViewById(R.id.countDown);
 
         setCountDownTime = (int) (Math.random() * 10 + 1) * 10000;
 //        editor.putInt("countdown", setCountDownTime).commit();
@@ -499,12 +500,16 @@ public class alert extends AppCompatActivity implements
                     epicCenterLevel.setText("" + centerMagnitude);
                     epicCenterLocation.setText("" + centerAddress);
 
+                    eqCountDown(centerX , centerY);
+
                     //比較用戶設定開啟通知的級數
                     if(magnitudevalue <= centerMagnitude) {
 
+
+
                         new AlertDialog.Builder(alert.this)
                                 .setTitle(centerMagnitude + "級地震警報")
-                                .setMessage("震央位置 = " + centerAddress + " , 發生時間 = " + centerTime)
+                                .setMessage("震央位置 = " + centerAddress + " , 發生時間 = " + centerTime + " , eqCountdownTime = " + centerX + ", centerY = " +centerY)
                                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                                     public void onClick(
                                             DialogInterface dialogInterface, int i) {
@@ -673,15 +678,39 @@ public class alert extends AppCompatActivity implements
     }
 
 
-    public int eqCountDown(int centerX, int centerY){
+    public void eqCountDown(double centerX, double centerY){
 
         int eqCountDownTime;
+        double eqSpeed = 5;
         centerLongitude = (centerX * 0.02) + 120;
         centerLatitude = (centerY * 0.04) + 12.5;
-        double d  = Math.floor(GetDistance(centerLatitude,centerLongitude)/5);
+        double d  = Math.floor(GetDistance(centerLatitude,centerLongitude)/eqSpeed);
         eqCountDownTime = (int)d;
 
-        return eqCountDownTime;
+
+        setCountDownTime = eqCountDownTime;
+//        setCountDownTime = (int) (Math.random() * 10 + 1) * 10000;
+
+        new CountDownTimer(setCountDownTime, 10) {
+
+            @Override
+            public void onFinish() {
+                countDown.setText("00:00");
+            }
+
+            @Override
+            public void onTick(long millisUntilFinished) {
+
+
+                if (millisUntilFinished / 1000 % 60 >= 10) {
+                    countDown.setText("0" + String.valueOf(millisUntilFinished / 60000) + ":" + String.valueOf(millisUntilFinished / 1000 % 60));
+                } else {
+                    countDown.setText("0" + String.valueOf(millisUntilFinished / 60000) + ":0" + String.valueOf(millisUntilFinished / 1000 % 60));
+                }
+
+
+            }
+        }.start();
 
     }
 
@@ -700,7 +729,7 @@ public class alert extends AppCompatActivity implements
         double s = 2 * Math.asin(Math.sqrt(Math.pow(Math.sin(a / 2), 2)
                 + Math.cos(radCenterLat) * Math.cos(radLocalLat) * Math.pow(Math.sin(b / 2), 2)));
         s = s * EARTH_RADIUS;
-        s = Math.round(s * 10000) / 10000;
+        s = Math.round(s * 10000) / 10000000;
 
         return s;
     }
