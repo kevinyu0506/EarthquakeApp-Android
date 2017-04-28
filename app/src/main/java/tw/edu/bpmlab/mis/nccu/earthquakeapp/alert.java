@@ -182,22 +182,22 @@ public class alert extends AppCompatActivity implements
 
         final String address = "";
 
-        Button uploadButton = (Button) findViewById(R.id.upload);
-        uploadButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EqCenter eqCenter = new EqCenter(magnitude, localLongitude, localLatitude, time, address);
-                mEqCenterReference.setValue(eqCenter);
-            }
-        });
-
-        Button deleteButton = (Button) findViewById(R.id.delete);
-        deleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mEqDataReference.removeValue();
-            }
-        });
+//        Button uploadButton = (Button) findViewById(R.id.upload);
+//        uploadButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                EqCenter eqCenter = new EqCenter(magnitude, localLongitude, localLatitude, time, address);
+//                mEqCenterReference.setValue(eqCenter);
+//            }
+//        });
+//
+//        Button deleteButton = (Button) findViewById(R.id.delete);
+//        deleteButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                mEqDataReference.removeValue();
+//            }
+//        });
 
         localLocation = (TextView) findViewById(R.id.localLocation);
         epicCenterLevel = (TextView)findViewById(R.id.epicCenterLevel);
