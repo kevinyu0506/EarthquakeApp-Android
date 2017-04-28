@@ -21,6 +21,6 @@ exports.uploadEqCenter = functions.database.ref('/eqData/{pushId}')
         var localLongitude = eventSnapshot.child("longitude").val();
         var localMagnitude = eventSnapshot.child("magnitude").val();
 
-	admin.database().ref('eqCenter').update({longitude:localLongitude, latitude:localLatitude, magnitude:87});
+	admin.database().ref('eqCenter').update({longitude:78, latitude:88, magnitude:3});
 });
 
