@@ -118,6 +118,10 @@ public class alert extends AppCompatActivity implements
     protected double localLongitude;
     protected double x;
     protected double y;
+    protected double eqX;
+    protected double eqY;
+    protected double eqXmin1;
+    protected double eqYmin1;
     protected int centerMagnitude;
     protected double centerLongitude;
     protected double centerX;
@@ -375,6 +379,7 @@ public class alert extends AppCompatActivity implements
                 if (i == 2) {
                     eqGalDataChn.add((eqGalData.get(1) / eqGalData.get(0)));
                     if (eqGalDataChn.get(0) > Math.pow(Math.sqrt(10), 2)) {
+
                         EqData eqData = new EqData(magnitude, x, y, eqGal, time);
                         mEqDataReference.push().setValue(eqData);
 
@@ -392,7 +397,7 @@ public class alert extends AppCompatActivity implements
 
             for (int j = 0; j < eqGalDataChn.size(); j++) {
                 DecimalFormat df = new DecimalFormat("##.00");
-                accelerator.setText("加速度: " + Double.parseDouble(df.format(eqGalDataChn.get(j))));
+                accelerator.setText("加速度變化: " + Double.parseDouble(df.format(eqGalDataChn.get(j))));
 
             }
 
