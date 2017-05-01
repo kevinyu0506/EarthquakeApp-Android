@@ -201,8 +201,8 @@ public class alert extends AppCompatActivity implements
 //        });
 
         localLocation = (TextView) findViewById(R.id.localLocation);
-        epicCenterLevel = (TextView)findViewById(R.id.epicCenterLevel);
-        epicCenterLocation = (TextView)findViewById(R.id.epicCenterLocation);
+        epicCenterLevel = (TextView)findViewById(R.id.epiCenterLevel);
+        epicCenterLocation = (TextView)findViewById(R.id.epiCenterLocation);
         accelerator = (TextView) findViewById(R.id.accelerator);
         countDown = (TextView) findViewById(R.id.countDown);
 
