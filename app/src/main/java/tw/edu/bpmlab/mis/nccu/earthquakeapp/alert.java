@@ -132,6 +132,7 @@ public class alert extends AppCompatActivity implements
     protected String centerAddress;
     protected String time;
     protected String topDate;
+    protected String eqDataID;
 
 
     private FirebaseDatabase mFirebaseDatabase;
@@ -381,7 +382,9 @@ public class alert extends AppCompatActivity implements
                     eqGalDataChn.add((eqGalData.get(1) / eqGalData.get(0)));
                     if (eqGalDataChn.get(0) > Math.pow(Math.sqrt(10), 2)) {
 
-                        EqData eqData = new EqData(magnitude, x, y, eqGal, time);
+                        eqDataID = mEqDataReference.push().getKey();
+                        EqData eqData = new EqData(magnitude, x, y, eqGal, time, eqDataID);
+
                         mEqDataReference.push().setValue(eqData);
 
 

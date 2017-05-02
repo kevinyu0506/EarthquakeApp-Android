@@ -8,30 +8,32 @@ import net.sourceforge.jtds.jdbc.DateTime;
 
 public class EqData {
 
-    private String id;
     private Integer magnitude;
     private Double longitude;
     private Double latitude;
     private Double accelerator;
     private String time;
+    private String eqDataID;
+
 
     public EqData() {
     }
 
-    public EqData(int magnitude, Double x, Double y, Double accelerator, String time) {
+    public EqData(int magnitude, Double x, Double y, Double accelerator, String time, String eqDataID) {
         this.magnitude = magnitude;
         this.longitude = x;
         this.latitude = y;
         this.accelerator = accelerator;
         this.time = time;
+        this.eqDataID = eqDataID;
     }
 
-    public String getId() {
-        return id;
+    public String getEqDataID() {
+        return eqDataID;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setEqDataID(String eqDataID) {
+        this.eqDataID = eqDataID;
     }
 
     public void setMagnitude(Integer magnitude) {
