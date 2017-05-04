@@ -122,6 +122,7 @@ public class alert extends AppCompatActivity implements
     protected double eqY;
     protected double eqXmin1;
     protected double eqYmin1;
+    protected int localMagnitude;
     protected int centerMagnitude;
     protected double centerLongitude;
     protected double centerX;
@@ -204,6 +205,7 @@ public class alert extends AppCompatActivity implements
 //            }
 //        });
 
+        localLevel = (TextView) findViewById(R.id.localLevel);
         localLocation = (TextView) findViewById(R.id.localLocation);
         epicCenterLevel = (TextView)findViewById(R.id.epicCenterLevel);
         epicCenterLocation = (TextView)findViewById(R.id.epicCenterLocation);
@@ -488,7 +490,9 @@ public class alert extends AppCompatActivity implements
                     centerLatitude = (centerY * 0.04) + 21.5;
                     String centerTime = eqCenter.getTime();
                     String centerAddress = eqCenter.getAddress();
+                    localMagnitude = centerToLocalMag(centerMagnitude);
 
+                    localLevel.setText("" + localMagnitude);
                     epicCenterLevel.setText("" + centerMagnitude);
                     epicCenterLocation.setText("" + centerAddress);
 
@@ -723,6 +727,19 @@ public class alert extends AppCompatActivity implements
         dist = dist * 60 * 1.1515 * 1.609344;
 
         return (dist);
+    }
+
+    public int centerToLocalMag(int centerMagnitude){
+
+        double d  = getDistance(centerLatitude,centerLongitude,localLatitude,localLongitude);
+        int localMagnitude = centerMagnitude - (int)Math.floor((d/50));
+        if(localMagnitude < 0){
+            return 0;
+        }else {
+            return localMagnitude;
+        }
+
+
     }
 
 
