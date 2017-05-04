@@ -27,18 +27,6 @@ exports.uploadEqCenter = functions.database.ref('/eqData/{pushId}')
 
 
 
-        
-        geocoder.reverseGeocode(33.7489, -84.3789, function(err, data) {
-            // do something with data 
-            //show all the data
-            // console.log(data);
-            //show the target information
-            console.log(data.results[4].formatted_address)
-        });
-
-
-
-
         //(0~10,0~10)(11~20,11~20)(21~30,21~30)(31~40,31~40)
         //  0    0      1     1      2     2      3     3
 
@@ -211,24 +199,37 @@ exports.uploadEqCenter = functions.database.ref('/eqData/{pushId}')
 
         }
 
-        // admin.database().ref('eqData').orderByChild('eqDataID').equalTo(eqDataID).on('value', function(snapshot) {
-        //     snapshot.forEach(function(childSnapshot) {
-        //         childSnapshot.remove();
-        //     });
-        // });
 
         var query = eqDataRef.orderByChild('eqDataID').equalTo(eqDataID);
         query.on('child_added', function(snapshot) {
             snapshot.ref.remove();
         });
 
-        // var query = eqDataRef.orderByChild('eqDataID').equalTo(eqDataID);
-        // query.on('child_added', function(snapshot) {
-        //     snapshot.forEach(function(childSnapshot) {
-        //         childSnapshot.remove();
-        //     });
-        // });
 
-        admin.database().ref('eqCenter').update({ longitude: 78, latitude: 88, magnitude: 3, address: "台灣台北市" });
+        // admin.database().ref('eqCenter').update({ longitude: 78, latitude: 88, magnitude: 3, address: "台灣台北市" });
         // admin.database().ref('eqData('+localX+','+localY+')').push().set({longitude: x, latitude: y, magnitude: localMagnitude, time: localTime});
     });
+
+
+
+
+geocoder.reverseGeocode(33.7489, -84.3789, function(err, data) {
+
+    console.log(data.results[4].formatted_address);
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
