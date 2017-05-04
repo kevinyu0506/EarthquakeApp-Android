@@ -215,21 +215,10 @@ exports.uploadEqCenter = functions.database.ref('/eqData/{pushId}')
 
 geocoder.reverseGeocode(33.7489, -84.3789, function(err, data) {
 
+    // do something with data 
+    //show all the data
+    // console.log(data);
+    //show the target information
     console.log(data.results[4].formatted_address);
 
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}, { language: 'zh-TW' });
