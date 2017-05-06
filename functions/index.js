@@ -1,5 +1,6 @@
 var functions = require('firebase-functions');
 var admin = require('firebase-admin');
+var geocoder = require('geocoder');
 admin.initializeApp(functions.config().firebase);
 
 // // Create and Deploy Your First Cloud Functions
@@ -23,27 +24,6 @@ exports.uploadEqCenter = functions.database.ref('/eqData/{pushId}')
         var localMagnitude = eventSnapshot.child("magnitude").val();
         var localTime = eventSnapshot.child("time").val();
         var eqDataID = eventSnapshot.child("eqDataID").val();
-
-
-        // var geocoder = new google.maps.Geocoder();
-        // // google.maps.LatLng 物件
-        // var coord = new google.maps.LatLng(23.5, 121);
-
-        // // 傳入 latLng 資訊至 geocoder.geocode
-        // geocoder.geocode({'latLng': coord }, function(results, status) {
-        //   if (status === google.maps.GeocoderStatus.OK) {
-        //     // 如果有資料就會回傳
-        //     if (results) {
-        //        address = results[4].formatted_address;
-        //        admin.database().ref('eqCenter').update({address : address});
-        //        }
-        //    }
-        //    // 經緯度資訊錯誤
-        //     else {
-        //     alert("Reverse Geocoding failed because: " + status);
-        //       }
-        // });
-
 
 
 
@@ -219,24 +199,26 @@ exports.uploadEqCenter = functions.database.ref('/eqData/{pushId}')
 
         }
 
-        // admin.database().ref('eqData').orderByChild('eqDataID').equalTo(eqDataID).on('value', function(snapshot) {
-        //     snapshot.forEach(function(childSnapshot) {
-        //         childSnapshot.remove();
-        //     });
-        // });
 
         var query = eqDataRef.orderByChild('eqDataID').equalTo(eqDataID);
         query.on('child_added', function(snapshot) {
             snapshot.ref.remove();
         });
 
-        // var query = eqDataRef.orderByChild('eqDataID').equalTo(eqDataID);
-        // query.on('child_added', function(snapshot) {
-        //     snapshot.forEach(function(childSnapshot) {
-        //         childSnapshot.remove();
-        //     });
-        // });
 
-        admin.database().ref('eqCenter').update({ longitude: 78, latitude: 88, magnitude: 3, address: "台灣台北市" });
+        // admin.database().ref('eqCenter').update({ longitude: 78, latitude: 88, magnitude: 3, address: "台灣台北市" });
         // admin.database().ref('eqData('+localX+','+localY+')').push().set({longitude: x, latitude: y, magnitude: localMagnitude, time: localTime});
     });
+
+
+
+
+geocoder.reverseGeocode(33.7489, -84.3789, function(err, data) {
+
+    // do something with data 
+    //show all the data
+    // console.log(data);
+    //show the target information
+    console.log(data.results[4].formatted_address);
+
+}, { language: 'zh-TW' });

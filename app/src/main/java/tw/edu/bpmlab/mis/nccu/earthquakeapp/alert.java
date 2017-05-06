@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.AsyncTask;
@@ -41,6 +43,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.logging.Handler;
 import java.util.logging.LogRecord;
@@ -123,6 +126,7 @@ public class alert extends AppCompatActivity implements
     protected double eqY;
     protected double eqXmin1;
     protected double eqYmin1;
+    protected int localMagnitude;
     protected int centerMagnitude;
     protected double centerLongitude;
     protected double centerX;
@@ -205,6 +209,7 @@ public class alert extends AppCompatActivity implements
 //            }
 //        });
 
+        localLevel = (TextView) findViewById(R.id.localLevel);
         localLocation = (TextView) findViewById(R.id.localLocation);
         epicCenterLevel = (TextView)findViewById(R.id.epiCenterLevel);
         epicCenterLocation = (TextView)findViewById(R.id.epiCenterLocation);
@@ -290,23 +295,6 @@ public class alert extends AppCompatActivity implements
 
     }
 
-
-//    public void openDialog() {
-//
-//
-//        final SharedPreferences countdownTime = getSharedPreferences("countdown", 0);
-//        int countdown = countdownTime.getInt("countdown", 0);
-//
-//        new AlertDialog.Builder(alert.this)
-//                .setTitle("地震警報")
-//                .setMessage("震央經度 = " + centerLongitude + " , 震央緯度 = " + centerLatitude + " , 發生時間 =" + centerTime)
-//                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-//                    public void onClick(
-//                            DialogInterface dialogInterface, int i) {
-//                    }
-//                })
-//                .show();
-//    }
 
 
     //countDownBar
@@ -401,7 +389,8 @@ public class alert extends AppCompatActivity implements
 
             for (int j = 0; j < eqGalDataChn.size(); j++) {
                 DecimalFormat df = new DecimalFormat("##.00");
-                accelerator.setText("加速度變化: " + Double.parseDouble(df.format(eqGalDataChn.get(j))));
+                accelerator.setText("加速度變化: " + Double.parseDouble(df.format(eqGalDataChn.get(j))) + "\n" +
+                        "(" + Double.parseDouble(df.format(localLongitude)) + ", " + Double.parseDouble(df.format(localLatitude)) + ")");
 
             }
 
@@ -489,7 +478,9 @@ public class alert extends AppCompatActivity implements
                     centerLatitude = (centerY * 0.04) + 21.5;
                     String centerTime = eqCenter.getTime();
                     String centerAddress = eqCenter.getAddress();
+                    localMagnitude = centerToLocalMag(centerMagnitude);
 
+                    localLevel.setText("" + localMagnitude);
                     epicCenterLevel.setText("" + centerMagnitude);
                     epicCenterLocation.setText("" + centerAddress);
 
@@ -582,11 +573,36 @@ public class alert extends AppCompatActivity implements
             localLatitude = mLastLocation.getLatitude();
             localLongitude = mLastLocation.getLongitude();
 
+
+
+
             x = Math.floor((localLongitude - 120) / 0.02);
             y = Math.floor((localLatitude - 21.5) / 0.04);
 
+            Geocoder geocoder = new Geocoder(this, Locale.TRADITIONAL_CHINESE);
 
-        } else {
+            try {
+                List<Address> addresses = geocoder.getFromLocation(localLatitude, localLongitude, 1);
+
+                if(addresses != null) {
+                    Address returnedAddress = addresses.get(0);
+                    String adminArea = returnedAddress.getAdminArea();
+                    String countryName = returnedAddress.getCountryName();
+                    localLocation.setText(countryName.toString() + adminArea.toString());
+                }
+                else{
+                    localLocation.setText("No Address returned!");
+                }
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+                localLocation.setText("Canont get Address!");
+            }
+
+        }
+
+
+        else {
             Toast.makeText(this, R.string.no_location_detected, Toast.LENGTH_LONG).show();
         }
     }
@@ -602,54 +618,6 @@ public class alert extends AppCompatActivity implements
         Log.i(TAG, "Connection failed: ConnectionResult.getErrorCode() = " + result.getErrorCode());
 
     }
-
-
-    //getAddress
-
-//    public void getAddress(double lat, double lon) {
-//        String addressData[] = new String[3];
-//        try {
-//            String htp = "http://maps.googleapis.com/maps/api/geocode/json?latlng=" + lat + "," + lon + "&language=zh-TW&sensor=true";
-//            URL url = new URL(htp);
-//            HttpURLConnection huc = (HttpURLConnection) url.openConnection();
-//            BufferedReader br = new BufferedReader(new InputStreamReader(huc.getInputStream(), "UTF-8"));
-////            String str[] = new String[100];
-//            String str = "";
-//            StringBuffer sb = new StringBuffer();
-//
-//            while (null != ((str = br.readLine()))) {
-//                sb.append(str);
-//                if (str.contains("formatted_address")) {
-//                    str = str.replace("formatted_address", "");
-//                    str = str.replace("Unnamed Road", "");
-//                    str = str.replace(" ", "");
-//                    str = str.replace(":", "");
-//                    str = str.replace(",", "");
-//                    str = str.replace("\"", "");
-//
-//                    addressData[0] = str;
-//                    if (addressData[0] != null) {
-//                        localLocation.setText(addressData[0]);
-//                    }
-//                    break;
-//                }
-//
-//
-//            }
-//            br.close();
-//            String xmlResponse = sb.toString();
-//            huc.disconnect();
-//            System.out.print(xmlResponse);
-////            localLocation.setText(addressData[0]);git
-////            localLocation.setText(addressData[0]);
-//
-//        } catch (MalformedURLException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
 
 
 
@@ -724,6 +692,19 @@ public class alert extends AppCompatActivity implements
         dist = dist * 60 * 1.1515 * 1.609344;
 
         return (dist);
+    }
+
+    public int centerToLocalMag(int centerMagnitude){
+
+        double d  = getDistance(centerLatitude,centerLongitude,localLatitude,localLongitude);
+        int localMagnitude = centerMagnitude - (int)Math.floor((d/50));
+        if(localMagnitude < 0){
+            return 0;
+        }else {
+            return localMagnitude;
+        }
+
+
     }
 
 
