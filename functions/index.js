@@ -1,12 +1,12 @@
 var functions = require('firebase-functions');
 var admin = require('firebase-admin');
-var geocoder = require('geocoder');
+// var geocoder = require('geocoder');
 admin.initializeApp(functions.config().firebase);
 
 // // Create and Deploy Your First Cloud Functions
 // // https://firebase.google.com/docs/functions/write-firebase-functions
 //
-exports.helloWorld = functions.https.onRequest((request, response) => {
+exports.helloWorlds = functions.https.onRequest((request, response) => {
     response.send("Hello from Firebase!");
 });
 
@@ -213,12 +213,12 @@ exports.uploadEqCenter = functions.database.ref('/eqData/{pushId}')
 
 
 
-geocoder.reverseGeocode(33.7489, -84.3789, function(err, data) {
+// geocoder.reverseGeocode(33.7489, -84.3789, function(err, data) {
 
-    // do something with data 
-    //show all the data
-    // console.log(data);
-    //show the target information
-    console.log(data.results[4].formatted_address);
+//     // do something with data 
+//     //show all the data
+//     // console.log(data);
+//     //show the target information
+//     console.log(data.results[4].formatted_address);
 
-}, { language: 'zh-TW' });
+// }, { language: 'zh-TW' });
