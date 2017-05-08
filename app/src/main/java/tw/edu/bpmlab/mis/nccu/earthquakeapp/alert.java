@@ -398,7 +398,7 @@ public class alert extends AppCompatActivity implements
 
 
         Locale locale = new Locale("en", "US");
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss:ms");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss:SSS");
         DateFormat topicDate = DateFormat.getDateInstance(DateFormat.MEDIUM, locale);
         Date date = new Date();
         time = dateFormat.format(date);
