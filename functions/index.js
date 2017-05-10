@@ -278,10 +278,6 @@ exports.uploadEqDatas = functions.database.ref('/eqData/{pushId}')
 exports.eqDataFilter = functions.database.ref('/eqDatas/eqData(7,8)/{pushID}')
     .onWrite(event => {
 
-
-        // if (event.data.previous.exists()) {
-        //     return;
-        // }
         if (!event.data.exists()) {
             console.log("已清空");
             return;
@@ -293,23 +289,14 @@ exports.eqDataFilter = functions.database.ref('/eqDatas/eqData(7,8)/{pushID}')
         var magnitude = event.data.child('magnitude').val();
         var detectmag = event.data.child('magnitude').val();
 
-        // var controlChange = 4;
-
         timearray.push(time);
-        // sixpoint.push(detectlon + controlChange);
-        // sixpoint.push(detectlat - controlChange);
-        // magnitudearray.push(detectmag);
-
-        // controlChange = controlChange + 1;
-
-        // console.log("時間陣列：  " + timearray + "/ 座標陣列：  " + sixpoint);
 
         //  判斷是否為第一筆進來的資料
         if (timearray.length >= 2) {
 
             console.log("時間陣列：  " + timearray + "/ 座標陣列：  " + sixpoint + "/ 震央陣列：  " + magnitudearray);
 
-            //  設定兩筆時間相差30秒以內or外、以內留著跑震央、以外更新整個網格資料
+            //  兩筆時間相差30秒以內留著跑震央、以外更新整個網格資料
             if (Date.parse(timearray[timearray.length - 1]).valueOf() - Date.parse(timearray[timearray.length - 2]).valueOf() < 30000) {
 
                 sixpoint.push(detectlon + controlChange);
@@ -330,12 +317,11 @@ exports.eqDataFilter = functions.database.ref('/eqDatas/eqData(7,8)/{pushID}')
                     
                     timearray.splice(0, timearray.length);
                     magnitudearray.splice(0, magnitudearray.length);
-
                     sixpoint.splice(6, sixpoint.length - 6);
 
-                    epicenters();
-                    console.log("三筆成功/ 時間陣列：  " + timearray + "/ 座標陣列：  " + sixpoint + "/ 震央陣列：  " + magnitudearray)
+                    console.log("三筆成功/ 時間陣列：  " + timearray + "/ 座標陣列：  " + sixpoint + "/ 震央陣列：  " + magnitudearray);
 
+                    epicenters();
 
                 } else {
                     console.log("小於30秒/ 不到6筆/   時間陣列：  " + timearray + "/ 座標陣列：  " + sixpoint + "/ 震央陣列：  " + magnitudearray);
@@ -344,8 +330,8 @@ exports.eqDataFilter = functions.database.ref('/eqDatas/eqData(7,8)/{pushID}')
             } else {
                 timearray.splice(0, timearray.length - 1);
                 magnitudearray.splice(0, magnitudearray.length - 1);
-
                 sixpoint.splice(6, sixpoint.length - 6);
+
                 sixpoint.push(detectlon + controlChange);
                 sixpoint.push(detectlat - controlChange);
                 controlChange = controlChange + 1;
@@ -384,6 +370,8 @@ function vertical(x1, y1, x2, y2) {
             }
         }
     }
+
+
 }
 
 
@@ -396,9 +384,12 @@ function epicenters() {
                 k += 1;
                 epicenter.push([x, y]);
                 // epicenter.push(y);
+
             }
         }
     }
+
+    console.log("震央收斂地點" + epicenter);
 
     if (k >= 50) {
         // add the new point
