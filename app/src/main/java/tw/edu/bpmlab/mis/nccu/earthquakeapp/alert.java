@@ -88,7 +88,7 @@ public class alert extends AppCompatActivity implements
     protected int thisMonth;
     protected String thisMonthEng;
     protected int thisDate;
-//    protected int thisHour;
+    //    protected int thisHour;
 //    protected int thisMin;
 //    protected int thisSec;
     public String Time;
@@ -146,6 +146,8 @@ public class alert extends AppCompatActivity implements
 
     private boolean initialDataLoaded;
     private long lastUpdate = 0;
+
+    public Geocoder geocoder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -211,12 +213,10 @@ public class alert extends AppCompatActivity implements
 
         localLevel = (TextView) findViewById(R.id.localLevel);
         localLocation = (TextView) findViewById(R.id.localLocation);
-        epicCenterLevel = (TextView)findViewById(R.id.epiCenterLevel);
-        epicCenterLocation = (TextView)findViewById(R.id.epiCenterLocation);
+        epicCenterLevel = (TextView) findViewById(R.id.epiCenterLevel);
+        epicCenterLocation = (TextView) findViewById(R.id.epiCenterLocation);
         accelerator = (TextView) findViewById(R.id.accelerator);
         countDown = (TextView) findViewById(R.id.countDown);
-
-
 
 
     }
@@ -294,7 +294,6 @@ public class alert extends AppCompatActivity implements
         }.start();
 
     }
-
 
 
     //countDownBar
@@ -458,7 +457,7 @@ public class alert extends AppCompatActivity implements
         initialDataLoaded = false;
         final ArrayList<EqCenter> eqCenters = new ArrayList<EqCenter>();
         final SharedPreferences magnitude = getSharedPreferences("magnitude", 0);
-        final int magnitudevalue = magnitude.getInt("btnChecked",0);
+        final int magnitudevalue = magnitude.getInt("btnChecked", 0);
 
 
         ValueEventListener eqCenterListener = new ValueEventListener() {
@@ -471,42 +470,35 @@ public class alert extends AppCompatActivity implements
                     EqCenter eqCenter = dataSnapshot.getValue(EqCenter.class);
                     eqCenters.add(eqCenter);
 
-                    Integer centerMagnitude = eqCenter.getMagnitude();
-                    Double centerX = eqCenter.getLongitude();
-                    Double centerY = eqCenter.getLatitude();
-                    centerLongitude = (centerX * 0.02) + 120;
-                    centerLatitude = (centerY * 0.04) + 21.5;
-                    String centerTime = eqCenter.getTime();
-                    String centerAddress = eqCenter.getAddress();
-                    localMagnitude = centerToLocalMag(centerMagnitude);
+                    centerMagnitude = eqCenter.getMagnitude();
+                    centerLongitude = eqCenter.getLongitude();
+                    centerLatitude = eqCenter.getLatitude();
+                    centerTime = eqCenter.getTime();
 
-                    localLevel.setText("" + localMagnitude);
-                    epicCenterLevel.setText("" + centerMagnitude);
-                    epicCenterLocation.setText("" + centerAddress);
-
+                    centerToLocalMag(centerMagnitude);
+                    getCenterAddress(centerLatitude, centerLongitude);
 
 
                     //比較用戶設定開啟通知的級數
-                    if(magnitudevalue <= centerMagnitude) {
+                    if (magnitudevalue <= centerMagnitude) {
 
-                        eqCountDown(centerLongitude , centerLatitude);
+                        eqCountDown(centerLongitude, centerLatitude);
 
                         new AlertDialog.Builder(alert.this)
                                 .setTitle(centerMagnitude + "級地震警報")
                                 .setMessage("震央位置 = " + centerAddress + " , 發生時間 = " + centerTime)
-//                                .setMessage("localX = " + x + " , localY = " + y + " , centerX = " + centerX + " , centerY = " + centerY)
                                 .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                                     public void onClick(
                                             DialogInterface dialogInterface, int i) {
                                     }
                                 })
                                 .show();
-                    }else{
+                    } else {
 
                     }
 
 
-                }else {
+                } else {
 
                 }
 
@@ -574,35 +566,12 @@ public class alert extends AppCompatActivity implements
             localLongitude = mLastLocation.getLongitude();
 
 
-
-
             x = Math.floor((localLongitude - 120) / 0.02);
             y = Math.floor((localLatitude - 21.5) / 0.04);
 
-            Geocoder geocoder = new Geocoder(this, Locale.TRADITIONAL_CHINESE);
+            getLocalAddress(localLatitude, localLongitude);
 
-            try {
-                List<Address> addresses = geocoder.getFromLocation(localLatitude, localLongitude, 1);
-
-                if(addresses != null) {
-                    Address returnedAddress = addresses.get(0);
-                    String adminArea = returnedAddress.getAdminArea();
-                    String countryName = returnedAddress.getCountryName();
-                    localLocation.setText(countryName.toString() + adminArea.toString());
-                }
-                else{
-                    localLocation.setText("No Address returned!");
-                }
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-                localLocation.setText("Canont get Address!");
-            }
-
-        }
-
-
-        else {
+        } else {
             Toast.makeText(this, R.string.no_location_detected, Toast.LENGTH_LONG).show();
         }
     }
@@ -618,8 +587,6 @@ public class alert extends AppCompatActivity implements
         Log.i(TAG, "Connection failed: ConnectionResult.getErrorCode() = " + result.getErrorCode());
 
     }
-
-
 
 
     @Override
@@ -643,14 +610,14 @@ public class alert extends AppCompatActivity implements
     }
 
 
-    public void eqCountDown(double centerLongitude, double centerLatitude){
+    public void eqCountDown(double centerLongitude, double centerLatitude) {
 
         double eqSpeed = 5;
-        double d  = getDistance(centerLatitude,centerLongitude,localLatitude,localLongitude);
-        double eqCountDownTime = d/eqSpeed;
+        double d = getDistance(centerLatitude, centerLongitude, localLatitude, localLongitude);
+        double eqCountDownTime = d / eqSpeed;
 
 
-        setCountDownTime = (int)eqCountDownTime * 1000;
+        setCountDownTime = (int) eqCountDownTime * 1000;
 
 
         new CountDownTimer(setCountDownTime, 10) {
@@ -694,16 +661,73 @@ public class alert extends AppCompatActivity implements
         return (dist);
     }
 
-    public int centerToLocalMag(int centerMagnitude){
+    public void centerToLocalMag(int centerMagnitude) {
 
-        double d  = getDistance(centerLatitude,centerLongitude,localLatitude,localLongitude);
-        int localMagnitude = centerMagnitude - (int)Math.floor((d/50));
-        if(localMagnitude < 0){
-            return 0;
-        }else {
-            return localMagnitude;
+        double d = getDistance(centerLatitude, centerLongitude, localLatitude, localLongitude);
+        int localMagnitude = centerMagnitude - (int) Math.floor(d / 50);
+//        if(localMagnitude < 0){
+//            localMagnitude = 0;
+//            localLevel.setText("" + localMagnitude);
+//            epicCenterLevel.setText("" + centerMagnitude);
+//        }else {
+//            localLevel.setText("" + localMagnitude);
+//            epicCenterLevel.setText("" + centerMagnitude);
+//        }
+
+
+        localLevel.setText("" + localMagnitude);
+        epicCenterLevel.setText("" + centerMagnitude);
+    }
+
+
+
+
+    public void getLocalAddress(double lat, double lon) {
+
+        Geocoder geocoder = new Geocoder(this, Locale.TRADITIONAL_CHINESE);
+
+        try {
+            List<Address> addresses = geocoder.getFromLocation(lat, lon, 1);
+
+            if (addresses != null) {
+                Address returnedAddress = addresses.get(0);
+                String adminArea = returnedAddress.getAdminArea();
+                String countryName = returnedAddress.getCountryName();
+                localLocation.setText(countryName.toString() + adminArea.toString());
+            } else {
+                localLocation.setText("No Address returned!");
+            }
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            localLocation.setText("Canont get Address!");
         }
 
+    }
+
+    public void getCenterAddress(double lat, double lon) {
+
+        Geocoder geocoder = new Geocoder(this, Locale.TRADITIONAL_CHINESE);
+
+        try {
+            List<Address> addresses = geocoder.getFromLocation(lat, lon, 1);
+
+            if (addresses != null) {
+                Address returnedAddress = addresses.get(0);
+                String adminArea = returnedAddress.getAdminArea();
+                String countryName = returnedAddress.getCountryName();
+                centerAddress = countryName.toString() + adminArea.toString();
+                epicCenterLocation.setText("" + centerAddress);
+            } else {
+                centerAddress = "NA";
+                epicCenterLocation.setText("" + centerAddress);
+            }
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+            centerAddress = "NA";
+            epicCenterLocation.setText("" + centerAddress);
+        }
 
     }
 
