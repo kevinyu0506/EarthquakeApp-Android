@@ -9,7 +9,7 @@ admin.initializeApp(functions.config().firebase);
 const MAX_LOG_COUNT = 4;
 
 var timearray = [];
-var sixpoint = [79, 88, 80, 85, 75, 90];
+var sixpoint = [79, 88, 76, 85, 75, 90];
 var epicenter = [];
 //一萬個往格
 var locate = [];
@@ -315,9 +315,9 @@ exports.eqDataFilter = functions.database.ref('/eqDatas/eqData(7,8)/{pushID}')
                         }
                     }
                     
-                    timearray.splice(0, timearray.length);
-                    magnitudearray.splice(0, magnitudearray.length);
-                    sixpoint.splice(6, sixpoint.length - 6);
+                    // timearray.splice(0, timearray.length);
+                    // magnitudearray.splice(0, magnitudearray.length);
+                    // sixpoint.splice(6, sixpoint.length - 6);
 
                     console.log("三筆成功/ 時間陣列：  " + timearray + "/ 座標陣列：  " + sixpoint + "/ 震央陣列：  " + magnitudearray);
 
@@ -389,11 +389,10 @@ function epicenters() {
         }
     }
 
-    console.log("震央收斂地點" + epicenter);
 
     if (k >= 50) {
         // add the new point
-        console.log(k >= 50);
+        console.log("k >= 50/  k = " + k);
     } else {
         if (k % 2 == 0) {
 
@@ -401,14 +400,14 @@ function epicenters() {
             updatefirebase(epicenter[epicenter.length - 1]);
 
             // return epicenter[epicenter.length-1];
-            console.log("偶數")
+            console.log("偶數/ k = " + k);
 
         } else {
 
             updatefirebase(epicenter[k / 2 - 0.5]);
 
             // return epicenter[k/2-0.5];
-            console.log("雞數")
+            console.log("雞數/ k = " + k);
         }
     }
     // return epicenter;
@@ -441,15 +440,20 @@ function updatefirebase(par_epicenter) {
     }
     averagemag = sum / magnitudearray.length;
 
-    console.log("震度陣列= " + magnitudearray + "/ 時間陣列: " + timearray );
+    console.log("end/ 震度平均= " + averagemag + "/ 發生時間: " + timearray );
 
     var update = admin.database().ref('eqCenter');
     update.update({
         "longitude": lon,
         "latitude": lat,
-        "time": 0,
-        "magnitude": 0
+        "time": timearray[0],
+        "magnitude": Math.ceil(averagemag)
     });
+
+    timearray.splice(0, timearray.length);
+    magnitudearray.splice(0, magnitudearray.length);
+    sixpoint.splice(6, sixpoint.length - 6);
+
 }
 
 
