@@ -3,6 +3,7 @@ package tw.edu.bpmlab.mis.nccu.earthquakeapp;
 import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -11,6 +12,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.AsyncTask;
+import android.os.BatteryManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -456,8 +458,12 @@ public class alert extends AppCompatActivity implements
 
         initialDataLoaded = false;
         final ArrayList<EqCenter> eqCenters = new ArrayList<EqCenter>();
+
         final SharedPreferences magnitude = getSharedPreferences("magnitude", 0);
         final int magnitudevalue = magnitude.getInt("btnChecked", 0);
+
+        final SharedPreferences chargeIsSet= getSharedPreferences("charge", 0);
+        final boolean charge = chargeIsSet.getBoolean("charge",false);
 
 
         ValueEventListener eqCenterListener = new ValueEventListener() {
@@ -480,7 +486,7 @@ public class alert extends AppCompatActivity implements
 
 
                     //比較用戶設定開啟通知的級數
-                    if (magnitudevalue <= centerMagnitude) {
+                    if (magnitudevalue <= centerMagnitude && charge == isCharging()) {
 
                         eqCountDown(centerLongitude, centerLatitude);
 
@@ -665,18 +671,18 @@ public class alert extends AppCompatActivity implements
 
         double d = getDistance(centerLatitude, centerLongitude, localLatitude, localLongitude);
         int localMagnitude = centerMagnitude - (int) Math.floor(d / 50);
-//        if(localMagnitude < 0){
-//            localMagnitude = 0;
-//            localLevel.setText("" + localMagnitude);
-//            epicCenterLevel.setText("" + centerMagnitude);
-//        }else {
-//            localLevel.setText("" + localMagnitude);
-//            epicCenterLevel.setText("" + centerMagnitude);
-//        }
+        if(localMagnitude < 0){
+            localMagnitude = 0;
+            localLevel.setText("" + localMagnitude);
+            epicCenterLevel.setText("" + centerMagnitude);
+        }else {
+            localLevel.setText("" + localMagnitude);
+            epicCenterLevel.setText("" + centerMagnitude);
+        }
 
-
-        localLevel.setText("" + localMagnitude);
-        epicCenterLevel.setText("" + centerMagnitude);
+//
+//        localLevel.setText("" + localMagnitude);
+//        epicCenterLevel.setText("" + centerMagnitude);
     }
 
 
@@ -731,6 +737,15 @@ public class alert extends AppCompatActivity implements
 
     }
 
+    public boolean isCharging()
+    {
+        IntentFilter ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+        Intent batteryStatus = this.getApplicationContext().registerReceiver(null, ifilter);
+        int status = batteryStatus.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
+        boolean bCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
+                status == BatteryManager.BATTERY_STATUS_FULL;
+        return bCharging;
+    }
 
 
 
