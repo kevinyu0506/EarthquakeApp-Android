@@ -43,6 +43,7 @@ import org.jsoup.nodes.Document;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
@@ -54,7 +55,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private String typeLocation;
     private HandlerThread earthquakeInfoHandlerThread = new HandlerThread(MapsActivity.class.getSimpleName());
     private Handler earthquakeInfoHandler;
-    private EarthquakeInfo earthquakeInfo;
+    private EarthquakeInfo earthquakeInfo = new EarthquakeInfo();
     LocationManager mLocationManager;
 
     @Override
@@ -63,7 +64,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_maps);
-
+        earthquakeInfo.setFeatures(new ArrayList<Feature>());
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
@@ -74,10 +75,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void handleMessage(Message msg) {
                 try {
                     super.handleMessage(msg);
+                    earthquakeInfo.setFeatures(new ArrayList<Feature>());
                     Document document = Jsoup.connect("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_month.geojson").ignoreContentType(true).ignoreHttpErrors(true).get();
-                    earthquakeInfo = new Gson().fromJson(document.body().text(), EarthquakeInfo.class);
+                    String prefix = "{\"type\":\"Feature\"";
+                    for(String candidate : document.body().text().split("\\{\"type\":\"Feature\"")){
+                        try {
+                            if (candidate.startsWith(",\"properties\"")){
+                                String featureJson = new StringBuilder(prefix).append(candidate).toString().trim();
+                                if (featureJson.endsWith(",")){
+                                    featureJson = featureJson.substring(0, featureJson.length() - 1);
+                                }
+                                Feature f = new Gson().fromJson(featureJson, Feature.class);
+                                earthquakeInfo.getFeatures().add(f);
+                            }
+                        }catch (Exception e){
+                        }
+                    }
                 } catch (Exception e) {
-                    Log.e("!!!!", "!!!!!!!!!", e);
                 }
             }
         };
