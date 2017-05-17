@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/settings_background"
-    tools:context="tw.edu.bpmlab.mis.nccu.earthquakeapp.settings">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="wrap_content"
+android:layout_height="match_parent"
+android:background="@drawable/background"
+tools:context="tw.edu.bpmlab.mis.nccu.earthquakeapp.alert">
 
 
 
@@ -13,22 +13,29 @@
         android:id="@+id/settings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="28dp"
-        android:layout_marginLeft="118dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         android:gravity="center_vertical"
         android:text="SETTINGS"
         android:textAlignment="center"
+        android:textAllCaps="false"
         android:textColor="#ffffff"
         android:textSize="27dp" />
+
+
+<RelativeLayout
+    android:id="@+id/relativeLayoutFirst"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/settings"
+    android:layout_centerHorizontal="true"
+    android:layout_centerVertical="true">
 
     <RelativeLayout
         android:id="@+id/notificationLayout"
         android:layout_width="309dp"
         android:layout_height="205dp"
-        android:layout_marginLeft="26dp"
-        android:layout_marginTop="103dp"
+        android:layout_marginTop="20dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:background="@drawable/notification_frame">
@@ -233,261 +240,283 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/gpsLayout"
-        android:layout_width="150dp"
-        android:layout_height="40dp"
-        android:layout_marginLeft="26dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:background="@drawable/gps_frame"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="317dp">
-
-        <TextView
-            android:id="@+id/GPS"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="GPS"
-            android:textSize="19dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="15dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="8.95dp"
-            android:textColor="#B3ffffff"/>
-
-        <Switch
-            android:id="@+id/gpsSwitch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignBottom="@+id/GPS"
-            android:layout_alignTop="@+id/GPS" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/statusLayout"
-        android:layout_width="150dp"
-        android:layout_height="160dp"
-        android:layout_marginTop="362dp"
-        android:layout_marginLeft="26dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:background="@drawable/status_frame">
-
-        <TextView
-            android:id="@+id/status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Status"
-            android:textSize="19dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="15dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="10.45dp"
-            android:textColor="#B3ffffff"/>
-
-        <TextView
-            android:id="@+id/wifi"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Charge"
-            android:textSize="16dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="15dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="54.61dp"
-            android:textColor="#4Dffffff"/>
-
-        <TextView
-            android:id="@+id/chargeMode"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Wifi"
-            android:textSize="16dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="15dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="98.77dp"
-            android:textColor="#4Dffffff"
-            android:layout_toStartOf="@+id/chargeModeSwitch"
-            android:layout_alignEnd="@+id/status" />
-
-        <Switch
-            android:id="@+id/wifiSwitch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignBottom="@+id/chargeMode" />
-
-        <Switch
-            android:id="@+id/chargeModeSwitch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/wifi"
-            android:layout_alignParentEnd="true"
-            android:layout_alignTop="@+id/wifi" />
-
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/helpLayout"
-        android:layout_width="150dp"
+        android:id="@+id/d"
+        android:layout_width="309dp"
         android:layout_height="205dp"
-        android:layout_marginTop="317dp"
-        android:layout_marginLeft="185dp"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/notificationLayout"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:background="@drawable/help_frame">
+        app:layout_constraintTop_toTopOf="parent">
 
 
-        <TextView
-            android:id="@+id/help"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Help"
-            android:textSize="19dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="15dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="10.75dp"
-            android:textColor="#B3ffffff"/>
+        <RelativeLayout
+            android:id="@+id/gpsLayout"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:background="@drawable/gps_frame"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/earthquake"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Earthquake"
-            android:textSize="16dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="15dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="58.61dp"
-            android:textColor="#4Dffffff"/>
+            <TextView
+                android:id="@+id/GPS"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="GPS"
+                android:textSize="19dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="8.95dp"
+                android:textColor="#B3ffffff"/>
 
-        <TextView
-            android:id="@+id/contactUs"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Contact Us"
-            android:textSize="16dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="15dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="108.11dp"
-            android:textColor="#4Dffffff"/>
+            <Switch
+                android:id="@+id/gpsSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignBottom="@+id/GPS"
+                android:layout_alignTop="@+id/GPS" />
 
-        <TextView
-            android:id="@+id/about"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="About"
-            android:textSize="16dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="15dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="155.61dp"
-            android:textColor="#4Dffffff"/>
+        </RelativeLayout>
 
-        <ImageView
-            android:id="@+id/eqInfoArrow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/arrow"
-            android:layout_alignBottom="@+id/earthquake"
+        <RelativeLayout
+            android:id="@+id/statusLayout"
+            android:layout_width="150dp"
+            android:layout_height="160dp"
+            android:layout_below="@+id/gpsLayout"
+            android:layout_marginTop="5dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:background="@drawable/status_frame">
+
+            <TextView
+                android:id="@+id/status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Status"
+                android:textSize="19dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10.45dp"
+                android:textColor="#B3ffffff"/>
+
+            <TextView
+                android:id="@+id/wifi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Charge"
+                android:textSize="16dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="54.61dp"
+                android:textColor="#4Dffffff"/>
+
+            <TextView
+                android:id="@+id/chargeMode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Wifi"
+                android:textSize="16dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="98.77dp"
+                android:textColor="#4Dffffff"
+                android:layout_toStartOf="@+id/chargeModeSwitch"
+                android:layout_alignEnd="@+id/status" />
+
+            <Switch
+                android:id="@+id/wifiSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignBottom="@+id/chargeMode" />
+
+            <Switch
+                android:id="@+id/chargeModeSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/wifi"
+                android:layout_alignParentEnd="true"
+                android:layout_alignTop="@+id/wifi" />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/helpLayout"
+            android:layout_width="150dp"
+            android:layout_height="205dp"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginRight="15dp"
-            android:layout_marginEnd="15dp" />
-
-        <ImageView
-            android:id="@+id/contactUsArrow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/arrow"
-            android:layout_alignBottom="@+id/contactUs"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginRight="15dp"
-            android:layout_marginEnd="15dp" />
-
-        <ImageView
-            android:id="@+id/aboutArrow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/arrow"
-            android:layout_alignBottom="@+id/about"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginRight="15dp"
-            android:layout_marginEnd="15dp" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:background="@drawable/help_frame">
 
 
-        <Button
-            android:id="@+id/eqInfoButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:alpha="0"
-            android:layout_alignBaseline="@+id/earthquake"
-            android:layout_alignBottom="@+id/earthquake"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            <TextView
+                android:id="@+id/help"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Help"
+                android:textSize="19dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10.75dp"
+                android:textColor="#B3ffffff"/>
 
-        <Button
-            android:id="@+id/eqAboutButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:alpha="0"
-            android:layout_alignBaseline="@+id/about"
-            android:layout_alignBottom="@+id/about"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true" />
+            <TextView
+                android:id="@+id/earthquake"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Earthquake"
+                android:textSize="16dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="58.61dp"
+                android:textColor="#4Dffffff"/>
+
+            <TextView
+                android:id="@+id/contactUs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Contact Us"
+                android:textSize="16dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="108.11dp"
+                android:textColor="#4Dffffff"/>
+
+            <TextView
+                android:id="@+id/about"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="About"
+                android:textSize="16dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="155.61dp"
+                android:textColor="#4Dffffff"/>
+
+            <ImageView
+                android:id="@+id/eqInfoArrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/arrow"
+                android:layout_alignBottom="@+id/earthquake"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="15dp"
+                android:layout_marginEnd="15dp" />
+
+            <ImageView
+                android:id="@+id/contactUsArrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/arrow"
+                android:layout_alignBottom="@+id/contactUs"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="15dp"
+                android:layout_marginEnd="15dp" />
+
+            <ImageView
+                android:id="@+id/aboutArrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/arrow"
+                android:layout_alignBottom="@+id/about"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="15dp"
+                android:layout_marginEnd="15dp" />
+
+
+            <Button
+                android:id="@+id/eqInfoButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:alpha="0"
+                android:layout_alignBaseline="@+id/earthquake"
+                android:layout_alignBottom="@+id/earthquake"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+            <Button
+                android:id="@+id/eqAboutButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:alpha="0"
+                android:layout_alignBaseline="@+id/about"
+                android:layout_alignBottom="@+id/about"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true" />
+
+
+        </RelativeLayout>
 
 
     </RelativeLayout>
+
+
+</RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true">
+
 
     <ImageButton
         android:id="@+id/mapButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/map"
-        android:background="#00000000"
+        android:layout_alignParentBottom="true"
         android:layout_marginBottom="30dp"
-        android:layout_marginLeft="60dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        android:layout_toLeftOf="@+id/alarmButton"
+        android:layout_marginRight="67.5dp"
+        android:layout_centerVertical="true"
+        android:background="#00000000"
+        android:src="@drawable/map" />
 
     <ImageButton
         android:id="@+id/alarmButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/alarm"
-        android:background="#00000000"
+        android:layout_alignParentBottom="true"
         android:layout_marginBottom="30dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/mapButton"
-        android:layout_marginLeft="70dp" />
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:background="#00000000"
+        android:src="@drawable/alarm" />
 
     <ImageButton
         android:id="@+id/settingButton"
@@ -495,19 +524,25 @@
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/settings"
         android:background="#00000000"
-        app:layout_constraintLeft_toRightOf="@+id/alarmButton"
-        android:layout_marginLeft="47.5dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="7.5dp" />
+        android:layout_centerVertical="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:layout_toRightOf="@+id/alarmButton"
+        android:layout_marginLeft="47.5dp"/>
+
 
     <ImageView
-        android:id="@+id/inUse"
+        android:id="@+id/inuse"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/in_use"
-        app:layout_constraintLeft_toRightOf="@+id/alarmButton"
-        android:layout_marginLeft="60dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="0dp" />
+        android:src="@drawable/inuse"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/settingButton"
+        android:layout_marginStart="12dp" />
 
-</android.support.constraint.ConstraintLayout>
+    </RelativeLayout>
+
+
+
+</RelativeLayout>
+

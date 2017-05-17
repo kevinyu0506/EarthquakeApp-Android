@@ -296,8 +296,8 @@ exports.eqDataFilter = functions.database.ref('/eqDatas/eqData(7,8)/{pushID}')
 
             console.log("時間陣列：  " + timearray + "/ 座標陣列：  " + sixpoint + "/ 震央陣列：  " + magnitudearray);
 
-            //  兩筆時間相差30秒以內留著跑震央、以外更新整個網格資料
-            if (Date.parse(timearray[timearray.length - 1]).valueOf() - Date.parse(timearray[timearray.length - 2]).valueOf() < 30000) {
+            //  兩筆時間相差15秒以內留著跑震央、以外更新整個網格資料
+            if (Date.parse(timearray[timearray.length - 1]).valueOf() - Date.parse(timearray[timearray.length - 2]).valueOf() < 15000) {
 
                 sixpoint.push(detectlon + controlChange);
                 sixpoint.push(detectlat - controlChange);
@@ -306,7 +306,7 @@ exports.eqDataFilter = functions.database.ref('/eqDatas/eqData(7,8)/{pushID}')
 
 
                 if (sixpoint.length >= 12) {
-                    console.log("小於30秒/ success/  時間陣列：  " + timearray + "/ 座標陣列：  " + sixpoint + "/ 震央陣列：  " + magnitudearray);
+                    console.log("小於15秒/ success/  時間陣列：  " + timearray + "/ 座標陣列：  " + sixpoint + "/ 震央陣列：  " + magnitudearray);
 
                     //call the vertical function to Division the map
                     for (var i = 0; i < sixpoint.length; i += 2) {
@@ -324,7 +324,7 @@ exports.eqDataFilter = functions.database.ref('/eqDatas/eqData(7,8)/{pushID}')
                     epicenters();
 
                 } else {
-                    console.log("小於30秒/ 不到6筆/   時間陣列：  " + timearray + "/ 座標陣列：  " + sixpoint + "/ 震央陣列：  " + magnitudearray);
+                    console.log("小於15秒/ 不到6筆/   時間陣列：  " + timearray + "/ 座標陣列：  " + sixpoint + "/ 震央陣列：  " + magnitudearray);
                 }
 
             } else {
@@ -332,12 +332,13 @@ exports.eqDataFilter = functions.database.ref('/eqDatas/eqData(7,8)/{pushID}')
                 magnitudearray.splice(0, magnitudearray.length - 1);
                 sixpoint.splice(6, sixpoint.length - 6);
 
+                controlChange = 4;
                 sixpoint.push(detectlon + controlChange);
                 sixpoint.push(detectlat - controlChange);
                 controlChange = controlChange + 1;
 
 
-                console.log("超過30秒/ 清空eqData(7,8)/  剩餘時間陣列：  " + timearray + "/ 剩餘座標陣列：  " + sixpoint + "/ 剩餘震央陣列：  " + magnitudearray);
+                console.log("超過15秒/ 清空eqData(7,8)/  剩餘時間陣列：  " + timearray + "/ 剩餘座標陣列：  " + sixpoint + "/ 剩餘震央陣列：  " + magnitudearray);
 
                 // admin.database().ref('eqDatas/eqData(7,8)').once('child_added', function(snapshot) { snapshot.ref.remove();});
                 // admin.database().ref('eqDatas/eqData(7,8)').remove();
@@ -453,6 +454,7 @@ function updatefirebase(par_epicenter) {
     timearray.splice(0, timearray.length);
     magnitudearray.splice(0, magnitudearray.length);
     sixpoint.splice(6, sixpoint.length - 6);
+    controlChange = 4;
 
 }
 

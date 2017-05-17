@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="match_parent"
-    android:background="@drawable/settings_background"
-    tools:context="tw.edu.bpmlab.mis.nccu.earthquakeapp.settings_eqinfo">
+    android:background="@drawable/background"
+    tools:context="tw.edu.bpmlab.mis.nccu.earthquakeapp.alert">
 
 
 
@@ -14,33 +14,34 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="EARTHQUAKE INFO"
-        app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="28dp"
-        android:textSize="24dp"
+        android:textSize="27dp"
         android:textColor="#ffffff"
-        android:layout_marginLeft="76dp"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        android:layout_centerHorizontal="true"/>
 
     <TextView
-        android:id="@+id/setting"
+        android:id="@+id/settings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="settings"
+        android:layout_below="@+id/earthquakeInfo"
+        android:layout_centerHorizontal="true"
         android:textColor="#A6ffffff"
-        android:layout_marginTop="0dp"
-        app:layout_constraintTop_toBottomOf="@+id/earthquakeInfo"
-        android:layout_marginLeft="155dp"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        android:textSize="12dp"/>
 
+    <RelativeLayout
+        android:id="@+id/relativeLayoutFirst"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/settings"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true">
 
     <RelativeLayout
         android:layout_width="300dp"
         android:layout_height="490dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="101dp"
+        android:layout_marginTop="15dp"
         android:background="@drawable/info_frame"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         android:id="@+id/relativeLayout">
 
 
@@ -55,6 +56,8 @@
 
         </RelativeLayout>
 
+
+    </RelativeLayout>
 
     </RelativeLayout>
 
@@ -81,4 +84,4 @@
 
 
 
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>

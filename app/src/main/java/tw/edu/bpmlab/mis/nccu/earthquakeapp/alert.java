@@ -221,6 +221,17 @@ public class alert extends AppCompatActivity implements
         countDown = (TextView) findViewById(R.id.countDown);
 
 
+        // 宜蘭（羅東鎮	121E46’00”	24N41’00”）
+//        localLatitude = 24.41;
+//        localLongitude = 121.46;
+//
+//
+//        x = Math.floor((localLongitude - 120) / 0.02);
+//        y = Math.floor((localLatitude - 21.5) / 0.04);
+//
+//        getLocalAddress(localLatitude, localLongitude);
+
+
     }
 
 
@@ -486,19 +497,20 @@ public class alert extends AppCompatActivity implements
 
 
                     //比較用戶設定開啟通知的級數
-                    if (magnitudevalue <= centerMagnitude && charge == isCharging()) {
+                    if (magnitudevalue <= centerMagnitude && (charge == isCharging() || charge == false)) {
 
-                        eqCountDown(centerLongitude, centerLatitude);
+                            eqCountDown(centerLongitude, centerLatitude);
 
-                        new AlertDialog.Builder(alert.this)
-                                .setTitle(centerMagnitude + "級地震警報")
-                                .setMessage("震央位置 = " + centerAddress + " , 發生時間 = " + centerTime)
-                                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                                    public void onClick(
-                                            DialogInterface dialogInterface, int i) {
-                                    }
-                                })
-                                .show();
+                            new AlertDialog.Builder(alert.this)
+                                    .setTitle(centerMagnitude + "級地震警報")
+                                    .setMessage("震央位置 = " + centerAddress + " , 發生時間 = " + centerTime)
+                                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                        public void onClick(
+                                                DialogInterface dialogInterface, int i) {
+                                        }
+                                    })
+                                    .show();
+
                     } else {
 
                     }
@@ -580,6 +592,8 @@ public class alert extends AppCompatActivity implements
         } else {
             Toast.makeText(this, R.string.no_location_detected, Toast.LENGTH_LONG).show();
         }
+
+
     }
 
     @Override
@@ -706,7 +720,7 @@ public class alert extends AppCompatActivity implements
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-            localLocation.setText("Canont get Address!");
+            localLocation.setText("讀取錯誤");
         }
 
     }

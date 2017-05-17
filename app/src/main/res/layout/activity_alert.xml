@@ -102,7 +102,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/relativeLayoutTime"
-            android:layout_marginTop="70dp"
+            android:layout_marginTop="25dp"
             android:text="EARTHQUAKE INFORMATION"
             android:textColor="#73ffffff"
             android:textSize="14dp" />
@@ -113,7 +113,7 @@
             android:layout_height="183dp"
             android:layout_below="@+id/earthquakeInf"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="15dp">
 
             <RelativeLayout
                 android:id="@+id/relativeLayoutMag"
@@ -271,15 +271,22 @@
 
     </RelativeLayout>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true">
+
 
     <ImageButton
         android:id="@+id/map"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
         android:layout_marginBottom="30dp"
-        android:layout_marginLeft="60dp"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/alert"
+        android:layout_marginRight="47.5dp"
         android:background="#00000000"
         android:src="@drawable/map" />
 
@@ -287,19 +294,20 @@
         android:id="@+id/alert"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="10dp"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="19dp"
         android:src="@drawable/alert" />
 
     <ImageButton
         android:id="@+id/settingsButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/relativeLayoutFirst"
-        android:layout_alignTop="@+id/map"
-        android:layout_marginEnd="17dp"
+        android:layout_toRightOf="@+id/alert"
+        android:layout_marginLeft="47.5dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="30dp"
         android:background="#00000000"
         android:src="@drawable/alertsettings" />
 
@@ -311,23 +319,8 @@
         android:layout_centerHorizontal="true"
         android:src="@drawable/inuse" />
 
-    <!--<Button-->
-        <!--android:id="@+id/upload"-->
-        <!--android:layout_width="60dp"-->
-        <!--android:layout_height="35dp"-->
-        <!--android:text="Upload"-->
-        <!--android:layout_alignBaseline="@+id/delete"-->
-        <!--android:layout_alignBottom="@+id/delete"-->
-        <!--android:layout_alignStart="@+id/map" />-->
+    </RelativeLayout>
 
-    <!--<Button-->
-        <!--android:id="@+id/delete"-->
-        <!--android:layout_width="60dp"-->
-        <!--android:layout_height="35dp"-->
-        <!--android:layout_marginTop="177dp"-->
-        <!--android:text="Delete"-->
-        <!--android:layout_alignTop="@+id/relativeLayoutFirst"-->
-        <!--android:layout_alignEnd="@+id/settingsButton" />-->
 
     <TextView
         android:id="@+id/accelerator"
