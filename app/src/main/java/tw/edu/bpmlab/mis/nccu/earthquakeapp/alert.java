@@ -71,6 +71,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 //address
 import java.net.HttpURLConnection;
@@ -760,6 +761,8 @@ public class alert extends AppCompatActivity implements
                 status == BatteryManager.BATTERY_STATUS_FULL;
         return bCharging;
     }
+
+
 
 
 
