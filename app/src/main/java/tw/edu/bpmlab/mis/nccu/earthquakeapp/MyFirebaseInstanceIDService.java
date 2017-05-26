@@ -22,10 +22,12 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
         //Displaying token on logcat
         Log.d(TAG, "Refreshed token: " + refreshedToken);
 
+//        sendRegistrationToServer(refreshedToken);
+
     }
 
-    private void sendRegistrationToServer(String token) {
-        //You can implement this method to store the token on your server
-        //Not required for current project
-    }
+//    private void sendRegistrationToServer(String token) {
+//        //You can implement this method to store the token on your server
+//        //Not required for current project
+//    }
 }

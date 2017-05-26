@@ -314,7 +314,7 @@ exports.eqDataFilter = functions.database.ref('/eqDatas/eqData(7,8)/{pushID}')
                             vertical(sixpoint[i], sixpoint[i + 1], sixpoint[j], sixpoint[j + 1]);
                         }
                     }
-                    
+
                     // timearray.splice(0, timearray.length);
                     // magnitudearray.splice(0, magnitudearray.length);
                     // sixpoint.splice(6, sixpoint.length - 6);
@@ -441,7 +441,7 @@ function updatefirebase(par_epicenter) {
     }
     averagemag = sum / magnitudearray.length;
 
-    console.log("end/ 震度平均= " + averagemag + "/ 發生時間: " + timearray );
+    console.log("end/ 震度平均= " + averagemag + "/ 發生時間: " + timearray);
 
     var update = admin.database().ref('eqCenter');
     update.update({
@@ -460,30 +460,89 @@ function updatefirebase(par_epicenter) {
 
 
 
+// Sends a notifications to all users when a new message is posted.
+exports.sendNotifications = functions.database.ref('/eqCenter').onWrite(event => {
+    const snapshot = event.data;
+
+    // Only send a notification when a new message has been created.
+    // if (snapshot.previous.val()) {
+    //     return;
+    // }
+
+    var centerTime = snapshot.child('time').val();
+    var centerLongitude = snapshot.child('longitude').val();
+    var centerLatitude = snapshot.child('latitude').val();
+    var centerMagnitude = event.data.child('magnitude').val();
+
+    // Notification details.
+    const payload = {
+        notification: {
+            title: `${centerMagnitude}級地震警報`,
+            body: `發生時間${centerTime}`,
+            sound: "default",
+            viberate: "true",
+        }
+    };
+
+    token = "fwFNuIiWbd4:APA91bF6MyCxU_a8nmRp9kTBOriUp5nayZkwoRgv9LlaKe3b2rbVuNa4MKqDUllp1WgXcnXkvIlglp27QKf1MdX9GY4xZ1U4cRVMJPNi0gNQnSnA_HV8S6vDuY1nuuA5CGfLbKdMxjjR";
+    console.log("token: " + token);
+    return admin.messaging().sendToDevice(token, payload);
+
+        // Get the list of device tokens.
+
+    // return admin.database().ref('fcmTokens/{tokenID}').once('value').then(allTokens => {
+    //     if (allTokens.val()) {
+    //         // Listing all tokens.
+    //         const tokens = Object.keys(allTokens.val());
+    //         console.log("tokens:" + tokens);
+
+    //         // Send notifications to all tokens.
+    //         return admin.messaging().sendToDevice(tokens, payload).then(response => {
+    //             // For each message check if there was an error.
+    //             const tokensToRemove = [];
+    //             response.results.forEach((result, index) => {
+    //                 const error = result.error;
+    //                 if (error) {
+    //                     console.error('Failure sending notification to', tokens[index], error);
+    //                     // Cleanup the tokens who are not registered anymore.
+    //                     if (error.code === 'messaging/invalid-registration-token' ||
+    //                         error.code === 'messaging/registration-token-not-registered') {
+    //                         tokensToRemove.push(allTokens.ref.child(tokens[index]).remove());
+    //                     }
+    //                 }
+    //             });
+    //             return Promise.all(tokensToRemove);
+    //         });
+    //     }
+    // });
+
+
+});
+
+
 
 // exports.pushNotification = functions.database.ref('/eqCenter').onWrite(event => {
 
 //     console.log('Push notification event triggered');
-//     // console.log('霸脫啦' + time);
-
 
 //     //  Grab the current value of what was written to the Realtime Database.
 
-//     var eventSnapshot = event.data;
+//     const eventSnapshot = event.data;
 
-//     var y = eventSnapshot.child("latitude").val();
-//     var x = eventSnapshot.child("longitude").val();
+//     if(!eventSnapshot.changed()){
+//         return;
+//     }
+
+//     var centerLatitude = eventSnapshot.child("latitude").val();
+//     var centerLongitude = eventSnapshot.child("longitude").val();
 //     var centerMagnitude = eventSnapshot.child("magnitude").val();
+//     var centerTime = eventSnapshot.child("time").val();
 
 //     const payload = {
 //         notification: {
-//             title: 'App Name',
-//             body: "New message",
+//             title: `${centerMagnitude}級地震警報`,
+//             body: "test",
 //             sound: "default"
-//                 // },
-//                 // data: {
-//                 //     title: x.toString(),
-//                 //     message: y.message
 //         }
 //     };
 
@@ -494,17 +553,3 @@ function updatefirebase(par_epicenter) {
 
 //     return admin.messaging().sendToTopic("notifications", payload, options);
 // });
-
-
-
-
-
-// geocoder.reverseGeocode(33.7489, -84.3789, function(err, data) {
-
-//     // do something with data 
-//     //show all the data
-//     // console.log(data);
-//     //show the target information
-//     console.log(data.results[4].formatted_address);
-
-// }, { language: 'zh-TW' });

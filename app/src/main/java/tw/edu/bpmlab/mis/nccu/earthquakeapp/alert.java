@@ -1,6 +1,7 @@
 package tw.edu.bpmlab.mis.nccu.earthquakeapp;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -145,6 +146,7 @@ public class alert extends AppCompatActivity implements
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mEqDataReference;
     private DatabaseReference mEqCenterReference;
+    private DatabaseReference mFcmTokenReference;
     private ValueEventListener mEqCenterListener;
 
     private boolean initialDataLoaded;
@@ -194,6 +196,7 @@ public class alert extends AppCompatActivity implements
         mFirebaseDatabase = FirebaseDatabase.getInstance();
         mEqDataReference = mFirebaseDatabase.getReference().child("eqData");
         mEqCenterReference = mFirebaseDatabase.getReference().child("eqCenter");
+        mFcmTokenReference = mFirebaseDatabase.getReference().child("fcmTokens");
 
         final String address = "";
 
@@ -223,15 +226,22 @@ public class alert extends AppCompatActivity implements
 
 
         // 宜蘭（羅東鎮	121E46’00”	24N41’00”）
-//        localLatitude = 24.41;
-//        localLongitude = 121.46;
-//
-//
-//        x = Math.floor((localLongitude - 120) / 0.02);
-//        y = Math.floor((localLatitude - 21.5) / 0.04);
-//
-//        getLocalAddress(localLatitude, localLongitude);
+        localLatitude = 24.41;
+        localLongitude = 121.46;
 
+
+        x = Math.floor((localLongitude - 120) / 0.02);
+        y = Math.floor((localLatitude - 21.5) / 0.04);
+
+        getLocalAddress(localLatitude, localLongitude);
+
+
+        String token = FirebaseInstanceId.getInstance().getToken();
+        if (token != null) {
+            Log.w("notification", token);
+//            Toast.makeText(alert.this,""+token,Toast.LENGTH_SHORT).show();
+        mFcmTokenReference.child(token).setValue(token);
+        }
 
     }
 
@@ -561,6 +571,8 @@ public class alert extends AppCompatActivity implements
     }
 
 
+
+
     @Override
     public void onConnected(Bundle connectionHint) {
 
@@ -581,14 +593,14 @@ public class alert extends AppCompatActivity implements
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
         if (mLastLocation != null) {
 
-            localLatitude = mLastLocation.getLatitude();
-            localLongitude = mLastLocation.getLongitude();
-
-
-            x = Math.floor((localLongitude - 120) / 0.02);
-            y = Math.floor((localLatitude - 21.5) / 0.04);
-
-            getLocalAddress(localLatitude, localLongitude);
+//            localLatitude = mLastLocation.getLatitude();
+//            localLongitude = mLastLocation.getLongitude();
+//
+//
+//            x = Math.floor((localLongitude - 120) / 0.02);
+//            y = Math.floor((localLatitude - 21.5) / 0.04);
+//
+//            getLocalAddress(localLatitude, localLongitude);
 
         } else {
             Toast.makeText(this, R.string.no_location_detected, Toast.LENGTH_LONG).show();
