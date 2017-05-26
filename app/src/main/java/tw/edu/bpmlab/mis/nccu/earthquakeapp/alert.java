@@ -154,6 +154,7 @@ public class alert extends AppCompatActivity implements
 
     public Geocoder geocoder;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -364,59 +365,74 @@ public class alert extends AppCompatActivity implements
         aSensorManager.registerListener(this, aSensor, aSensorManager.SENSOR_DELAY_NORMAL);
     }
 
+
     @Override
     public void onSensorChanged(SensorEvent event) {
 
         int i;
         int k;
 
-        gravity[0] = event.values[0];
-        gravity[1] = event.values[1];
-        gravity[2] = event.values[2];
+        final SharedPreferences chargeIsSet= getSharedPreferences("charge", 0);
+        final boolean charge = chargeIsSet.getBoolean("charge",false);
 
 
-        long curTime = System.currentTimeMillis();
 
-        if ((curTime - lastUpdate) > 1000) {
-            lastUpdate = curTime;
-
-            eqGal = Math.abs((Math.sqrt(Math.pow(gravity[0], 2) + Math.pow(gravity[1], 2) + Math.pow(gravity[2], 2)) - 9.81) * 100);
+        if(charge == isCharging() || charge == false) {
 
 
-            i = eqGalData.size();
-            k = eqGalDataChn.size();
-
-            while (i <= 2) {
-                eqGalData.add(eqGal);
-
-                if (i == 2) {
-                    eqGalDataChn.add((eqGalData.get(1) / eqGalData.get(0)));
-                    if (eqGalDataChn.get(0) > Math.pow(Math.sqrt(10), 2)) {
-
-                        eqDataID = mEqDataReference.push().getKey();
-                        EqData eqData = new EqData(magnitude, x, y, eqGal, time, eqDataID);
-
-                        mEqDataReference.push().setValue(eqData);
+            gravity[0] = event.values[0];
+            gravity[1] = event.values[1];
+            gravity[2] = event.values[2];
 
 
+            long curTime = System.currentTimeMillis();
+
+            if ((curTime - lastUpdate) > 1000) {
+                lastUpdate = curTime;
+
+                eqGal = Math.abs((Math.sqrt(Math.pow(gravity[0], 2) + Math.pow(gravity[1], 2) + Math.pow(gravity[2], 2)) - 9.81) * 100);
+
+
+                i = eqGalData.size();
+                k = eqGalDataChn.size();
+
+                while (i <= 2) {
+                    eqGalData.add(eqGal);
+
+                    if (i == 2) {
+                        eqGalDataChn.add((eqGalData.get(1) / eqGalData.get(0)));
+                        if (eqGalDataChn.get(0) > Math.pow(Math.sqrt(10), 2)) {
+
+                            eqDataID = mEqDataReference.push().getKey();
+                            EqData eqData = new EqData(magnitude, x, y, eqGal, time, eqDataID);
+
+                            mEqDataReference.push().setValue(eqData);
+
+
+                        }
+                        eqGalData.remove(0);
                     }
-                    eqGalData.remove(0);
+                    if (k == 2) {
+                        eqGalDataChn.remove(0);
+                    }
+                    break;
+
                 }
-                if (k == 2) {
-                    eqGalDataChn.remove(0);
+
+
+                for (int j = 0; j < eqGalDataChn.size(); j++) {
+                    DecimalFormat df = new DecimalFormat("##.00");
+                    accelerator.setText("加速度變化: " + Double.parseDouble(df.format(eqGalDataChn.get(j))) + "\n" +
+                            "(" + Double.parseDouble(df.format(localLongitude)) + ", " + Double.parseDouble(df.format(localLatitude)) + ")");
+
                 }
-                break;
 
             }
-
-
-            for (int j = 0; j < eqGalDataChn.size(); j++) {
-                DecimalFormat df = new DecimalFormat("##.00");
-                accelerator.setText("加速度變化: " + Double.parseDouble(df.format(eqGalDataChn.get(j))) + "\n" +
-                        "(" + Double.parseDouble(df.format(localLongitude)) + ", " + Double.parseDouble(df.format(localLatitude)) + ")");
-
-            }
-
+        }
+        else{
+            DecimalFormat df = new DecimalFormat("##.00");
+            accelerator.setText("未偵測中"+ "\n" +
+                    "(" + Double.parseDouble(df.format(localLongitude)) + ", " + Double.parseDouble(df.format(localLatitude)) + ")");
         }
 
 
@@ -478,14 +494,13 @@ public class alert extends AppCompatActivity implements
         super.onStart();
         mGoogleApiClient.connect();
 
-        initialDataLoaded = false;
-        final ArrayList<EqCenter> eqCenters = new ArrayList<EqCenter>();
-
-        final SharedPreferences magnitude = getSharedPreferences("magnitude", 0);
-        final int magnitudevalue = magnitude.getInt("btnChecked", 0);
-
         final SharedPreferences chargeIsSet= getSharedPreferences("charge", 0);
         final boolean charge = chargeIsSet.getBoolean("charge",false);
+        final SharedPreferences magnitudeChk = getSharedPreferences("magnitude", 0);
+        final int magnitudevalue = magnitudeChk.getInt("btnChecked", 0);
+
+        initialDataLoaded = false;
+        final ArrayList<EqCenter> eqCenters = new ArrayList<EqCenter>();
 
 
         ValueEventListener eqCenterListener = new ValueEventListener() {
@@ -508,7 +523,7 @@ public class alert extends AppCompatActivity implements
 
 
                     //比較用戶設定開啟通知的級數
-                    if (magnitudevalue <= centerMagnitude && (charge == isCharging() || charge == false)) {
+                    if (magnitudevalue <= centerMagnitude) {
 
                             eqCountDown(centerLongitude, centerLatitude);
 
