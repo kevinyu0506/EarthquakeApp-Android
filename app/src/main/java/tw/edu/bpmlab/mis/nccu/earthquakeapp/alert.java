@@ -201,23 +201,6 @@ public class alert extends AppCompatActivity implements
 
         final String address = "";
 
-//        Button uploadButton = (Button) findViewById(R.id.upload);
-//        uploadButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                EqCenter eqCenter = new EqCenter(magnitude, localLongitude, localLatitude, time, address);
-//                mEqCenterReference.setValue(eqCenter);
-//            }
-//        });
-//
-//        Button deleteButton = (Button) findViewById(R.id.delete);
-//        deleteButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                mEqDataReference.removeValue();
-//            }
-//        });
-
         localLevel = (TextView) findViewById(R.id.localLevel);
         localLocation = (TextView) findViewById(R.id.localLocation);
         epicCenterLevel = (TextView) findViewById(R.id.epiCenterLevel);
@@ -229,6 +212,18 @@ public class alert extends AppCompatActivity implements
         // 宜蘭（羅東鎮	121E46’00”	24N41’00”）
         localLatitude = 24.41;
         localLongitude = 121.46;
+
+//        // A(121.59, 25.04)
+//        localLatitude = 25.04;
+//        localLongitude = 121.59;
+
+//        // B(121.53, 24.92)
+//        localLatitude = 24.92;
+//        localLongitude = 121.53;
+
+//        // C(121.51, 25.12)
+//        localLatitude = 25.12;
+//        localLongitude = 121.51;
 
 
         x = Math.floor((localLongitude - 120) / 0.02);

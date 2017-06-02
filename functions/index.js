@@ -79,7 +79,7 @@ exports.eqDataFilter = functions.database.ref('/eqData/{pushId}')
             if (Date.parse(information[0][3]).valueOf() - Date.parse(information[2][3]).valueOf() < 30000) {
 
                 //在這將我們假設的座標在這植入
-                information.push([79,88],[76,85],[75,90]);
+                information.push([82, 83],[78, 81],[83, 92]);
 
                 console.log('time correct');
 

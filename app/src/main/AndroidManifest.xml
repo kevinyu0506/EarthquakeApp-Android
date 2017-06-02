@@ -39,21 +39,29 @@
             android:value="@string/google_maps_key" />
         <activity
             android:name=".MapsActivity"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_maps" />
 
         <activity
             android:name=".alert"
+            android:screenOrientation="portrait"
             android:exported="true">
 
         </activity>
-        <activity android:name=".settings" />
-        <activity android:name=".settings_eqinfo" />
+        <activity
+            android:name=".settings"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".settings_eqinfo"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".Startup_3"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_main">
         </activity>
         <activity
             android:name=".Startup_4"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_welcome" />
 
         <!--
@@ -65,9 +73,15 @@
              You can define the keys for the debug and release targets in src/debug/ and src/release/. 
         -->
 
-        <activity android:name=".settings_about" />
-        <activity android:name=".settings_ringtone"/>
-        <activity android:name=".Startup_1" >
+        <activity
+            android:name=".settings_about"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".settings_ringtone"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Startup_1"
+            android:screenOrientation="portrait">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -75,7 +89,9 @@
             </intent-filter>
 
             </activity>
-        <activity android:name=".Startup_2"/>
+        <activity
+            android:name=".Startup_2"
+            android:screenOrientation="portrait"/>
 
 
     <service
