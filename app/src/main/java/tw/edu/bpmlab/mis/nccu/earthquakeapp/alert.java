@@ -213,15 +213,15 @@ public class alert extends AppCompatActivity implements
         localLatitude = 24.41;
         localLongitude = 121.46;
 
-//        // A(121.59, 25.04)
+//        // 南港 A(121.59, 25.04)
 //        localLatitude = 25.04;
 //        localLongitude = 121.59;
 
-//        // B(121.53, 24.92)
+//        // 新店 B(121.53, 24.92)
 //        localLatitude = 24.92;
 //        localLongitude = 121.53;
 
-//        // C(121.51, 25.12)
+//        // 北投 C(121.51, 25.12)
 //        localLatitude = 25.12;
 //        localLongitude = 121.51;
 
