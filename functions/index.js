@@ -3,14 +3,9 @@ var admin = require('firebase-admin');
 // var geocoder = require('geocoder');
 admin.initializeApp(functions.config().firebase);
 
-
-
-
-const MAX_LOG_COUNT = 4;
-
-var timearray = [];
-var sixpoint = [79, 88, 76, 85, 75, 90];
 var epicenter = [];
+var epicenterarea = [];
+var information = [];
 //一萬個往格
 var locate = [];
 for (i = 0; i < 100; i++) {
@@ -19,17 +14,6 @@ for (i = 0; i < 100; i++) {
         locate[i][j] = 0;
     }
 }
-var magnitudearray = [];
-var controlChange = 4;
-
-
-
-
-
-// // Create and Deploy Your First Cloud Functions
-// // https://firebase.google.com/docs/functions/write-firebase-functions
-//
-
 
 
 exports.uploadEqDatas = functions.database.ref('/eqData/{pushId}')
@@ -237,124 +221,99 @@ exports.uploadEqDatas = functions.database.ref('/eqData/{pushId}')
 
 
 
-// exports.limitCount = functions.database.ref('/eqData/{pushId}')
-//     .onWrite(event => {
-
-//         const parentRef = event.data.ref.parent;
-//         return parentRef.once('value').then(snapshot => {
-//             if (snapshot.numChildren() >= MAX_LOG_COUNT) {
-//                 let childCount = 0;
-//                 const updates = {};
-//                 snapshot.forEach(function(child) {
-//                     if (++childCount <= snapshot.numChildren() - MAX_LOG_COUNT) {
-//                         updates[child.key] = null;
-//                     }
-//                 });
-//                 // Update the parent. This effectively removes the extra children.
-//                 return parentRef.update(updates);
-//             }
-//         });
-
-//     });
-
-
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-//                 var query = eqDatasRef.orderByChild('time').equalTo(localTime);
-//                 return query.once("value", function(snapshot) {
-//                     var updates = {};
-//                     snapshot.forEach(function(child) {
-//                         updates[child.key] = null;
-//                     });
-//                     console.log("刪除時間錯誤的");
-//                     // eqDatasRef.update(updates);
-//                     snapshot.ref.remove();
-//                 });
-
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-
-exports.eqDataFilter = functions.database.ref('/eqDatas/eqData(7,8)/{pushID}')
+exports.eqDataFilter = functions.database.ref('/eqDatas/eqData(7,8)/pushId')
     .onWrite(event => {
-
-        if (!event.data.exists()) {
-            console.log("已清空");
-            return;
-        }
 
         var time = event.data.child('time').val();
         var detectlon = event.data.child('longitude').val();
         var detectlat = event.data.child('latitude').val();
-        var magnitude = event.data.child('magnitude').val();
         var detectmag = event.data.child('magnitude').val();
 
-        timearray.push(time);
 
-        //  判斷是否為第一筆進來的資料
-        if (timearray.length >= 2) {
-
-            console.log("時間陣列：  " + timearray + "/ 座標陣列：  " + sixpoint + "/ 震央陣列：  " + magnitudearray);
-
-            //  兩筆時間相差15秒以內留著跑震央、以外更新整個網格資料
-            if (Date.parse(timearray[timearray.length - 1]).valueOf() - Date.parse(timearray[timearray.length - 2]).valueOf() < 15000) {
-
-                sixpoint.push(detectlon + controlChange);
-                sixpoint.push(detectlat - controlChange);
-                magnitudearray.push(detectmag);
-                controlChange = controlChange + 1;
+        
+        information.push([detectlon+k,detectlat+k,time,detectmag]);
+        console.log(information);
+        k=k+1;
 
 
-                if (sixpoint.length >= 12) {
-                    console.log("小於15秒/ success/  時間陣列：  " + timearray + "/ 座標陣列：  " + sixpoint + "/ 震央陣列：  " + magnitudearray);
+        
 
-                    //call the vertical function to Division the map
-                    for (var i = 0; i < sixpoint.length; i += 2) {
-                        for (var j = i + 2; j < sixpoint.length; j += 2) {
-                            vertical(sixpoint[i], sixpoint[i + 1], sixpoint[j], sixpoint[j + 1]);
-                        }
+
+        if (information.length >= 3) {
+
+            //check the distance of A to B whether in 4 grid or not
+            if (Math.pow(information[index][0] - information[index+1][0], 2) + Math.pow(information[index][1] - information[index+1][1], 2) >= 1 && 
+                Math.pow(information[index][0] - information[index+1][0], 2) + Math.pow(information[index][1] - information[index+1][1], 2) < 8 ){
+
+                //check the distance of B to C whether in 4 grid or not
+                if (Math.pow(information[index][0] - information[index+2][0], 2) + Math.pow(information[index][1] - information[index+2][1], 2) > Math.pow(information[index][0] - information[index+1][0], 2) + Math.pow(information[index][1] - information[index+1][1], 2)&& 
+                    Math.pow(information[index][0] - information[index+2][0], 2) + Math.pow(information[index][1] - information[index+2][1], 2) < 32) {
+                    timecheck();
+                    console.log('a');
+
+                }else if (information.length >= 4) {
+                    //確認ab 與 d 是否有關
+                    if (Math.pow(information[index][0] - information[index+3][0], 2) + Math.pow(information[index][1] - information[index+3][1], 2) > Math.pow(information[index][0] - information[index+1][0], 2) + Math.pow(information[index][1] - information[index+1][1], 2) && 
+                        Math.pow(information[index][0] - information[index+3][0], 2) + Math.pow(information[index][1] - information[index+3][1], 2) < 32) {
+                        information.splice(2,1);
+                        timecheck();
+                        console.log('b');
+                    }else if(
+                        //確認 c 與d是否有關
+                        Math.pow(information[index+2][0] - information[index+3][0], 2) + Math.pow(information[index+2][1] - information[index+3][1], 2) >= 1 && 
+                        Math.pow(information[index+2][0] - information[index+3][0], 2) + Math.pow(information[index+2][1] - information[index+3][1], 2) < 8){
+                            information.splice(0,2);
+                            console.log('c');
                     }
-
-                    // timearray.splice(0, timearray.length);
-                    // magnitudearray.splice(0, magnitudearray.length);
-                    // sixpoint.splice(6, sixpoint.length - 6);
-
-                    console.log("三筆成功/ 時間陣列：  " + timearray + "/ 座標陣列：  " + sixpoint + "/ 震央陣列：  " + magnitudearray);
-
-                    epicenters();
-
-                } else {
-                    console.log("小於15秒/ 不到6筆/   時間陣列：  " + timearray + "/ 座標陣列：  " + sixpoint + "/ 震央陣列：  " + magnitudearray);
                 }
 
-            } else {
-                timearray.splice(0, timearray.length - 1);
-                magnitudearray.splice(0, magnitudearray.length - 1);
-                sixpoint.splice(6, sixpoint.length - 6);
-
-                controlChange = 4;
-                sixpoint.push(detectlon + controlChange);
-                sixpoint.push(detectlat - controlChange);
-                controlChange = controlChange + 1;
-
-
-                console.log("超過15秒/ 清空eqData(7,8)/  剩餘時間陣列：  " + timearray + "/ 剩餘座標陣列：  " + sixpoint + "/ 剩餘震央陣列：  " + magnitudearray);
-
-                // admin.database().ref('eqDatas/eqData(7,8)').once('child_added', function(snapshot) { snapshot.ref.remove();});
-                // admin.database().ref('eqDatas/eqData(7,8)').remove();
-                // admin.database().ref('eqDatas/eqData(7,8)').push().set({ longitude: detectlon, latitude: detectlat, magnitude: magnitude, time: time });
-
-
+                //確認 b與c是否有關
+            }else if(Math.pow(information[index+1][0] - information[index+2][0], 2) + Math.pow(information[index+1][1] - information[index+2][1], 2) >= 1 && 
+                    Math.pow(information[index+1][0] - information[index+2][0], 2) + Math.pow(information[index+1][1] - information[index+2][1], 2) < 8){
+                information.splice(0, 1);
+                console.log('d');
+            }else {
+                information.splice(0, 1);
             }
-        } else {
-            sixpoint.push(detectlon + controlChange);
-            sixpoint.push(detectlat - controlChange);
-            magnitudearray.push(detectmag);
-            controlChange = controlChange + 1;
-
-            console.log("第一筆/ " + "時間陣列：  " + timearray + "/ 座標陣列：  " + sixpoint + "/ 震央陣列：  " + magnitudearray);
         }
 
+
+
+        function timecheck(){
+
+            //相差30秒
+            if (Date.parse(information[0][3]).valueOf() - Date.parse(information[2][3]).valueOf() < 30000) {
+
+                //在這將我們假設的座標在這植入
+                information.push([79,88],[76,85],[75,90]);
+
+                console.log('time correct');
+
+                if (information.length >=6) {
+                    for (var i = 0; i < information.length; i++) {
+                        for (var j = i+1; j < information.length; j++) {
+                            vertical(information[i][0], information[i][1], information[j+1][0], information[j+1][1]); 
+                        }
+                    }
+                    epicenter();
+                }else{
+                    console.log('information.length < 6');
+                }
+
+            }else{
+
+                // 漣漪性對的，時間錯的
+                if (Date.parse(information[1][3]).valueOf() - Date.parse(information[2][3]).valueOf() > 30000) {
+                    information.splice(0, 2);
+                    //砍掉1、2，留下3
+                    console.log('第二與第三筆資料超過30秒');
+                }else{
+                    information.splice(0, 1);
+                    //砍掉1，留下2、3
+                    console.log('第一與第二筆資料超過30秒');
+                }
+            }
+        }
 
 
     });
@@ -383,7 +342,7 @@ function epicenters() {
         for (var y = 0; y < 100; y++) {
             if (locate[x][y] == 0) {
                 k += 1;
-                epicenter.push([x, y]);
+                epicenterarea.push([x, y]);
                 // epicenter.push(y);
 
             }
@@ -392,20 +351,24 @@ function epicenters() {
 
 
     if (k >= 50) {
+
+        //待補
+
         // add the new point
         console.log("k >= 50/  k = " + k);
     } else {
         if (k % 2 == 0) {
 
-            epicenter.push([(epicenter[k / 2][0] + epicenter[k / 2 - 1][0]) / 2, (epicenter[k / 2][1] + epicenter[k / 2 - 1][1]) / 2]);
-            updatefirebase(epicenter[epicenter.length - 1]);
+            epicenter.push([(epicenterarea[k / 2][0] + epicenterarea[k / 2 - 1][0]) / 2, (epicenterarea[k / 2][1] + epicenterarea[k / 2 - 1][1]) / 2]);
+            updatefirebase(epicenter[0]);
 
             // return epicenter[epicenter.length-1];
             console.log("偶數/ k = " + k);
 
         } else {
 
-            updatefirebase(epicenter[k / 2 - 0.5]);
+            epicenter.push(epicenterarea[k / 2 - 0.5]);
+            updatefirebase(epicenter[0]);
 
             // return epicenter[k/2-0.5];
             console.log("雞數/ k = " + k);
@@ -413,7 +376,6 @@ function epicenters() {
     }
     // return epicenter;
 }
-
 
 function updatefirebase(par_epicenter) {
     // var lat = (epicenters()[0] - 1) * 0.02 + 120.01;
@@ -424,26 +386,18 @@ function updatefirebase(par_epicenter) {
 
     var address = "";
 
-    // geocoder.reverseGeocode(lat, lon, function(err, data) {
-
-    // do something with data 
-    //show all the data
-    // console.log(data);
-    //show the target information
-    //     address = data.results[4].formatted_address;
-    //     console.log(data.results[4].formatted_address);
-    // }, { language: 'zh-TW' });
 
     var averagemag = 0;
     var sum = 0;
-    for (var i = 0; i < magnitudearray.length; i++) {
-        var sum = sum + magnitudearray[i];
+    for (var i = 0; i < information.length-3; i++) {
+        var sum = sum + information[i][3];
     }
-    averagemag = sum / magnitudearray.length;
+    averagemag = sum / information.length-3;
 
-    console.log("end/ 震度平均= " + averagemag + "/ 發生時間: " + timearray);
+    console.log("end/ 震度平均= " + averagemag + "/ 發生時間: " + timearray );
 
-    var update = admin.database().ref('eqCenter');
+
+     var update = admin.database().ref('eqCenter');
     update.update({
         "longitude": lon,
         "latitude": lat,
@@ -451,11 +405,7 @@ function updatefirebase(par_epicenter) {
         "magnitude": Math.ceil(averagemag)
     });
 
-    timearray.splice(0, timearray.length);
-    magnitudearray.splice(0, magnitudearray.length);
-    sixpoint.splice(6, sixpoint.length - 6);
-    controlChange = 4;
-
+    information.splice(0, information.length);
 }
 
 
@@ -488,68 +438,6 @@ exports.sendNotifications = functions.database.ref('/eqCenter').onWrite(event =>
     console.log("token: " + token);
     return admin.messaging().sendToDevice(token, payload);
 
-        // Get the list of device tokens.
-
-    // return admin.database().ref('fcmTokens/{tokenID}').once('value').then(allTokens => {
-    //     if (allTokens.val()) {
-    //         // Listing all tokens.
-    //         const tokens = Object.keys(allTokens.val());
-    //         console.log("tokens:" + tokens);
-
-    //         // Send notifications to all tokens.
-    //         return admin.messaging().sendToDevice(tokens, payload).then(response => {
-    //             // For each message check if there was an error.
-    //             const tokensToRemove = [];
-    //             response.results.forEach((result, index) => {
-    //                 const error = result.error;
-    //                 if (error) {
-    //                     console.error('Failure sending notification to', tokens[index], error);
-    //                     // Cleanup the tokens who are not registered anymore.
-    //                     if (error.code === 'messaging/invalid-registration-token' ||
-    //                         error.code === 'messaging/registration-token-not-registered') {
-    //                         tokensToRemove.push(allTokens.ref.child(tokens[index]).remove());
-    //                     }
-    //                 }
-    //             });
-    //             return Promise.all(tokensToRemove);
-    //         });
-    //     }
-    // });
 
 
 });
-
-
-
-// exports.pushNotification = functions.database.ref('/eqCenter').onWrite(event => {
-
-//     console.log('Push notification event triggered');
-
-//     //  Grab the current value of what was written to the Realtime Database.
-
-//     const eventSnapshot = event.data;
-
-//     if(!eventSnapshot.changed()){
-//         return;
-//     }
-
-//     var centerLatitude = eventSnapshot.child("latitude").val();
-//     var centerLongitude = eventSnapshot.child("longitude").val();
-//     var centerMagnitude = eventSnapshot.child("magnitude").val();
-//     var centerTime = eventSnapshot.child("time").val();
-
-//     const payload = {
-//         notification: {
-//             title: `${centerMagnitude}級地震警報`,
-//             body: "test",
-//             sound: "default"
-//         }
-//     };
-
-//     const options = {
-//         priority: "high",
-//         timeToLive: 60 * 60 * 24 //24 hours
-//     };
-
-//     return admin.messaging().sendToTopic("notifications", payload, options);
-// });
