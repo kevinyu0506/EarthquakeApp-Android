@@ -15,19 +15,19 @@ public class EqCenter {
     public Double longitude;
     public Double latitude;
     public String time;
-    public String address;
+//    public String address;
 
 
 
     public EqCenter() {
     }
 
-    public EqCenter(int magnitude, Double x, Double y, String time, String address) {
+    public EqCenter(int magnitude, Double x, Double y, String time) {
         this.magnitude = magnitude;
         this.longitude = x;
         this.latitude = y;
         this.time = time;
-        this.address = address;
+//        this.address = address;
     }
 
     public void setMagnitude(Integer magnitude) {
@@ -63,13 +63,13 @@ public class EqCenter {
         return time;
     }
 
-    public String getAddress(){
-        return address;
-    }
+//    public String getAddress(){
+//        return address;
+//    }
 
-    public void setAddress(String address){
-        this.address = address;
-    }
+//    public void setAddress(String address){
+//        this.address = address;
+//    }
 
 
 //    @Exclude

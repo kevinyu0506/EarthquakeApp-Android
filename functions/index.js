@@ -20,13 +20,13 @@ exports.eqDataFilter = functions.database.ref('/eqData/{pushId}')
     .onWrite(event => {
 
         var time = event.data.child('time').val();
-        var detectlon = event.data.child('longitude').val();
-        var detectlat = event.data.child('latitude').val();
+        var x = event.data.child('x').val();
+        var y = event.data.child('y').val();
         var detectmag = event.data.child('magnitude').val();
 
 
         console.log('搖進前information陣列： ' + information);
-        information.push([detectlon, detectlat, time, detectmag]);
+        information.push([x, y, time, detectmag]);
         console.log('搖進後information陣列： ' + information);
 
 
@@ -249,7 +249,7 @@ function updatefirebase(par_epicenter) {
 
 
 // Sends a notifications to all users when a new message is posted.
-exports.sendNotifications = functions.database.ref('/eqCenter').onWrite(event => {
+exports.sendNotifications = functions.database.ref('/eqCenter/{pushId}').onWrite(event => {
     const snapshot = event.data;
 
     // Only send a notification when a new message has been created.

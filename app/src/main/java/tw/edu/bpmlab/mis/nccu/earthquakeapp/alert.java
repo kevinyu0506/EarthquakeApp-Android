@@ -210,14 +210,14 @@ public class alert extends AppCompatActivity implements
 
 
         // 宜蘭（羅東鎮	121E46’00”	24N41’00”）
-        localLatitude = 24.41;
-        localLongitude = 121.46;
+//        localLatitude = 24.41;
+//        localLongitude = 121.46;
 
 //        // 南港 A(121.59, 25.04)
-//        localLatitude = 25.04;
-//        localLongitude = 121.59;
+        localLatitude = 25.04;
+        localLongitude = 121.59;
 
-//        // 新店 B(121.53, 24.92)
+//        // 新店 B(121.53, 24.92) 需要重新命名
 //        localLatitude = 24.92;
 //        localLongitude = 121.53;
 
@@ -399,7 +399,7 @@ public class alert extends AppCompatActivity implements
                         if (eqGalDataChn.get(0) > Math.pow(Math.sqrt(10), 2)) {
 
                             eqDataID = mEqDataReference.push().getKey();
-                            EqData eqData = new EqData(magnitude, x, y, eqGal, time, eqDataID);
+                            EqData eqData = new EqData(magnitude, localLongitude, localLatitude, x, y, time);
 
                             mEqDataReference.push().setValue(eqData);
 
@@ -737,6 +737,8 @@ public class alert extends AppCompatActivity implements
                 String adminArea = returnedAddress.getAdminArea();
                 String countryName = returnedAddress.getCountryName();
                 localLocation.setText(countryName.toString() + adminArea.toString());
+//                localLocation.setText("台灣新北市");
+
             } else {
                 localLocation.setText("No Address returned!");
             }
