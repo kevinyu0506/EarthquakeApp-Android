@@ -120,6 +120,7 @@ function timecheck() {
         console.log('成功，第一與第三筆資料小於30秒，跑震央');
 
         if (information.length >= 6) {
+            console.log('information陣列： '+ information);
             for (var i = 0; i < information.length; i++) {
                 for (var j = i + 1; j < information.length; j++) {
                     vertical(information[i][0], information[i][1], information[j][0], information[j][1]);
@@ -157,7 +158,7 @@ function timecheck() {
 function vertical(x1, y1, x2, y2) {
     for (var x = 0; x < 100; x++) {
         for (var y = 0; y < 100; y++) {
-            if (Math.pow(x1 - x, 2) + Math.pow(y1 - y, 2) > Math.pow(x2 - x, 2) + Math.pow(y2 - y, 2)) {
+            if ((Math.pow(x1 - x, 2) + Math.pow(y1 - y, 2)) > (Math.pow(x2 - x, 2) + Math.pow(y2 - y, 2))) {
                 locate[x][y] = 1;
             }
         }
@@ -189,10 +190,12 @@ function epicenters() {
         // add the new point
         console.log("k >= 50/  k = " + k);
     } else {
+        console.log("epicenterarea: " + epicenterarea);
         if (k % 2 == 0) {
 
             epicenter.push([((epicenterarea[k / 2][0] + epicenterarea[k / 2 - 1][0]) / 2), ((epicenterarea[k / 2][1] + epicenterarea[k / 2 - 1][1]) / 2)]);
             console.log("偶數/ k = " + k);
+            console.log("epicenter " + epicenter);
             updatefirebase(epicenter[0]);
 
             // return epicenter[epicenter.length-1];
@@ -202,6 +205,7 @@ function epicenters() {
 
             epicenter.push(epicenterarea[k / 2 - 0.5]);
             console.log("奇數/ k = " + k);
+            console.log("epicenter " + epicenter);
             updatefirebase(epicenter[0]);
 
             // return epicenter[k/2-0.5];
@@ -215,8 +219,8 @@ function updatefirebase(par_epicenter) {
     // var lat = (epicenters()[0] - 1) * 0.02 + 120.01;
     // var lon = (epicenters()[1] - 1) * 0.04 + 21.52;
 
-    var lon = (par_epicenter[0] - 1) * 0.02 + 120.01;
-    var lat = (par_epicenter[1] - 1) * 0.04 + 21.52;
+    var lon = (par_epicenter[0]) * 0.02 + 120.01;
+    var lat = (par_epicenter[1]) * 0.04 + 21.52;
 
     var address = "";
 

@@ -214,12 +214,12 @@ public class alert extends AppCompatActivity implements
 //        localLongitude = 121.46;
 
 //        // 南港 A(121.59, 25.04)
-        localLatitude = 25.04;
-        localLongitude = 121.59;
+//        localLatitude = 25.04;
+//        localLongitude = 121.59;
 
-//        // 新店 B(121.53, 24.92) 需要重新命名
-//        localLatitude = 24.92;
-//        localLongitude = 121.53;
+//        // 新店 B(121.53, 24.95) 需要重新命名
+        localLatitude = 24.96;
+        localLongitude = 121.53;
 
 //        // 北投 C(121.51, 25.12)
 //        localLatitude = 25.12;
@@ -737,7 +737,6 @@ public class alert extends AppCompatActivity implements
                 String adminArea = returnedAddress.getAdminArea();
                 String countryName = returnedAddress.getCountryName();
                 localLocation.setText(countryName.toString() + adminArea.toString());
-//                localLocation.setText("台灣新北市");
 
             } else {
                 localLocation.setText("No Address returned!");
