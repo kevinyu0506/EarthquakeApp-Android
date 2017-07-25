@@ -150,6 +150,7 @@ public class alert extends AppCompatActivity implements
     private ValueEventListener mEqCenterListener;
 
     private boolean initialDataLoaded;
+    private ArrayList<Boolean> finishCountDown = new ArrayList<Boolean>();
     private long lastUpdate = 0;
 
     public Geocoder geocoder;
@@ -241,7 +242,7 @@ public class alert extends AppCompatActivity implements
 //        localLatitude = 23.71;
 //        localLongitude = 120.69;
 
-        // 南投E 國信鄉
+//        南投E 國信鄉
         localLatitude = 24.06;
         localLongitude = 120.87;
 
@@ -521,6 +522,7 @@ public class alert extends AppCompatActivity implements
         final int magnitudevalue = magnitudeChk.getInt("btnChecked", 0);
 
         initialDataLoaded = false;
+
         final ArrayList<EqCenter> eqCenters = new ArrayList<EqCenter>();
 
 
@@ -546,7 +548,11 @@ public class alert extends AppCompatActivity implements
                     //比較用戶設定開啟通知的級數
                     if (magnitudevalue <= centerMagnitude) {
 
+                        if(finishCountDown.size() <= 0) {
+
                             eqCountDown(centerLongitude, centerLatitude);
+
+                        }
 
                             new AlertDialog.Builder(alert.this)
                                     .setTitle(centerMagnitude + "級地震警報")
@@ -681,34 +687,41 @@ public class alert extends AppCompatActivity implements
 
     public void eqCountDown(double centerLongitude, double centerLatitude) {
 
-        double eqSpeed = 5;
-        double d = getDistance(centerLatitude, centerLongitude, localLatitude, localLongitude);
-        double eqCountDownTime = d / eqSpeed;
+        finishCountDown.add(0,true);
 
 
-        setCountDownTime = (int) eqCountDownTime * 1000;
+            double eqSpeed = 5;
+            double d = getDistance(centerLatitude, centerLongitude, localLatitude, localLongitude);
+            double eqCountDownTime = d / eqSpeed;
 
 
-        new CountDownTimer(setCountDownTime, 10) {
-
-            @Override
-            public void onFinish() {
-                countDown.setText("00:00");
-            }
-
-            @Override
-            public void onTick(long millisUntilFinished) {
+            setCountDownTime = (int) eqCountDownTime * 1000;
 
 
-                if (millisUntilFinished / 1000 % 60 >= 10) {
-                    countDown.setText("0" + String.valueOf(millisUntilFinished / 60000) + ":" + String.valueOf(millisUntilFinished / 1000 % 60));
-                } else {
-                    countDown.setText("0" + String.valueOf(millisUntilFinished / 60000) + ":0" + String.valueOf(millisUntilFinished / 1000 % 60));
+            new CountDownTimer(setCountDownTime, 10) {
+
+                @Override
+                public void onFinish() {
+
+                    countDown.setText("00:00");
+                    finishCountDown.remove(0);
+
                 }
 
+                @Override
+                public void onTick(long millisUntilFinished) {
 
-            }
-        }.start();
+
+                    if (millisUntilFinished / 1000 % 60 >= 10) {
+                        countDown.setText("0" + String.valueOf(millisUntilFinished / 60000) + ":" + String.valueOf(millisUntilFinished / 1000 % 60));
+                    } else {
+                        countDown.setText("0" + String.valueOf(millisUntilFinished / 60000) + ":0" + String.valueOf(millisUntilFinished / 1000 % 60));
+                    }
+
+
+                }
+            }.start();
+
 
     }
 
@@ -762,8 +775,8 @@ public class alert extends AppCompatActivity implements
                 Address returnedAddress = addresses.get(0);
                 String adminArea = returnedAddress.getAdminArea();
                 String countryName = returnedAddress.getCountryName();
-//                localLocation.setText(countryName.toString() + adminArea.toString());
-                localLocation.setText("台灣南投縣");
+                localLocation.setText(countryName.toString() + adminArea.toString());
+//                localLocation.setText("台灣南投縣");
 
 
             } else {
