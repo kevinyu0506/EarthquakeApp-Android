@@ -209,21 +209,47 @@ public class alert extends AppCompatActivity implements
         countDown = (TextView) findViewById(R.id.countDown);
 
 
-        // 宜蘭（羅東鎮	121E46’00”	24N41’00”）
+//        宜蘭（羅東鎮	121E46’00”	24N41’00”）
 //        localLatitude = 24.41;
 //        localLongitude = 121.46;
 
-//        // 南港 A(121.59, 25.04)
+//        南港 A(121.59, 25.04)
 //        localLatitude = 25.04;
 //        localLongitude = 121.59;
 
-//        // 新店 B(121.53, 24.95) 需要重新命名
-        localLatitude = 24.96;
-        localLongitude = 121.53;
+//        新店 B(121.53, 24.95) 需要重新命名
+//        localLatitude = 24.96;
+//        localLongitude = 121.53;
 
-//        // 北投 C(121.51, 25.12)
+//        北投 C(121.51, 25.12)
 //        localLatitude = 25.12;
 //        localLongitude = 121.51;
+
+//        南投Ａ 中寮
+//        localLatitude = 23.92;
+//        localLongitude = 120.81;
+
+//        南投B 草屯
+//        localLatitude = 24.00;
+//        localLongitude = 120.69;
+
+//        南投C 信義
+//        localLatitude = 23.6;
+//        localLongitude = 120.89;
+
+//        南投竹山
+//        localLatitude = 23.71;
+//        localLongitude = 120.69;
+
+        // 南投E 國信鄉
+        localLatitude = 24.06;
+        localLongitude = 120.87;
+
+        // 三重
+//        localLatitude = 25.06;
+//        localLongitude = 121.50;
+
+
 
 
         x = Math.floor((localLongitude - 120) / 0.02);
@@ -441,22 +467,22 @@ public class alert extends AppCompatActivity implements
 
 
         if (eqGal < 0.8) {
-            magnitude = 0;
+            magnitude = 6;
         }
         if (eqGal >= 0.8 && eqGal < 2.5) {
-            magnitude = 1;
+            magnitude = 7;
         }
         if (eqGal >= 2.5 && eqGal < 8) {
-            magnitude = 2;
+            magnitude = 6;
         }
         if (eqGal >= 8 && eqGal < 25) {
-            magnitude = 3;
+            magnitude = 7;
         }
         if (eqGal >= 25 && eqGal < 80) {
-            magnitude = 4;
+            magnitude = 6;
         }
         if (eqGal >= 80 && eqGal < 250) {
-            magnitude = 5;
+            magnitude = 7;
         }
         if (eqGal >= 250 && eqGal < 400) {
             magnitude = 6;
@@ -736,7 +762,9 @@ public class alert extends AppCompatActivity implements
                 Address returnedAddress = addresses.get(0);
                 String adminArea = returnedAddress.getAdminArea();
                 String countryName = returnedAddress.getCountryName();
-                localLocation.setText(countryName.toString() + adminArea.toString());
+//                localLocation.setText(countryName.toString() + adminArea.toString());
+                localLocation.setText("台灣南投縣");
+
 
             } else {
                 localLocation.setText("No Address returned!");
