@@ -226,25 +226,25 @@ public class alert extends AppCompatActivity implements
 //        localLatitude = 25.12;
 //        localLongitude = 121.51;
 
-//        南投Ａ 中寮
+//        南投Ａ 中寮鄉
 //        localLatitude = 23.92;
 //        localLongitude = 120.81;
 
-//        南投B 草屯
+//        南投B 草屯鎮
 //        localLatitude = 24.00;
 //        localLongitude = 120.69;
 
-//        南投C 信義
-//        localLatitude = 23.6;
-//        localLongitude = 120.89;
+//        南投C 信義鄉
+        localLatitude = 23.6;
+        localLongitude = 120.89;
 
-//        南投竹山
+//        南投D 竹山鎮
 //        localLatitude = 23.71;
 //        localLongitude = 120.69;
 
-//        南投E 國信鄉
-        localLatitude = 24.06;
-        localLongitude = 120.87;
+//        南投E 國姓鄉
+//        localLatitude = 24.06;
+//        localLongitude = 120.87;
 
         // 三重
 //        localLatitude = 25.06;
@@ -775,8 +775,8 @@ public class alert extends AppCompatActivity implements
                 Address returnedAddress = addresses.get(0);
                 String adminArea = returnedAddress.getAdminArea();
                 String countryName = returnedAddress.getCountryName();
-                localLocation.setText(countryName.toString() + adminArea.toString());
-//                localLocation.setText("台灣南投縣");
+//                localLocation.setText(countryName.toString() + adminArea.toString());
+                localLocation.setText("台灣南投縣");
 
 
             } else {
