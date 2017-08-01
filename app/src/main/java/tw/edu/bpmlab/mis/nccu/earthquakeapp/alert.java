@@ -254,7 +254,7 @@ public class alert extends AppCompatActivity implements
 
 
         x = Math.floor((localLongitude - 120) / 0.02);
-        y = Math.floor((localLatitude - 21.5) / 0.04);
+        y = Math.floor((localLatitude - 21.5) / 0.02);
 
         getLocalAddress(localLatitude, localLongitude);
 

@@ -11,7 +11,7 @@ var index = 0;
 var locate = [];
 for (i = 0; i < 100; i++) {
     locate[i] = [];
-    for (j = 0; j < 100; j++) {
+    for (j = 0; j <200; j++) {
         locate[i][j] = 0;
     }
 }
@@ -44,14 +44,14 @@ exports.eqDataFilter = functions.database.ref('/eqData/{pushId}')
             console.log('information陣列長度大於3，檢查ab');
 
             //check the distance of A to B whether in 4 grid or not
-            if (Math.pow(information[index][0] - information[index + 1][0], 2) + Math.pow(information[index][1] - information[index + 1][1], 2) >= 8 &&
-                Math.pow(information[index][0] - information[index + 1][0], 2) + Math.pow(information[index][1] - information[index + 1][1], 2) < 72) {
+            if (Math.pow(information[index][0] - information[index + 1][0], 2) + Math.pow(information[index][1] - information[index + 1][1], 2) >= 18 &&
+                Math.pow(information[index][0] - information[index + 1][0], 2) + Math.pow(information[index][1] - information[index + 1][1], 2) < 180) {
 
                 console.log('ab成功，檢查c');
 
                 //check the distance of B to C whether in 4 grid or not
                 if (Math.pow(information[index][0] - information[index + 2][0], 2) + Math.pow(information[index][1] - information[index + 2][1], 2) > Math.pow(information[index][0] - information[index + 1][0], 2) + Math.pow(information[index][1] - information[index + 1][1], 2) &&
-                    Math.pow(information[index][0] - information[index + 2][0], 2) + Math.pow(information[index][1] - information[index + 2][1], 2) < 128) {
+                    Math.pow(information[index][0] - information[index + 2][0], 2) + Math.pow(information[index][1] - information[index + 2][1], 2) < 320) {
 
                     console.log('abc成功，跑timecheck');
                     timecheck();
@@ -62,7 +62,7 @@ exports.eqDataFilter = functions.database.ref('/eqData/{pushId}')
 
                     //確認ab 與 d 是否有關
                     if (Math.pow(information[index][0] - information[index + 3][0], 2) + Math.pow(information[index][1] - information[index + 3][1], 2) > Math.pow(information[index][0] - information[index + 1][0], 2) + Math.pow(information[index][1] - information[index + 1][1], 2) &&
-                        Math.pow(information[index][0] - information[index + 3][0], 2) + Math.pow(information[index][1] - information[index + 3][1], 2) < 128) {
+                        Math.pow(information[index][0] - information[index + 3][0], 2) + Math.pow(information[index][1] - information[index + 3][1], 2) < 320) {
 
                         information.splice(2, 1);
                         console.log('abd成功，跑timecheck');
@@ -71,8 +71,8 @@ exports.eqDataFilter = functions.database.ref('/eqData/{pushId}')
 
                     } else if (
                         //確認 c 與d是否有關
-                        Math.pow(information[index + 2][0] - information[index + 3][0], 2) + Math.pow(information[index + 2][1] - information[index + 3][1], 2) >= 8 &&
-                        Math.pow(information[index + 2][0] - information[index + 3][0], 2) + Math.pow(information[index + 2][1] - information[index + 3][1], 2) < 72) {
+                        Math.pow(information[index + 2][0] - information[index + 3][0], 2) + Math.pow(information[index + 2][1] - information[index + 3][1], 2) >= 18 &&
+                        Math.pow(information[index + 2][0] - information[index + 3][0], 2) + Math.pow(information[index + 2][1] - information[index + 3][1], 2) < 180) {
 
                         information.splice(0, 2);
                         console.log('abd失敗，cd成功');
@@ -88,8 +88,8 @@ exports.eqDataFilter = functions.database.ref('/eqData/{pushId}')
                 }
 
                 //確認 b與c是否有關
-            } else if (Math.pow(information[index + 1][0] - information[index + 2][0], 2) + Math.pow(information[index + 1][1] - information[index + 2][1], 2) >= 8 &&
-                Math.pow(information[index + 1][0] - information[index + 2][0], 2) + Math.pow(information[index + 1][1] - information[index + 2][1], 2) < 72) {
+            } else if (Math.pow(information[index + 1][0] - information[index + 2][0], 2) + Math.pow(information[index + 1][1] - information[index + 2][1], 2) >= 18 &&
+                Math.pow(information[index + 1][0] - information[index + 2][0], 2) + Math.pow(information[index + 1][1] - information[index + 2][1], 2) < 180) {
 
                 information.splice(0, 1);
                 console.log('ab失敗，bc成功');
@@ -115,11 +115,11 @@ function timecheck() {
     if (Date.parse(information[2][2]).valueOf() - Date.parse(information[0][2]).valueOf() < 30000) {
 
         //在這將我們假設的座標在這植入
-        information.push([82, 83], [78, 81], [83, 92]);
+        information.push([30, 111], [46, 127]);
 
         console.log('成功，第一與第三筆資料小於30秒，跑震央');
 
-        if (information.length >= 6) {
+        if (information.length >= 5) {
             console.log('information陣列： '+ information);
             for (var i = 0; i < information.length; i++) {
                 for (var j = i + 1; j < information.length; j++) {
@@ -157,7 +157,7 @@ function timecheck() {
 //Division the map
 function vertical(x1, y1, x2, y2) {
     for (var x = 0; x < 100; x++) {
-        for (var y = 0; y < 100; y++) {
+        for (var y = 0; y < 200; y++) {
             if ((Math.pow(x1 - x, 2) + Math.pow(y1 - y, 2)) > (Math.pow(x2 - x, 2) + Math.pow(y2 - y, 2))) {
                 locate[x][y] = 1;
             }
@@ -172,7 +172,7 @@ function vertical(x1, y1, x2, y2) {
 function epicenters() {
     var k = 0;
     for (var x = 0; x < 100; x++) {
-        for (var y = 0; y < 100; y++) {
+        for (var y = 0; y < 200; y++) {
             if (locate[x][y] == 0) {
                 k += 1;
                 epicenterarea.push([x, y]);
@@ -190,6 +190,7 @@ function epicenters() {
         // add the new point
         console.log("k >= 50/  k = " + k);
     } else {
+        console.log("k: " + k);
         console.log("epicenterarea: " + epicenterarea);
         if (k % 2 == 0) {
 
@@ -220,7 +221,7 @@ function updatefirebase(par_epicenter) {
     // var lon = (epicenters()[1] - 1) * 0.04 + 21.52;
 
     var lon = (par_epicenter[0]) * 0.02 + 120.01;
-    var lat = (par_epicenter[1]) * 0.04 + 21.52;
+    var lat = (par_epicenter[1]) * 0.02 + 21.52;
 
     var address = "";
 
