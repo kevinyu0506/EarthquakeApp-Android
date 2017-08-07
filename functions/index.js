@@ -277,7 +277,8 @@ exports.sendNotifications = functions.database.ref('/eqCenter/{pushId}').onWrite
         }
     };
 
-    token = "fwFNuIiWbd4:APA91bF6MyCxU_a8nmRp9kTBOriUp5nayZkwoRgv9LlaKe3b2rbVuNa4MKqDUllp1WgXcnXkvIlglp27QKf1MdX9GY4xZ1U4cRVMJPNi0gNQnSnA_HV8S6vDuY1nuuA5CGfLbKdMxjjR";
+    // token = "fwFNuIiWbd4:APA91bF6MyCxU_a8nmRp9kTBOriUp5nayZkwoRgv9LlaKe3b2rbVuNa4MKqDUllp1WgXcnXkvIlglp27QKf1MdX9GY4xZ1U4cRVMJPNi0gNQnSnA_HV8S6vDuY1nuuA5CGfLbKdMxjjR";
+    token = "fvH14jes4zI:APA91bGKP4PF-Nq0roIPECGdN89DhE8GwVBYfoq71qJN72TX1Weqg0U7rJJwUeLYcBfTKanfG1-AON87eQLiN05G-6YBU1V3N-8yf4l2nqnPt9Bfp9xd8BZbmWynBSJqKFPU6Y0BZtCT";
     console.log("token: " + token);
     return admin.messaging().sendToDevice(token, payload);
 
