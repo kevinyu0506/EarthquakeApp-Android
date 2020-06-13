@@ -235,8 +235,8 @@ public class alert extends AppCompatActivity implements
 //        localLongitude = 120.69;
 
 //        南投C 信義鄉
-        localLatitude = 23.6;
-        localLongitude = 120.89;
+//        localLatitude = 23.6;
+//        localLongitude = 120.89;
 
 //        南投D 竹山鎮
 //        localLatitude = 23.71;
@@ -251,6 +251,8 @@ public class alert extends AppCompatActivity implements
 //        localLongitude = 121.50;
 
 
+        localLatitude = 24.15;
+        localLongitude = 120.66;
 
 
         x = Math.floor((localLongitude - 120) / 0.02);
@@ -645,7 +647,7 @@ public class alert extends AppCompatActivity implements
 //            getLocalAddress(localLatitude, localLongitude);
 
         } else {
-            Toast.makeText(this, R.string.no_location_detected, Toast.LENGTH_LONG).show();
+//            Toast.makeText(this, R.string.no_location_detected, Toast.LENGTH_LONG).show();
         }
 
 
@@ -772,11 +774,16 @@ public class alert extends AppCompatActivity implements
             List<Address> addresses = geocoder.getFromLocation(lat, lon, 1);
 
             if (addresses != null) {
-                Address returnedAddress = addresses.get(0);
-                String adminArea = returnedAddress.getAdminArea();
-                String countryName = returnedAddress.getCountryName();
+
+                try {
+                    Address returnedAddress = addresses.get(0);
+                    String adminArea = returnedAddress.getAdminArea();
+                    String countryName = returnedAddress.getCountryName();
 //                localLocation.setText(countryName.toString() + adminArea.toString());
-                localLocation.setText("台灣南投縣");
+                    localLocation.setText("台灣南投縣");
+                } catch (IndexOutOfBoundsException e) {
+                    localLocation.setText("台灣台中市");
+                }
 
 
             } else {

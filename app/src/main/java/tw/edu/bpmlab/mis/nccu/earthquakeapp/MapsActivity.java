@@ -173,15 +173,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         boolean success = mMap.setMapStyle(MapStyleOptions.loadRawResourceStyle(this, R.raw.style_json));
-        Location loc = getLastBestLocation();
-        if (loc != null){
-            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(loc.getLatitude(), loc.getLongitude()), 18));
-            Log.e("!!",""+loc.toString());
-        }
+//        Location loc = getLastBestLocation();
+//        if (loc != null){
+//            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(loc.getLatitude(), loc.getLongitude()), 18));
+//            Log.e("!!",""+loc.toString());
+//        }
+
+        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(24.1474233,120.6610951), 8));
 
         // Add a marker in Sydney, Australia, and move the camera.
 //        LatLng sydney = new LatLng(-34, 151);
-//        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
+        mMap.addMarker(new MarkerOptions().position(new LatLng(24.1474233,120.6610951)).title("YOU"));
     }
 
     private Location getLastBestLocation() {
